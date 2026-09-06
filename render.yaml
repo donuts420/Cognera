@@ -21,7 +21,7 @@ services:
       - key: ALLOW_DEV_LOGIN
         value: false
 
-  - type: static
+  - type: static_site
     name: nirmal-web
     rootDir: frontend
     buildCommand: npm install && npm run build
