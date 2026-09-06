@@ -1,0 +1,39 @@
+:root {
+  --bg: #FDF8F0;
+  --surface: #FFFFFF;
+  --surface-alt: #F6EEE2;
+  --text: #1A1512;
+  --text-muted: #5A4F47;
+  --primary: #AD4222;
+  --primary-hover: #8F3419;
+  --primary-contrast: #FFFFFF;
+  --accent: #0F6E6E;
+  --success: #1B6B3B;
+  --warning: #8A5A08;
+  --danger: #B3261E;
+  --border: #E0D3C2;
+  --focus-ring: 0 0 0 4px rgba(15,110,110,.45);
+  --radius: 16px;
+  --tap-min: 64px;
+
+  --font-family: 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Bengali', sans-serif;
+  --text-base: 20px;
+  --text-lg: 24px;
+  --text-xl: 32px;
+  --text-2xl: 40px;
+  --text-3xl: 48px;
+  --text-sm: 18px;
+  --line-height: 1.6;
+  --gap-sm: 12px;
+  --gap-md: 24px;
+  --gap-lg: 32px;
+}
+
+[data-theme="dark"] {
+  --bg: #1A1512;
+  --surface: #2A2420;
+  --surface-alt: #342E28;
+  --text: #F5EDE3;
+  --text-muted: #B0A898;
+  --border: #4A4440;
+}

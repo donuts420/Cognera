@@ -1,0 +1,14 @@
+{
+  "name": "nirmal",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "AI-Based Cognitive Gaming and Memory Assistance Platform for Elderly Dementia Patients in the North Eastern Region",
+  "scripts": {
+    "dev:api": "cd backend && npm run dev",
+    "dev:web": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "build": "cd frontend && npm run build",
+    "seed": "cd backend && npm run seed"
+  }
+}

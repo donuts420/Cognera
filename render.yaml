@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: nirmal-api
+    runtime: node
+    rootDir: backend
+    plan: starter
+    buildCommand: npm install
+    startCommand: node src/index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        fromService:
+          name: nirmal-web
+          property: host
+      - key: NODE_ENV
+        value: production
+      - key: ALLOW_DEV_LOGIN
+        value: false
+
+  - type: static
+    name: nirmal-web
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /**
+        destination: /index.html
+
+databases:
+  - name: nirmal-db
+    plan: free
+    databaseName: nirmal

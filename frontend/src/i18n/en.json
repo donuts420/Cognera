@@ -1,0 +1,11 @@
+{
+  "app": { "name": "Nirmal", "tagline": "Cognitive wellness for every elder" },
+  "nav": { "dashboard": "Dashboard", "patients": "My Patients", "caseload": "Caseload", "games": "Games", "reminders": "Reminders", "assessments": "Assessments", "logout": "Log Out" },
+  "auth": { "login": "Log In", "register": "Register", "identifier": "Phone or Email", "password": "Password", "fullName": "Full Name", "role": "Role", "noAccount": "Don't have an account?", "hasAccount": "Already have an account?" },
+  "patient": { "add": "Add Patient", "name": "Name", "village": "Village", "district": "District", "state": "State", "birthYear": "Birth Year", "sex": "Sex", "stage": "Dementia Stage", "locale": "Language", "active": "Active", "inactive": "Inactive" },
+  "game": { "play": "Play", "score": "Score", "level": "Level", "domain": "Domain", "memory": "Memory", "attention": "Attention", "processing_speed": "Processing Speed", "visuospatial": "Visuospatial", "language": "Language", "executive": "Executive" },
+  "reminder": { "medicine": "Medicine", "hydration": "Hydration", "activity": "Activity", "appointment": "Appointment", "add": "Add Reminder", "acknowledged": "Taken", "missed": "Missed", "pending": "Pending" },
+  "assessment": { "baseline": "Baseline", "monthly": "Monthly", "adhoc": "Ad-hoc", "score": "Score", "maxScore": "Max Score", "take": "Take Assessment" },
+  "dashboard": { "cwi": "Cognitive Wellness Index", "trend": "Trend", "sessions": "Sessions", "minutes": "Minutes", "adherence": "Adherence", "alerts": "Alerts", "improving": "Improving", "stable": "Stable", "declining": "Declining", "insufficient_data": "Insufficient Data" },
+  "common": { "save": "Save", "cancel": "Cancel", "delete": "Delete", "edit": "Edit", "back": "Back", "loading": "Loading...", "noData": "No data yet", "confirm": "Confirm", "close": "Close" }
+}
