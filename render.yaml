@@ -21,14 +21,15 @@ services:
       - key: ALLOW_DEV_LOGIN
         value: false
 
-  - type: static_site
+  - type: web
+    runtime: static
     name: nirmal-web
     rootDir: frontend
     buildCommand: npm install && npm run build
-    staticPublishPath: dist
+    staticPublishPath: ./dist
     routes:
       - type: rewrite
-        source: /**
+        source: /*
         destination: /index.html
 
 databases:
