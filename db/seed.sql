@@ -1,11 +1,11 @@
 INSERT INTO users (id, phone, email, password_hash, full_name, role, preferred_locale)
 VALUES
   ('a0000000-0000-0000-0000-000000000001', '9000000001', 'admin@nirmal.health',
-   '$2b$12$LJ3m4ys4Gz8k5Q5Q5Q5Q5eN2r3k5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q', 'Nirmal Admin', 'admin', 'en'),
+   '$2a$12$f4cfgG0yteu6GH6qM/llC.CFNBTkWDf5VGo7xHHYOA2w6wHUCYQA2', 'Nirmal Admin', 'admin', 'en'),
   ('a0000000-0000-0000-0000-000000000002', '9000000002', 'caregiver@nirmal.health',
-   '$2b$12$LJ3m4ys4Gz8k5Q5Q5Q5Q5eN2r3k5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q', 'Priya Borah', 'caregiver', 'as'),
+   '$2a$12$f4cfgG0yteu6GH6qM/llC.CFNBTkWDf5VGo7xHHYOA2w6wHUCYQA2', 'Priya Borah', 'caregiver', 'as'),
   ('a0000000-0000-0000-0000-000000000003', '9000000003', 'asha@nirmal.health',
-   '$2b$12$LJ3m4ys4Gz8k5Q5Q5Q5Q5eN2r3k5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q', 'Monica Das', 'health_worker', 'as')
+   '$2a$12$f4cfgG0yteu6GH6qM/llC.CFNBTkWDf5VGo7xHHYOA2w6wHUCYQA2', 'Monica Das', 'health_worker', 'as')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO patients (id, display_name, birth_year, sex, preferred_locale, village, block, district, state, dementia_stage, created_by)
