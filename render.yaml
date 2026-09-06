@@ -9,21 +9,24 @@ services:
     healthCheckPath: /api/health
     envVars:
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: nirmal-db
+          property: connectionString
       - key: JWT_SECRET
         generateValue: true
       - key: CORS_ORIGIN
         fromService:
           name: nirmal-web
+          type: web
           property: host
       - key: NODE_ENV
         value: production
       - key: ALLOW_DEV_LOGIN
-        value: false
+        value: "false"
 
   - type: web
-    runtime: static
     name: nirmal-web
+    runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
