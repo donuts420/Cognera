@@ -78,11 +78,21 @@ export const DOMAIN_ORDER = [
   'executive',
 ];
 
+// node-postgres returns the custom `cognitive_domain[]` enum column as a raw
+// string like "{memory,visuospatial}" rather than a JS array. Normalise both.
+export function normalizeDomains(domains) {
+  if (Array.isArray(domains)) return domains;
+  if (typeof domains === 'string') {
+    return domains.replace(/^\{|\}$/g, '').split(',').map((s) => s.trim().replace(/^"|"$/g, '')).filter(Boolean);
+  }
+  return [];
+}
+
 export function groupByDomain(gameRows) {
   const groups = {};
   for (const g of gameRows) {
     if (!GAMES[g.slug]) continue;
-    const domain = (g.domains && g.domains[0]) || 'memory';
+    const domain = normalizeDomains(g.domains)[0] || 'memory';
     (groups[domain] = groups[domain] || []).push(g);
   }
   return DOMAIN_ORDER.filter((d) => groups[d]).map((d) => ({ domain: d, games: groups[d] }));
