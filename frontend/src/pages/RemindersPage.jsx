@@ -20,7 +20,7 @@ export default function RemindersPage() {
       <h1 style={{ fontSize: 'var(--text-2xl)', marginBottom: 'var(--gap-lg)' }}>{t('nav.reminders')}</h1>
       <div className="grid-2">
         <div>
-          <h2 style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--gap-md)' }}>Active Reminders</h2>
+          <h2 style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--gap-md)' }}>{t('reminder.activeReminders')}</h2>
           {reminders.length === 0 ? (
             <div className="empty-state card"><p>{t('common.noData')}</p></div>
           ) : (
@@ -39,7 +39,7 @@ export default function RemindersPage() {
           )}
         </div>
         <div>
-          <h2 style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--gap-md)' }}>Recent Activity</h2>
+          <h2 style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--gap-md)' }}>{t('reminder.recentActivity')}</h2>
           {occurrences.length === 0 ? (
             <div className="empty-state card"><p>{t('common.noData')}</p></div>
           ) : (

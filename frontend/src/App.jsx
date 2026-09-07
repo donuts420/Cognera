@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { usePatient } from './context/PatientContext.jsx';
 import { useAuth } from './context/AuthContext.jsx';
+import { useLocale } from './context/LocaleContext.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
@@ -16,7 +17,8 @@ import AppShell from './components/AppShell.jsx';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
-  if (loading) return <div className="flex items-center justify-center" style={{ height: '100vh' }}>Loading...</div>;
+  const { t } = useLocale();
+  if (loading) return <div className="flex items-center justify-center" style={{ height: '100vh' }}>{t('common.loading')}</div>;
   if (!user) return <Navigate to="/login" replace />;
   return children;
 }

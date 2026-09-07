@@ -15,10 +15,10 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <h1 style={{ fontSize: 'var(--text-2xl)', marginBottom: 'var(--gap-lg)' }}>Dashboard</h1>
+      <h1 style={{ fontSize: 'var(--text-2xl)', marginBottom: 'var(--gap-lg)' }}>{t('dashboard.heading')}</h1>
       <div className="grid-2">
         <div className="card">
-          <h2 style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--gap-md)' }}>My Patients</h2>
+          <h2 style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--gap-md)' }}>{t('dashboard.myPatients')}</h2>
           {patients.length === 0 ? (
             <div className="empty-state"><p>{t('common.noData')}</p></div>
           ) : (
@@ -42,7 +42,7 @@ export default function DashboardPage() {
         <div className="card">
           <h2 style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--gap-md)' }}>{t('dashboard.alerts')}</h2>
           {alerts.length === 0 ? (
-            <div className="empty-state"><p>No active alerts</p></div>
+            <div className="empty-state"><p>{t('dashboard.noActiveAlerts')}</p></div>
           ) : (
             <div className="flex flex-col gap-sm">
               {alerts.slice(0, 10).map((a) => (

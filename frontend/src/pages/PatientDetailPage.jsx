@@ -51,7 +51,7 @@ export default function PatientDetailPage() {
       )}
       {patient.care_team && (
         <div className="card">
-          <h2 style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--gap-md)' }}>Care Team</h2>
+          <h2 style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--gap-md)' }}>{t('patient.careTeam')}</h2>
           <div className="flex flex-col gap-sm">
             {patient.care_team.map((m, i) => (
               <div key={i} className="flex justify-between items-center">
