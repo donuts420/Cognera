@@ -193,4 +193,55 @@ router.post('/dev', async (req, res) => {
   }
 });
 
+router.post('/google', loginLimiter, async (req, res) => {
+  try {
+    const { credential } = req.body;
+    if (!credential) {
+      return res.status(422).json({ error: { code: 'validation_failed', message: 'Google credential required' } });
+    }
+    const ticketRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${credential}`);
+    if (!ticketRes.ok) {
+      return res.status(401).json({ error: { code: 'invalid_credentials', message: 'Invalid Google token' } });
+    }
+    const payload = await ticketRes.json();
+    const { email, name, sub: googleId } = payload;
+    if (!email) {
+      return res.status(401).json({ error: { code: 'invalid_credentials', message: 'No email in Google token' } });
+    }
+    let { rows } = await query(
+      `SELECT id, phone, email, full_name, role, preferred_locale, is_active FROM users WHERE email = $1`,
+      [email]
+    );
+    let user;
+    if (rows.length) {
+      user = rows[0];
+      if (!user.is_active) {
+        return res.status(401).json({ error: { code: 'invalid_credentials', message: 'Account disabled' } });
+      }
+      await query(`UPDATE users SET last_login_at = NOW() WHERE id = $1`, [user.id]);
+    } else {
+      ({ rows } = await query(
+        `INSERT INTO users (email, password_hash, full_name, role)
+         VALUES ($1, $2, $3, 'caregiver')
+         RETURNING id, phone, email, full_name, role, preferred_locale`,
+        [email, await bcrypt.hash(googleId, config.bcryptCost), name || email.split('@')[0]]
+      ));
+      user = rows[0];
+    }
+    const accessToken = signAccessToken(user);
+    const refreshToken = uuid();
+    const refreshHash = await bcrypt.hash(refreshToken, 10);
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    await query(
+      `INSERT INTO sessions (user_id, refresh_token_hash, device_label, user_agent, expires_at)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [user.id, refreshHash, 'google', req.headers['user-agent'] || null, expiresAt]
+    );
+    res.json({ user, accessToken, refreshToken });
+  } catch (err) {
+    console.error('Google auth error:', err);
+    res.status(500).json({ error: { code: 'internal_error', message: 'Google authentication failed' } });
+  }
+});
+
 export default router;

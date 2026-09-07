@@ -23,6 +23,8 @@ services:
         value: production
       - key: ALLOW_DEV_LOGIN
         value: "false"
+      - key: GOOGLE_CLIENT_ID
+        sync: false
 
   - type: web
     name: cognera-web
@@ -36,6 +38,11 @@ services:
           name: cognera-api
           type: web
           property: host
+      - key: VITE_GOOGLE_CLIENT_ID
+        fromService:
+          name: cognera-api
+          type: web
+          envVarKey: GOOGLE_CLIENT_ID
     routes:
       - type: rewrite
         source: /*

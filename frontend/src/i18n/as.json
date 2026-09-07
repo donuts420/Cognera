@@ -140,7 +140,7 @@
   "dashboard": { "heading": "ডেশ্বব'ৰ্ড", "cwi": "জ্ঞানীয় স্বাস্থ্য সূচক", "trend": "ধাৰা", "sessions": "অধিৱেশন", "minutes": "মিনিট", "completionRate": "সম্পূৰ্ণ কৰাৰ হাৰ", "alerts": "সতৰ্কবাণী", "improving": "উন্নতি হৈ আছে", "stable": "স্থিৰ", "deteriorating": "অৱনতি ঘটা", "insufficient_data": "অপৰ্যাপ্ত তথ্য", "myPatients": "মোৰ ৰোগীসকল", "noActiveAlerts": "কোনো সক্ৰিয় সতৰ্কবাণী নাই" },
   "caseload": { "heading": "ৰোগীৰ তালিকা", "all": "সকলো", "deteriorating": "অৱনতি ঘটা", "disengaged": "যোগাযোগহীন", "needsVisit": "সাক্ষাৎৰ প্ৰয়োজন", "patient": "ৰোগী", "village": "গাঁও", "cwi": "CWI", "trend": "ধাৰা", "sessions": "অধিৱেশন", "completionRate": "সম্পূৰ্ণ কৰাৰ হাৰ", "alerts": "সতৰ্কবাণী" },
   "patientMode": { "exitPatientMode": "ৰোগী মোডৰ পৰা ওলাই যাওক", "exit": "ওলাই যাওক", "incorrectPin": "ভুল PIN", "verificationFailed": "পৰীক্ষণ বিফল হৈছে", "pinPlaceholder": "PIN" },
-  "common": { "save": "সংৰক্ষণ কৰক", "cancel": "বাতিল কৰক", "delete": "মচক", "edit": "সম্পাদনা কৰক", "back": "পিছলৈ", "loading": "লোড হৈ আছে...", "noData": "এতিয়াৰ কোনো তথ্য নাই", "confirm": "নিশ্চিত কৰক", "close": "বন্ধ কৰক", "offline": "অফলাইন", "lastSynced": "শেষবাৰ সমন্বয় কৰা হৈছে {time}" },
+  "common": { "save": "সংৰক্ষণ কৰক", "cancel": "বাতিল কৰক", "delete": "মচক", "edit": "সম্পাদনা কৰক", "back": "পিছলৈ", "loading": "লোড হৈ আছে...", "noData": "এতিয়াৰ কোনো তথ্য নাই", "confirm": "নিশ্চিত কৰক", "close": "বন্ধ কৰক", "offline": "অফলাইন", "lastSynced": "শেষবাৰ সমন্বয় কৰা হৈছে {time}", "or": "অথবা" },
   "error": { "loginFailed": "লগইন বিফল হৈছে", "registrationFailed": "পঞ্জীয়ন বিফল হৈছে", "failedToCreatePatient": "ৰোগীৰ তথ্য সৃষ্টি কৰিব পৰা নগ'ল", "requestFailed": "অনুৰোধ বিফল হৈছে" },
   "lang": { "en": "ইংৰাজী", "as": "অসমীয়া", "toggle": "ভাষা" }
 }

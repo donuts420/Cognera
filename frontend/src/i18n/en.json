@@ -140,7 +140,7 @@
   "dashboard": { "heading": "Dashboard", "cwi": "Cognitive Wellness Index", "trend": "Trend", "sessions": "Sessions", "minutes": "Minutes", "completionRate": "Completion Rate", "alerts": "Alerts", "improving": "Improving", "stable": "Stable", "deteriorating": "Deteriorating", "declining": "Lower than recent baseline", "insufficient_data": "Insufficient Data", "myPatients": "My Patients", "noActiveAlerts": "No active alerts" },
   "caseload": { "heading": "Caseload", "all": "All", "deteriorating": "Deteriorating", "disengaged": "Disengaged", "needsVisit": "Needs Visit", "patient": "Patient", "village": "Village", "cwi": "CWI", "trend": "Trend", "sessions": "Sessions", "completionRate": "Completion Rate", "alerts": "Alerts" },
   "patientMode": { "exitPatientMode": "Exit Patient Mode", "exit": "Exit", "incorrectPin": "Incorrect PIN", "verificationFailed": "Verification failed", "pinPlaceholder": "PIN" },
-  "common": { "save": "Save", "cancel": "Cancel", "delete": "Delete", "edit": "Edit", "back": "Back", "loading": "Loading...", "noData": "No data yet", "confirm": "Confirm", "close": "Close", "offline": "Offline", "lastSynced": "Last synced {time}" },
+  "common": { "save": "Save", "cancel": "Cancel", "delete": "Delete", "edit": "Edit", "back": "Back", "loading": "Loading...", "noData": "No data yet", "confirm": "Confirm", "close": "Close", "offline": "Offline", "lastSynced": "Last synced {time}", "or": "or" },
   "error": { "loginFailed": "Login failed", "registrationFailed": "Registration failed", "failedToCreatePatient": "Failed to create patient", "requestFailed": "Request failed" },
   "lang": { "en": "English", "as": "Assamese", "toggle": "Language" }
 }

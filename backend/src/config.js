@@ -14,6 +14,7 @@ const config = {
   vapidPrivateKey: process.env.VAPID_PRIVATE_KEY,
   vapidSubject: process.env.VAPID_SUBJECT || 'mailto:admin@cognera.health',
   allowDevLogin: process.env.ALLOW_DEV_LOGIN === 'true',
+  googleClientId: process.env.GOOGLE_CLIENT_ID,
   rateLimits: {
     login: { windowMs: 15 * 60 * 1000, max: 10 },
     refresh: { windowMs: 15 * 60 * 1000, max: 60 },
