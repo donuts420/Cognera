@@ -8,6 +8,16 @@ import { computePerformance, updateTheta, selectLevel } from '../../../shared/en
 const router = Router();
 router.use(authenticate);
 
+// node-postgres returns `cognitive_domain[]` (a custom enum array) as a raw
+// string like "{memory,visuospatial}". Normalise to a real array for the API.
+function coerceDomains(row) {
+  if (row && typeof row.domains === 'string') {
+    row.domains = row.domains.replace(/^\{|\}$/g, '').split(',')
+      .map((s) => s.trim().replace(/^"|"$/g, '')).filter(Boolean);
+  }
+  return row;
+}
+
 // Re-run the adaptive engine over a completed session and project the result
 // into skill_state. skill_state is a derived projection of the append-only
 // game_sessions log (DOCUMENTATION.md section 8), so this is safe to re-run.
@@ -73,7 +83,7 @@ async function projectSkillState(patientId, gameId, session) {
 router.get('/games', async (_req, res) => {
   try {
     const { rows } = await query(`SELECT * FROM games WHERE is_active = true ORDER BY sort_order`);
-    res.json(rows);
+    res.json(rows.map(coerceDomains));
   } catch (err) {
     console.error('List games error:', err);
     res.status(500).json({ error: { code: 'internal_error', message: 'Failed to list games' } });
@@ -95,7 +105,7 @@ router.get('/patients/:patientId/game-state', requirePatientAccess, async (req, 
        ORDER BY g.sort_order`,
       [req.params.patientId]
     );
-    res.json(rows);
+    res.json(rows.map(coerceDomains));
   } catch (err) {
     console.error('Get game state error:', err);
     res.status(500).json({ error: { code: 'internal_error', message: 'Failed to get game state' } });

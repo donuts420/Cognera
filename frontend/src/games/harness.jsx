@@ -5,7 +5,7 @@ import { useLocale } from '../context/LocaleContext.jsx';
 import { useConnectivity } from '../context/ConnectivityContext.jsx';
 import { narrate, stopSpeaking } from './voice.js';
 import { chime } from './sound.js';
-import { GAMES } from './registry.js';
+import { GAMES, normalizeDomains } from './registry.js';
 
 const SESSION_CAP_MS = 12 * 60 * 1000; // sessions cap at twelve minutes
 const OFFLINE_QUEUE_KEY = 'cognera-session-queue';
@@ -181,7 +181,7 @@ export default function GameHarness({ game, patient, onExit }) {
     }
   };
 
-  const domainLabel = (game.domains || []).map((d) => t(`game.${d}`)).join(' · ');
+  const domainLabel = normalizeDomains(game.domains).map((d) => t(`game.${d}`)).join(' · ');
 
   return (
     <div className="game-root">
