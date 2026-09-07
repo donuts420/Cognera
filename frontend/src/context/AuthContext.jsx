@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
   useEffect(() => { loadUser(); }, [loadUser]);
 
   const login = async (identifier, password) => {
-    const data = await api.post('/auth/login', { identifier, password, device_label: 'web' });
+    const data = await api.post('/api/auth/login', { identifier, password, device_label: 'web' });
     localStorage.setItem('accessToken', data.accessToken);
     localStorage.setItem('refreshToken', data.refreshToken);
     setUser(data.user);
