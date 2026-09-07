@@ -22,7 +22,7 @@ export default function PatientsPage() {
       setShowForm(false);
       setForm({ display_name: '', village: '', district: '', state: '', birth_year: '', sex: 'F', preferred_locale: 'en', dementia_stage: 'unknown' });
     } catch (err) {
-      alert(err.data?.error?.message || 'Failed to create patient');
+      alert(err.data?.error?.message || t('error.failedToCreatePatient'));
     }
   };
 
@@ -64,11 +64,11 @@ export default function PatientsPage() {
             <div className="input-group">
               <label>{t('patient.stage')}</label>
               <select className="input" value={form.dementia_stage} onChange={(e) => setForm({ ...form, dementia_stage: e.target.value })}>
-                <option value="unknown">Unknown</option>
-                <option value="at_risk">At Risk</option>
-                <option value="mild">Mild</option>
-                <option value="moderate">Moderate</option>
-                <option value="severe">Severe</option>
+                <option value="unknown">{t('patient.unknown')}</option>
+                <option value="at_risk">{t('patient.atRisk')}</option>
+                <option value="mild">{t('patient.mild')}</option>
+                <option value="moderate">{t('patient.moderate')}</option>
+                <option value="severe">{t('patient.severe')}</option>
               </select>
             </div>
             <div className="flex gap-sm" style={{ gridColumn: '1 / -1' }}>

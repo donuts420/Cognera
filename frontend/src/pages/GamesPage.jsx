@@ -21,7 +21,7 @@ export default function GamesPage() {
           <div key={g.slug} className="card">
             <div className="flex justify-between items-center mb-md">
               <h2 style={{ fontSize: 'var(--text-lg)' }}>{g.title}</h2>
-              <span className="badge badge-info">Level {g.current_level + 1}</span>
+              <span className="badge badge-info">{t('game.levelLabel', { n: g.current_level + 1 })}</span>
             </div>
             <p className="text-sm text-muted mb-md">{g.description}</p>
             <div className="flex gap-sm" style={{ flexWrap: 'wrap' }}>
@@ -30,8 +30,8 @@ export default function GamesPage() {
               ))}
             </div>
             <div className="flex justify-between items-center mt-md">
-              <span className="text-sm text-muted">Theta: {g.theta?.toFixed(1)}</span>
-              <span className="text-sm text-muted">Played: {g.sessions_played}×</span>
+              <span className="text-sm text-muted">{t('game.theta')}: {g.theta?.toFixed(1)}</span>
+              <span className="text-sm text-muted">{t('game.playedCount', { n: g.sessions_played })}</span>
             </div>
           </div>
         ))}

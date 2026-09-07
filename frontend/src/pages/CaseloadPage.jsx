@@ -22,11 +22,11 @@ export default function CaseloadPage() {
 
   return (
     <div>
-      <h1 style={{ fontSize: 'var(--text-2xl)', marginBottom: 'var(--gap-lg)' }}>Caseload</h1>
+      <h1 style={{ fontSize: 'var(--text-2xl)', marginBottom: 'var(--gap-lg)' }}>{t('caseload.heading')}</h1>
       <div className="flex gap-sm mb-lg">
         {['all', 'declining', 'disengaged', 'needs_visit'].map((f) => (
           <button key={f} className={`btn ${filter === f ? 'btn-primary' : 'btn-ghost'}`} onClick={() => setFilter(f)} style={{ minHeight: 48 }}>
-            {f === 'all' ? 'All' : f === 'declining' ? 'Declining' : f === 'disengaged' ? 'Disengaged' : 'Needs Visit'}
+            {f === 'all' ? t('caseload.all') : f === 'declining' ? t('caseload.deteriorating') : f === 'disengaged' ? t('caseload.disengaged') : t('caseload.needsVisit')}
           </button>
         ))}
       </div>
@@ -34,13 +34,13 @@ export default function CaseloadPage() {
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ borderBottom: '2px solid var(--border)' }}>
-              <th style={{ textAlign: 'left', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>Patient</th>
-              <th style={{ textAlign: 'left', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>Village</th>
-              <th style={{ textAlign: 'right', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>CWI</th>
-              <th style={{ textAlign: 'center', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>Trend</th>
-              <th style={{ textAlign: 'right', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>Sessions</th>
-              <th style={{ textAlign: 'right', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>Adherence</th>
-              <th style={{ textAlign: 'center', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>Alerts</th>
+              <th style={{ textAlign: 'left', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.patient')}</th>
+              <th style={{ textAlign: 'left', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.village')}</th>
+              <th style={{ textAlign: 'right', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.cwi')}</th>
+              <th style={{ textAlign: 'center', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.trend')}</th>
+              <th style={{ textAlign: 'right', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.sessions')}</th>
+              <th style={{ textAlign: 'right', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.completionRate')}</th>
+              <th style={{ textAlign: 'center', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.alerts')}</th>
             </tr>
           </thead>
           <tbody>
