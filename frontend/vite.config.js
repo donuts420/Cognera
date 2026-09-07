@@ -11,6 +11,10 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    fs: {
+      // allow importing the shared adaptive engine which lives one level up
+      allow: ['..'],
+    },
     proxy: {
       '/api': {
         target: 'http://localhost:4000',
