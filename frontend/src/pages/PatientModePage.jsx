@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { usePatient } from '../context/PatientContext.jsx';
 import { useLocale } from '../context/LocaleContext.jsx';
 
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
+
 export default function PatientModePage() {
   const { activePatient, exitPatientMode } = usePatient();
   const { t } = useLocale();
@@ -15,7 +17,7 @@ export default function PatientModePage() {
     if (!showPin) { setShowPin(true); return; }
     if (pin.length !== 4) return;
     try {
-      const res = await fetch('/api/patients/pin/verify', {
+      const res = await fetch(`${API_BASE}/patients/pin/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ patientId: activePatient?.id, pin }),
