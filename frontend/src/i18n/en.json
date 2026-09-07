@@ -4,9 +4,140 @@
   "auth": { "login": "Log In", "register": "Register", "identifier": "Phone or Email", "password": "Password", "fullName": "Full Name", "role": "Role", "noAccount": "Don't have an account?", "hasAccount": "Already have an account?", "caregiver": "Caregiver", "healthWorker": "Health Worker" },
   "patient": { "add": "Add Patient", "name": "Name", "village": "Village", "district": "District", "state": "State", "birthYear": "Birth Year", "sex": "Sex", "stage": "Dementia Stage", "locale": "Language", "active": "Active", "inactive": "Inactive", "careTeam": "Care Team", "unknown": "Unknown", "atRisk": "At Risk", "mild": "Mild", "moderate": "Moderate", "severe": "Severe" },
   "game": { "play": "Play", "score": "Score", "level": "Level", "levelLabel": "Level {n}", "domain": "Domain", "memory": "Memory", "attention": "Attention", "processing_speed": "Processing Speed", "visuospatial": "Visuospatial", "language": "Language", "executive": "Executive", "theta": "Theta", "playedCount": "Played: {n}×" },
+  "games": {
+    "goodMorning": "Good morning",
+    "goodAfternoon": "Good afternoon",
+    "goodEvening": "Good evening",
+    "pickActivity": "Choose an activity you would like to do.",
+    "savedOnDevice": "Your progress is saved on this device.",
+    "offlineSaved": "You are offline. Everything is saved on this device.",
+    "openPatientMode": "Open Patient Mode",
+    "libraryEmpty": "No activities are set up yet.",
+    "reminisce": "Just for enjoyment",
+    "start": "Start",
+    "done": "Done",
+    "playAnother": "Play another",
+    "voice": "Voice",
+    "pause": "Pause",
+    "exit": "Exit",
+    "resume": "Keep going",
+    "paused": "Taking a little break",
+    "pausedNote": "Take all the time you need. The activity is waiting for you.",
+    "leaveTitle": "Leave this activity?",
+    "leaveNote": "That is completely fine. We will save what you have done.",
+    "keepPlaying": "Keep playing",
+    "leave": "Leave",
+    "progress": "Progress",
+    "comingSoon": "This activity will be ready soon.",
+    "wellDone": "Well done",
+    "genericSummary": "Thank you for playing.",
+    "accuracySummary": "You got {n} out of every 100 right. Lovely work.",
+    "spanSummary": "You remembered {n} in a row. That is wonderful.",
+    "fatigueSummary": "That is a good place to stop for today. You did well.",
+    "fatigueNote": "You have done plenty for now. Let's finish here.",
+    "reminisceSummary": "Thank you for sharing these memories.",
+    "calmTryNext": "Good try. Let's begin the next one.",
+    "calmOkay": "That's alright. Here comes the next one.",
+    "chimp": {
+      "intro": "Numbers will appear. Look at where they are. Then tap them in order, starting from 1.",
+      "study": "Look at where the numbers are.",
+      "recall": "Now tap them in order, from the smallest.",
+      "nice": "Nicely remembered.",
+      "tapOneToStart": "Tap number 1 when you are ready.",
+      "hiddenTile": "hidden tile"
+    },
+    "match": {
+      "intro": "Tap two cards to turn them over. Try to find the pairs that match.",
+      "prompt": "Find the matching pairs.",
+      "faceDown": "face-down card",
+      "goodPair": "That's a pair.",
+      "allFound": "You found them all.",
+      "tryAgain": "Not a pair this time. Try again."
+    },
+    "sequence": {
+      "intro": "Watch which buttons light up. Then tap them in the same order.",
+      "watch": "Watch carefully.",
+      "yourTurn": "Now it's your turn.",
+      "good": "Well remembered."
+    },
+    "number": {
+      "intro": "Some numbers will show for a little while. Then tap them in the same order.",
+      "remember": "Remember these numbers.",
+      "nowTap": "Now tap the numbers in order.",
+      "correct": "That's right."
+    },
+    "reaction": {
+      "intro": "Watch the big box. When it turns green, tap it as soon as you can.",
+      "prompt": "Tap the box when it turns green.",
+      "wait": "Wait for green…",
+      "tapNow": "Tap now!",
+      "tooSoon": "A little early. Wait for the green colour.",
+      "result": "{ms} milliseconds",
+      "roundOf": "Try {a} of {b}"
+    },
+    "find": {
+      "intro": "You will be asked to find one thing in the picture. Tap it when you see it.",
+      "prompt": "Can you find the {name}?",
+      "lookAgain": "Have another look.",
+      "foundIt": "You found it."
+    },
+    "odd": {
+      "intro": "Look at the pictures. One of them does not belong with the others. Tap that one.",
+      "prompt": "Which one is different?",
+      "yes": "Yes, that one is different.",
+      "notQuite": "Not quite. Have another look.",
+      "showAnswer": "This was the different one."
+    },
+    "pattern": {
+      "intro": "Look at the row of shapes. Choose the shape that comes next.",
+      "prompt": "What comes next?",
+      "yes": "That's the one.",
+      "notThatOne": "Not that one. Try again."
+    },
+    "word": {
+      "intro": "You will see a few words. Later you will be asked which ones you saw.",
+      "study": "Remember these words.",
+      "wordOf": "Word {a} of {b}",
+      "haveYouSeen": "Have you seen this word before?",
+      "yes": "Yes",
+      "no": "No",
+      "good": "Well done."
+    },
+    "routine": {
+      "intro": "Put the steps of a daily routine in the right order by tapping them one by one.",
+      "prompt": "Put the steps of “{name}” in order.",
+      "hint": "Tap the steps in the order they happen.",
+      "perfect": "That is the right order. Well done.",
+      "closeOne": "You placed {n} of {total} in the right spot. Nicely done."
+    },
+    "story": {
+      "intro": "Put the pictures of the story in the right order by tapping them one by one.",
+      "prompt": "Put the story “{name}” in order.",
+      "hint": "Tap the pictures from what happens first to what happens last.",
+      "perfect": "That is the right order. Lovely.",
+      "closeOne": "You placed {n} of {total} in the right spot. Nicely done."
+    },
+    "sound": {
+      "intro": "You will hear a sound. Tap the picture that matches it. You can listen again.",
+      "prompt": "Which one made that sound?",
+      "replay": "Listen again",
+      "hint": "Show a hint",
+      "hintText": "The sound is: {name}",
+      "yes": "Yes, that's it."
+    },
+    "lane": {
+      "intro": "Look through some familiar pictures. There are no right or wrong answers here.",
+      "doYouRemember": "Do you remember this?",
+      "tellMe": "Tell me about this.",
+      "previous": "Back",
+      "next": "Next",
+      "sayAgain": "Say again",
+      "counter": "{a} of {b}"
+    }
+  },
   "reminder": { "medicine": "Medicine", "hydration": "Hydration", "activity": "Activity", "appointment": "Appointment", "add": "Add Reminder", "acknowledged": "Taken", "missed": "Missed", "pending": "Pending", "activeReminders": "Active Reminders", "recentActivity": "Recent Activity", "snoozed": "Snoozed", "skipped": "Skipped" },
   "assessment": { "baseline": "Baseline", "monthly": "Monthly", "adhoc": "Ad-hoc", "score": "Score", "maxScore": "Max Score", "take": "Take Assessment" },
-  "dashboard": { "heading": "Dashboard", "cwi": "Cognitive Wellness Index", "trend": "Trend", "sessions": "Sessions", "minutes": "Minutes", "completionRate": "Completion Rate", "alerts": "Alerts", "improving": "Improving", "stable": "Stable", "deteriorating": "Deteriorating", "insufficient_data": "Insufficient Data", "myPatients": "My Patients", "noActiveAlerts": "No active alerts" },
+  "dashboard": { "heading": "Dashboard", "cwi": "Cognitive Wellness Index", "trend": "Trend", "sessions": "Sessions", "minutes": "Minutes", "completionRate": "Completion Rate", "alerts": "Alerts", "improving": "Improving", "stable": "Stable", "deteriorating": "Deteriorating", "declining": "Lower than recent baseline", "insufficient_data": "Insufficient Data", "myPatients": "My Patients", "noActiveAlerts": "No active alerts" },
   "caseload": { "heading": "Caseload", "all": "All", "deteriorating": "Deteriorating", "disengaged": "Disengaged", "needsVisit": "Needs Visit", "patient": "Patient", "village": "Village", "cwi": "CWI", "trend": "Trend", "sessions": "Sessions", "completionRate": "Completion Rate", "alerts": "Alerts" },
   "patientMode": { "exitPatientMode": "Exit Patient Mode", "exit": "Exit", "incorrectPin": "Incorrect PIN", "verificationFailed": "Verification failed", "pinPlaceholder": "PIN" },
   "common": { "save": "Save", "cancel": "Cancel", "delete": "Delete", "edit": "Edit", "back": "Back", "loading": "Loading...", "noData": "No data yet", "confirm": "Confirm", "close": "Close", "offline": "Offline", "lastSynced": "Last synced {time}" },
