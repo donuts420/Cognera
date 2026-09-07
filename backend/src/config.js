@@ -12,7 +12,7 @@ const config = {
   r2SecretKey: process.env.R2_SECRET_KEY,
   vapidPublicKey: process.env.VAPID_PUBLIC_KEY,
   vapidPrivateKey: process.env.VAPID_PRIVATE_KEY,
-  vapidSubject: process.env.VAPID_SUBJECT || 'mailto:admin@nirmal.health',
+  vapidSubject: process.env.VAPID_SUBJECT || 'mailto:admin@cognera.health',
   allowDevLogin: process.env.ALLOW_DEV_LOGIN === 'true',
   rateLimits: {
     login: { windowMs: 15 * 60 * 1000, max: 10 },
