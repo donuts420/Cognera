@@ -34,7 +34,7 @@ export default function RegisterPage() {
         window.google.accounts.id.renderButton(googleBtnRef.current, {
           theme: 'outline',
           size: 'large',
-          width: '100%',
+          width: 320,
           text: 'continue_with',
           shape: 'rectangular',
         });
@@ -60,17 +60,15 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="layout-patient flex items-center justify-center">
-      <div className="card" style={{ width: '100%', maxWidth: 440, padding: 'var(--gap-lg)' }}>
+    <div className="layout-patient flex items-center justify-center auth-page">
+      <div className="card auth-card">
         <h1 className="text-center" style={{ fontSize: 'var(--text-xl)', marginBottom: 'var(--gap-md)' }}>{t('auth.register')}</h1>
         {import.meta.env.VITE_GOOGLE_CLIENT_ID && (
           <>
-            <div ref={googleBtnRef} className="mb-md" style={{ minHeight: 44 }} />
-            <div className="flex items-center gap-sm mb-md">
-              <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
-              <span className="text-sm text-muted">{t('common.or')}</span>
-              <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
+            <div className="google-btn-wrap mb-md">
+              <div ref={googleBtnRef} />
             </div>
+            <div className="divider"><span className="text-sm text-muted">{t('common.or')}</span></div>
           </>
         )}
         <form onSubmit={handleSubmit}>
@@ -96,8 +94,8 @@ export default function RegisterPage() {
           {error && <p style={{ color: 'var(--danger)', marginBottom: 'var(--gap-md)' }}>{error}</p>}
           <button className="btn btn-primary btn-block" type="submit" disabled={loading}>{loading ? t('common.loading') : t('auth.register')}</button>
         </form>
-        <p className="text-center mt-md text-sm">{t('auth.hasAccount')} <Link to="/login">{t('auth.login')}</Link></p>
-        <div className="text-center mt-md">
+        <div className="auth-footer">
+          <p className="text-sm">{t('auth.hasAccount')} <Link to="/login">{t('auth.login')}</Link></p>
           <button onClick={() => setLocale(locale === 'en' ? 'as' : 'en')} className="btn btn-ghost" style={{ minHeight: 36, fontSize: '14px', padding: '4px 16px' }}>
             {locale === 'en' ? t('lang.as') : t('lang.en')}
           </button>
