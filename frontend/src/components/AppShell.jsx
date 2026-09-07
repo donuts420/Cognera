@@ -40,9 +40,6 @@ export default function AppShell() {
           {!online && <span style={{ color: 'var(--warning)' }}>{t('common.offline')}</span>}
           {online && lastSynced && <span>{t('common.lastSynced', { time: lastSynced })}</span>}
         </div>
-        <button className="sidebar-link" onClick={toggleLocale} style={{ fontSize: 'var(--text-sm)' }}>
-          {locale === 'en' ? t('lang.as') : t('lang.en')}
-        </button>
         <button className="sidebar-link" onClick={handleLogout}>{t('nav.logout')}</button>
       </nav>
       <div className="layout-care-main">
