@@ -25,11 +25,11 @@ export default function PatientModePage() {
         exitPatientMode();
         navigate('/');
       } else {
-        setError('Incorrect PIN');
+        setError(t('patientMode.incorrectPin'));
         setPin('');
       }
     } catch {
-      setError('Verification failed');
+      setError(t('patientMode.verificationFailed'));
     }
   };
 
@@ -37,7 +37,7 @@ export default function PatientModePage() {
     <div className="layout-patient flex flex-col items-center justify-center p-lg">
       <div className="text-center">
         <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'var(--primary)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: '36px', marginBottom: 'var(--gap-md)' }}>
-          {activePatient?.display_name?.[0] || 'N'}
+          {activePatient?.display_name?.[0] || 'C'}
         </div>
         <h1 style={{ fontSize: 'var(--text-3xl)', marginBottom: 'var(--gap-sm)' }}>
           {activePatient?.display_name || t('app.name')}
@@ -59,19 +59,19 @@ export default function PatientModePage() {
               pattern="\d{4}"
               value={pin}
               onChange={(e) => { setPin(e.target.value.replace(/\D/g, '')); setError(''); }}
-              placeholder="PIN"
+              placeholder={t('patientMode.pinPlaceholder')}
               autoFocus
               style={{ width: 120, textAlign: 'center', fontSize: 'var(--text-xl)', letterSpacing: 8 }}
             />
             {error && <p className="text-sm" style={{ color: 'var(--danger)', marginTop: 8 }}>{error}</p>}
             <div className="flex gap-sm mt-md">
-              <button className="btn btn-primary" onClick={handleExit}>Exit</button>
-              <button className="btn btn-ghost" onClick={() => { setShowPin(false); setPin(''); setError(''); }}>Cancel</button>
+              <button className="btn btn-primary" onClick={handleExit}>{t('patientMode.exit')}</button>
+              <button className="btn btn-ghost" onClick={() => { setShowPin(false); setPin(''); setError(''); }}>{t('common.cancel')}</button>
             </div>
           </div>
         ) : (
           <button className="btn btn-ghost" onClick={() => setShowPin(true)} style={{ fontSize: 'var(--text-sm)', minHeight: 48 }}>
-            Exit Patient Mode
+            {t('patientMode.exitPatientMode')}
           </button>
         )}
       </div>

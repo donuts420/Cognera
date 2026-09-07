@@ -5,7 +5,7 @@ import { useLocale } from '../context/LocaleContext.jsx';
 
 export default function LoginPage() {
   const { login } = useAuth();
-  const { t } = useLocale();
+  const { locale, setLocale, t } = useLocale();
   const navigate = useNavigate();
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
@@ -20,20 +20,27 @@ export default function LoginPage() {
       await login(identifier, password);
       navigate('/');
     } catch (err) {
-      setError(err.data?.error?.message || 'Login failed');
+      setError(err.data?.error?.message || t('error.loginFailed'));
     } finally {
       setLoading(false);
     }
+  };
+
+  const toggleLocale = () => {
+    setLocale(locale === 'en' ? 'as' : 'en');
   };
 
   return (
     <div className="layout-patient flex items-center justify-center">
       <div className="card" style={{ width: '100%', maxWidth: 440, padding: 'var(--gap-lg)' }}>
         <div className="text-center mb-md">
-          <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--primary)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: '28px', marginBottom: 'var(--gap-sm)' }}>N</div>
+          <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--primary)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: '28px', marginBottom: 'var(--gap-sm)' }}>C</div>
           <h1 style={{ fontSize: 'var(--text-xl)' }}>{t('app.name')}</h1>
           <p className="text-muted text-sm">{t('app.tagline')}</p>
         </div>
+        <button onClick={toggleLocale} className="btn btn-ghost btn-block" style={{ marginBottom: 'var(--gap-md)', minHeight: 48 }}>
+          {locale === 'en' ? t('lang.as') : t('lang.en')}
+        </button>
         <form onSubmit={handleSubmit}>
           <div className="input-group mb-md">
             <label htmlFor="identifier">{t('auth.identifier')}</label>

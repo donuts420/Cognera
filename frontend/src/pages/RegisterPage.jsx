@@ -21,7 +21,7 @@ export default function RegisterPage() {
       await register(form);
       navigate('/');
     } catch (err) {
-      setError(err.data?.error?.message || 'Registration failed');
+      setError(err.data?.error?.message || t('error.registrationFailed'));
     } finally {
       setLoading(false);
     }
@@ -47,8 +47,8 @@ export default function RegisterPage() {
           <div className="input-group mb-md">
             <label>{t('auth.role')}</label>
             <select className="input" value={form.role} onChange={update('role')}>
-              <option value="caregiver">Caregiver</option>
-              <option value="health_worker">Health Worker</option>
+              <option value="caregiver">{t('auth.caregiver')}</option>
+              <option value="health_worker">{t('auth.healthWorker')}</option>
             </select>
           </div>
           {error && <p style={{ color: 'var(--danger)', marginBottom: 'var(--gap-md)' }}>{error}</p>}
