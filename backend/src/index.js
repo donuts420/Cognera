@@ -12,8 +12,17 @@ import assessmentRoutes from './routes/assessments.js';
 import analyticsRoutes from './routes/analytics.js';
 import syncRoutes from './routes/sync.js';
 import mediaRoutes from './routes/media.js';
-import pushRoutes from './routes/push.js';
 import alertRoutes from './routes/alerts.js';
+
+// Push notifications are an optional subsystem (needs the `web-push` package and
+// VAPID keys). A failure to load it must never take down the whole API.
+let pushRoutes;
+try {
+  pushRoutes = (await import('./routes/push.js')).default;
+} catch (err) {
+  console.error('Push notifications disabled:', err?.message || err);
+  pushRoutes = express.Router();
+}
 
 const app = express();
 

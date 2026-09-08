@@ -1,16 +1,23 @@
-import webPush from 'web-push';
 import config from '../config.js';
 import { query } from '../db.js';
 
-if (config.vapidPublicKey && config.vapidPrivateKey) {
-  webPush.setVapidDetails(
-    config.vapidSubject,
-    config.vapidPublicKey,
-    config.vapidPrivateKey
-  );
+// `web-push` is an optional dependency — degrade gracefully if it is unavailable.
+let webPush = null;
+try {
+  webPush = (await import('web-push')).default;
+  if (webPush && config.vapidPublicKey && config.vapidPrivateKey) {
+    webPush.setVapidDetails(
+      config.vapidSubject,
+      config.vapidPublicKey,
+      config.vapidPrivateKey
+    );
+  }
+} catch (err) {
+  console.error('web-push unavailable, push notifications are no-ops:', err?.message || err);
 }
 
 export async function sendPushNotification(subscription, payload) {
+  if (!webPush) throw new Error('web-push not available');
   const result = await webPush.sendNotification(
     subscription,
     typeof payload === 'string' ? payload : JSON.stringify(payload)
@@ -19,6 +26,7 @@ export async function sendPushNotification(subscription, payload) {
 }
 
 export async function notifyUser(userId, payload) {
+  if (!webPush) return { total: 0, sent: 0, failed: 0 };
   const { rows: subs } = await query(
     `SELECT id, endpoint, p256dh, auth FROM push_subscriptions WHERE user_id = $1 AND failed_at IS NULL`,
     [userId]
@@ -49,6 +57,7 @@ export async function notifyUser(userId, payload) {
 }
 
 export async function notifyPatient(patientId, payload) {
+  if (!webPush) return { total: 0, sent: 0, failed: 0 };
   const { rows: subs } = await query(
     `SELECT id, endpoint, p256dh, auth FROM push_subscriptions WHERE patient_id = $1 AND failed_at IS NULL`,
     [patientId]
