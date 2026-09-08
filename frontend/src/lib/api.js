@@ -1,4 +1,5 @@
-const BASE = import.meta.env.VITE_API_URL || '/api';
+const remote = import.meta.env.VITE_API_URL;
+const BASE = remote ? `${remote}/api` : '/api';
 
 async function request(method, path, body) {
   const token = localStorage.getItem('accessToken');
