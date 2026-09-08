@@ -24,16 +24,16 @@
     "caregiver": "Caregiver",
     "healthWorker": "Health worker",
     "welcomeBack": "Welcome back.",
-    "loginLede": "Enter your details and we'll take you to your space.",
-    "registerLede": "A calm space for cognitive activities, memories and daily care.",
+    "loginLede": "Sign in to continue your activities and reminders.",
+    "registerLede": "Cognitive games, memory prompts and daily reminders — in one calm place.",
     "left": {
-      "title": "Right where you left it.",
-      "titleNew": "A gentle place to begin.",
-      "p1": "Nothing you do here is ever lost.",
-      "p2": "A missed day costs you nothing.",
-      "p3": "Built for ease, not for pressure.",
-      "quote": "Coming back after a gap isn't starting over. It's just the next day.",
-      "quoteBy": "Cognera care team"
+      "title": "A calm few minutes a day.",
+      "titleNew": "Set up takes a minute.",
+      "p1": "Short, friendly activities — never a test.",
+      "p2": "Your progress is always saved.",
+      "p3": "Gentle reminders for water, medicine and rest.",
+      "quote": "Cognitive care, made human.",
+      "quoteBy": "Cognera"
     }
   },
   "patient": {
@@ -101,16 +101,16 @@
       "careMode": "Care mode"
     },
     "dash": {
-      "sub": "Here's your space for today.",
-      "welcomeSub": "Welcome. Let's begin gently.",
+      "sub": "Here's your day at a glance.",
+      "welcomeSub": "Welcome. Here's a gentle start.",
       "continue": "Pick up where you left off",
       "favorites": "Your favourites",
       "allGames": "All games",
       "thisMonth": "This month",
       "open": "Open",
-      "streaksPause": "Streaks pause, never break — every return counts.",
+      "streaksPause": "A missed day won't undo your progress.",
       "nextMilestone": "Next milestone",
-      "justBegin": "Just begin. That's enough."
+      "justBegin": "Even one activity counts."
     },
     "hero": {
       "todayKicker": "Today's activity",

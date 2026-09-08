@@ -992,56 +992,83 @@ button.pcard:active {
   padding: 32px 24px;
   background: var(--canvas);
 }
+/* One vertical rhythm for the whole right column: 16px between every block. */
 .auth-form {
   width: 100%;
-  max-width: 420px;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 .auth-form h1 {
   font-family: var(--font-display);
   font-weight: 500;
   font-size: var(--text-3xl);
+  line-height: 1.1;
   color: var(--ink);
 }
+/* the lede sits tight under the heading, then the 16px gap resumes */
 .auth-form .lede {
   color: var(--ink-muted);
-  font-size: var(--text-base);
-  margin: 8px 0 26px;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  margin: -8px 0 0;
+  max-width: 34ch;
+}
+.auth-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 .auth-form .field {
-  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
 }
 .auth-form label {
-  display: block;
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--ink);
-  margin-bottom: 7px;
+  margin: 0;
 }
-.auth-form .input {
+.auth-form .input,
+.auth-form select.input {
+  min-height: 52px;
+  padding: 12px 14px;
+  font-size: var(--text-base);
   border-radius: var(--radius-md);
+  border-width: 1.5px;
   border-color: var(--line-strong);
   background: var(--surface);
+}
+.auth-form form .btn {
+  min-height: 52px;
+  font-size: var(--text-base);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  margin-top: 2px;
 }
 .auth-form .err {
   color: var(--crisis);
   font-size: var(--text-sm);
-  margin-bottom: 12px;
+  margin: 0;
 }
 .auth-form .foot {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   align-items: flex-start;
   font-size: var(--text-sm);
   color: var(--ink-muted);
+  margin: 0;
 }
 .auth-form .foot a { font-weight: 600; }
 .auth-form .divider {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 18px 0;
+  margin: 0;
   color: var(--ink-faint);
   font-size: var(--text-sm);
 }
