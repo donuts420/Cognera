@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { api } from '../lib/api.js';
 import { useLocale } from '../context/LocaleContext.jsx';
 import { GAMES, groupByDomain } from '../games/registry.js';
+import Icon from '../components/Icon.jsx';
 
 export default function GamesPage() {
   const { id } = useParams();
@@ -32,7 +33,7 @@ export default function GamesPage() {
               const meta = GAMES[g.slug]?.meta || {};
               return (
                 <div key={g.slug} className="game-card" style={{ cursor: 'default' }}>
-                  <span className="game-card-icon">{meta.icon || '🎲'}</span>
+                  <span className="game-card-icon"><Icon name={meta.icon || 'dice'} size={40} /></span>
                   <h4>{g.title}</h4>
                   <p>{g.description}</p>
                   <div className="flex justify-between items-center" style={{ flexWrap: 'wrap', gap: 8 }}>

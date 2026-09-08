@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocale } from '../../context/LocaleContext.jsx';
+import Icon from '../Icon.jsx';
 
 export function Eyebrow({ children }) {
   return <p className="eyebrow">{children}</p>;
@@ -51,10 +52,10 @@ export function StatTile({ num, label }) {
   );
 }
 
-export function EmptyState({ glyph = '🌱', title, children }) {
+export function EmptyState({ glyph = 'sprout', title, children }) {
   return (
     <div className="pstate">
-      <span className="glyph" aria-hidden>{glyph}</span>
+      <span className="glyph" aria-hidden><Icon name={glyph} size={48} /></span>
       {title && <h3>{title}</h3>}
       {children && <p>{children}</p>}
     </div>
@@ -65,7 +66,7 @@ export function ErrorState({ onRetry }) {
   const { t } = useLocale();
   return (
     <div className="pstate">
-      <span className="glyph" aria-hidden>🌾</span>
+      <span className="glyph" aria-hidden><Icon name="leaf" size={48} /></span>
       <h3>{t('player.somethingOff')}</h3>
       <p>{t('player.tryAgainHint')}</p>
       {onRetry && (

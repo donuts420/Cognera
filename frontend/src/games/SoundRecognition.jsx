@@ -1,3 +1,4 @@
+import Icon from '../components/Icon.jsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { SOUNDS, pick, shuffle, label } from './assets.js';
 import { pattern as playPattern } from './sound.js';
@@ -59,10 +60,10 @@ export default function SoundRecognition({ level, locale, t, speak, onTrial, onP
           className="btn btn-primary btn-lg"
           onClick={() => { replays.current += 1; play(target); }}
         >
-          🔁 {t('games.sound.replay')}
+          <Icon name="replay" size={24} /> {t('games.sound.replay')}
         </button>
         <button className="btn btn-ghost btn-lg" onClick={() => setHint(true)}>
-          💡 {t('games.sound.hint')}
+          <Icon name="bulb" size={24} /> {t('games.sound.hint')}
         </button>
       </div>
       {hint && target && (
@@ -75,7 +76,7 @@ export default function SoundRecognition({ level, locale, t, speak, onTrial, onP
             className={`choice ${picked === snd.key ? (snd.key === target.key ? 'correct' : 'selected') : ''} ${picked && snd.key === target.key ? 'correct' : ''}`}
             onClick={() => choose(snd)}
           >
-            <span className="glyph">{snd.glyph}</span>
+            <span className="glyph"><Icon name={snd.icon} /></span>
             {label(snd.label, locale)}
           </button>
         ))}

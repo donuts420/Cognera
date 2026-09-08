@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { api } from '../../lib/api.js';
 import { PageHead, Card } from '../../components/player/ui.jsx';
+import Icon from '../../components/Icon.jsx';
 
 const TEXT_SIZES = ['normal', 'large', 'xlarge'];
 
@@ -66,7 +67,7 @@ export default function ProfilePage() {
             </div>
           </div>
           <button className="btn btn-primary" style={{ marginTop: 14 }} onClick={saveName}>
-            {saved ? `✓ ${t('common.save')}` : t('common.save')}
+            {saved ? t('player.saved') : t('common.save')}
           </button>
         </Card>
 

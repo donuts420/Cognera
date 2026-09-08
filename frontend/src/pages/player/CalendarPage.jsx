@@ -4,6 +4,7 @@ import { usePlayer } from '../../context/PlayerContext.jsx';
 import { PageHead, Card, Skeleton } from '../../components/player/ui.jsx';
 import MonthCalendar from '../../components/player/MonthCalendar.jsx';
 import { GAMES } from '../../games/registry.js';
+import Icon from '../../components/Icon.jsx';
 
 export default function CalendarPage() {
   const { t } = useLocale();
@@ -75,7 +76,7 @@ export default function CalendarPage() {
                 {streaks.map(([slug, v]) => (
                   <div className="row" key={slug}>
                     <span className="g">
-                      <span aria-hidden>{GAMES[slug]?.meta.icon || '🎲'}</span>
+                      <Icon name={GAMES[slug]?.meta.icon || 'dice'} size={22} />
                       {titleFor[slug] || slug}
                     </span>
                     <span className="chip accent">{t('player.dayStreakN', { n: v.current })}</span>

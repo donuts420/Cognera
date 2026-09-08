@@ -1,8 +1,8 @@
+import Icon from '../components/Icon.jsx';
 import React, { useEffect, useRef, useState } from 'react';
-import { shuffle, pick } from './assets.js';
+import { shuffle, pick, PATTERN_SHAPES as SHAPES } from './assets.js';
 
 const ROUNDS = 6;
-const SHAPES = ['🔺', '🟦', '🟢', '🔶', '⬛', '⭐', '🟣'];
 
 export default function PatternComplete({ level, t, speak, onTrial, onProgress, onFeedback, onComplete }) {
   const [round, setRound] = useState(0);
@@ -69,11 +69,11 @@ export default function PatternComplete({ level, t, speak, onTrial, onProgress, 
       <div className="choice-row" style={{ marginBottom: 32 }}>
         {seq.map((s, i) => (
           <div key={i} className="choice" style={{ minHeight: 90, flex: '0 0 78px', cursor: 'default' }}>
-            <span className="glyph">{s}</span>
+            <span className="glyph"><Icon name={s} /></span>
           </div>
         ))}
         <div className="choice" style={{ minHeight: 90, flex: '0 0 78px', cursor: 'default', borderStyle: 'dashed' }}>
-          <span className="glyph">❓</span>
+          <span className="glyph"><Icon name="question" /></span>
         </div>
       </div>
       <div className="choice-row">
@@ -83,7 +83,7 @@ export default function PatternComplete({ level, t, speak, onTrial, onProgress, 
             className={`choice ${picked === opt ? (opt === answer ? 'correct' : 'selected') : ''}`}
             onClick={() => choose(opt)}
           >
-            <span className="glyph">{opt}</span>
+            <span className="glyph"><Icon name={opt} /></span>
           </button>
         ))}
       </div>

@@ -1,3 +1,4 @@
+import Icon from '../components/Icon.jsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { CATEGORIES, shuffle, pick, label } from './assets.js';
 
@@ -25,8 +26,8 @@ export default function OddOneOut({ level, t, locale, speak, onTrial, onProgress
     const majItems = pick(maj.items, count - 1).concat(maj.items).slice(0, count - 1);
     const oddItem = pick(odd.items, 1)[0];
     const arr = shuffle([
-      ...majItems.map((g) => ({ glyph: g, odd: false })),
-      { glyph: oddItem, odd: true },
+      ...majItems.map((g) => ({ icon: g, odd: false })),
+      { icon: oddItem, odd: true },
     ]);
     setItems(arr);
     setOddIdx(arr.findIndex((x) => x.odd));
@@ -91,7 +92,7 @@ export default function OddOneOut({ level, t, locale, speak, onTrial, onProgress
             onClick={() => handleTap(idx)}
             aria-label={`item ${idx + 1}`}
           >
-            <span className="glyph">{it.glyph}</span>
+            <span className="glyph"><Icon name={it.icon} /></span>
           </button>
         ))}
       </div>

@@ -17,55 +17,55 @@ import MemoryLane from './MemoryLane.jsx';
 export const GAMES = {
   'chimp-test': {
     Component: ChimpTest,
-    meta: { icon: '🔢', instruction: 'games.chimp.intro', supportsVoice: true, rounds: 5 },
+    meta: { icon: 'brain', instruction: 'games.chimp.intro', supportsVoice: true, rounds: 5 },
   },
   'memory-match': {
     Component: MemoryMatch,
-    meta: { icon: '🃏', instruction: 'games.match.intro', supportsVoice: true },
+    meta: { icon: 'cards', instruction: 'games.match.intro', supportsVoice: true },
   },
   'sequence-memory': {
     Component: SequenceMemory,
-    meta: { icon: '🎵', instruction: 'games.sequence.intro', supportsVoice: true, rounds: 6 },
+    meta: { icon: 'music-notes', instruction: 'games.sequence.intro', supportsVoice: true, rounds: 6 },
   },
   'number-memory': {
     Component: NumberMemory,
-    meta: { icon: '🧮', instruction: 'games.number.intro', supportsVoice: true, rounds: 5 },
+    meta: { icon: 'calculator', instruction: 'games.number.intro', supportsVoice: true, rounds: 5 },
   },
   'reaction-time': {
     Component: ReactionTime,
-    meta: { icon: '⚡', instruction: 'games.reaction.intro', supportsVoice: true },
+    meta: { icon: 'bolt', instruction: 'games.reaction.intro', supportsVoice: true },
   },
   'find-object': {
     Component: FindObject,
-    meta: { icon: '🔍', instruction: 'games.find.intro', supportsVoice: true, rounds: 5 },
+    meta: { icon: 'search', instruction: 'games.find.intro', supportsVoice: true, rounds: 5 },
   },
   'odd-one-out': {
     Component: OddOneOut,
-    meta: { icon: '🎯', instruction: 'games.odd.intro', supportsVoice: true, rounds: 6 },
+    meta: { icon: 'target', instruction: 'games.odd.intro', supportsVoice: true, rounds: 6 },
   },
   'pattern-complete': {
     Component: PatternComplete,
-    meta: { icon: '🪡', instruction: 'games.pattern.intro', supportsVoice: true, rounds: 6 },
+    meta: { icon: 'loom', instruction: 'games.pattern.intro', supportsVoice: true, rounds: 6 },
   },
   'word-recall': {
     Component: WordRecall,
-    meta: { icon: '💬', instruction: 'games.word.intro', supportsVoice: true },
+    meta: { icon: 'speech', instruction: 'games.word.intro', supportsVoice: true },
   },
   'daily-routine': {
     Component: DailyRoutine,
-    meta: { icon: '🌅', instruction: 'games.routine.intro', supportsVoice: true },
+    meta: { icon: 'sunrise', instruction: 'games.routine.intro', supportsVoice: true },
   },
   'story-sequencing': {
     Component: StorySequencing,
-    meta: { icon: '📖', instruction: 'games.story.intro', supportsVoice: true },
+    meta: { icon: 'book', instruction: 'games.story.intro', supportsVoice: true },
   },
   'sound-recognition': {
     Component: SoundRecognition,
-    meta: { icon: '🔔', instruction: 'games.sound.intro', supportsVoice: true, rounds: 6 },
+    meta: { icon: 'bell', instruction: 'games.sound.intro', supportsVoice: true, rounds: 6 },
   },
   'memory-lane': {
     Component: MemoryLane,
-    meta: { icon: '🕰️', instruction: 'games.lane.intro', supportsVoice: true, scored: false },
+    meta: { icon: 'clock-old', instruction: 'games.lane.intro', supportsVoice: true, scored: false },
   },
 };
 

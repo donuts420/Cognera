@@ -1,3 +1,4 @@
+import Icon from '../components/Icon.jsx';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { STORIES, shuffle, label } from './assets.js';
 
@@ -54,7 +55,7 @@ export default function StorySequencing({ levelConfig, locale, t, speak, onTrial
             onClick={() => place(item)}
           >
             <span className="slot-num">{orderNumber(item)}</span>
-            <span className="glyph">{item.glyph}</span>
+            <span className="glyph"><Icon name={item.icon} /></span>
             <span>{label(item.label, locale)}</span>
           </button>
         ))}

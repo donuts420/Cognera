@@ -51,7 +51,7 @@ export default function CaseloadPage() {
                 <td style={{ padding: '12px 8px', textAlign: 'right', fontWeight: 600 }}>{p.cwi ?? '—'}</td>
                 <td style={{ padding: '12px 8px', textAlign: 'center' }}>
                   <span className={`badge badge-${p.trend_direction === 'improving' ? 'success' : p.trend_direction === 'declining' ? 'danger' : 'info'}`}>
-                    {p.trend_direction === 'improving' ? '↑' : p.trend_direction === 'declining' ? '↓' : '→'}
+                    {p.trend_direction === 'improving' ? '▲' : p.trend_direction === 'declining' ? '▼' : '–'}
                   </span>
                 </td>
                 <td style={{ padding: '12px 8px', textAlign: 'right' }}>{p.sessions_30d}</td>

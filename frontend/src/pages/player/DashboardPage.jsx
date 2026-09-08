@@ -8,6 +8,7 @@ import HeroBanner from '../../components/player/HeroBanner.jsx';
 import RecentRow from '../../components/player/RecentRow.jsx';
 import GameTile from '../../components/player/GameTile.jsx';
 import MonthCalendar from '../../components/player/MonthCalendar.jsx';
+import Icon from '../../components/Icon.jsx';
 
 function greetingKey() {
   const h = new Date().getHours();
@@ -100,8 +101,8 @@ export default function DashboardPage() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 10 }}>
                   <span className="ring" style={{
                     width: 52, height: 52, borderRadius: '50%', border: '2px solid var(--line-strong)',
-                    display: 'grid', placeItems: 'center', fontSize: 22, color: 'var(--ink-faint)', flex: 'none',
-                  }}>🏅</span>
+                    display: 'grid', placeItems: 'center', color: 'var(--ink-faint)', flex: 'none',
+                  }}><Icon name="medal" size={24} /></span>
                   <div>
                     <b style={{ display: 'block', color: 'var(--ink)' }}>{nextMilestone.title}</b>
                     <span style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-muted)' }}>{nextMilestone.hint}</span>

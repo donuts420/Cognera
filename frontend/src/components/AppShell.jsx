@@ -40,7 +40,7 @@ export default function AppShell() {
           {!online && <span style={{ color: 'var(--warning)' }}>{t('common.offline')}</span>}
           {online && lastSynced && <span>{t('common.lastSynced', { time: lastSynced })}</span>}
         </div>
-        <NavLink to="/" className="sidebar-link">← {t('player.nav.home')}</NavLink>
+        <NavLink to="/" className="sidebar-link">{t('player.backToHome')}</NavLink>
         <button className="sidebar-link" onClick={handleLogout}>{t('nav.logout')}</button>
       </nav>
       <div className="layout-care-main">

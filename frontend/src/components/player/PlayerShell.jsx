@@ -4,6 +4,7 @@ import { useLocale } from '../../context/LocaleContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { NAV_ITEMS } from './nav-items.js';
+import Icon from '../Icon.jsx';
 
 export default function PlayerShell() {
   const { t } = useLocale();
@@ -27,20 +28,20 @@ export default function PlayerShell() {
               end={item.end}
               className={({ isActive }) => `player-nav-link ${isActive ? 'active' : ''}`}
             >
-              <span className="ico" aria-hidden>{item.icon}</span>
+              <span className="ico"><Icon name={item.icon} size={22} /></span>
               {t(item.label)}
             </NavLink>
           ))}
         </nav>
         <div className="spacer" />
         <NavLink to="/care" className="player-nav-link" style={{ fontSize: 'var(--text-sm)' }}>
-          <span className="ico" aria-hidden>🩺</span>
+          <span className="ico"><Icon name="stethoscope" size={22} /></span>
           {t('player.nav.careMode')}
         </NavLink>
         <NavLink to="/profile" className="player-account">
           <span className="avatar">{initial}</span>
           <span className="who">{patient?.display_name || t('player.you')}</span>
-          <span aria-hidden style={{ opacity: 0.5 }}>›</span>
+          <Icon name="chevron-right" size={18} style={{ opacity: 0.5 }} />
         </NavLink>
       </aside>
 
@@ -58,7 +59,7 @@ export default function PlayerShell() {
             end={item.end}
             className={({ isActive }) => (isActive ? 'active' : '')}
           >
-            <span className="ico" aria-hidden>{item.icon}</span>
+            <span className="ico"><Icon name={item.icon} size={22} /></span>
             {t(item.label)}
           </NavLink>
         ))}

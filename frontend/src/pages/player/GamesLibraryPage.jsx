@@ -3,6 +3,7 @@ import { useLocale } from '../../context/LocaleContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { PageHead, EmptyState, Skeleton } from '../../components/player/ui.jsx';
 import GameTile from '../../components/player/GameTile.jsx';
+import Icon from '../../components/Icon.jsx';
 import { groupByDomain, DOMAIN_ORDER } from '../../games/registry.js';
 
 export default function GamesLibraryPage() {
@@ -45,7 +46,7 @@ export default function GamesLibraryPage() {
           {[0, 1, 2, 3, 4, 5].map((i) => <Skeleton key={i} height={168} />)}
         </div>
       ) : gameState.length === 0 ? (
-        <EmptyState glyph="🌱" title={t('games.libraryEmpty')} />
+        <EmptyState glyph="sprout" title={t('games.libraryEmpty')} />
       ) : (
         <>
           <div className="chip-row">
@@ -54,7 +55,7 @@ export default function GamesLibraryPage() {
             </button>
             {favorites.size > 0 && (
               <button className={`chip-btn ${filter === 'fav' ? 'on' : ''}`} onClick={() => setFilter('fav')}>
-                ♥ {t('player.dash.favorites')}
+                <Icon name="heart-fill" size={16} /> {t('player.dash.favorites')}
               </button>
             )}
             {DOMAIN_ORDER.filter((d) => groups.some((g) => g.domain === d)).map((d) => (

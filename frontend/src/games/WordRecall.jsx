@@ -1,3 +1,4 @@
+import Icon from '../components/Icon.jsx';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { FAMILIAR_WORDS, pick, shuffle } from './assets.js';
 
@@ -93,11 +94,11 @@ export default function WordRecall({ levelConfig, locale, t, speak, onTrial, onP
       <div className="game-bignum" style={{ fontSize: 'clamp(44px, 12vw, 96px)' }}>{item.word}</div>
       <div className="choice-row" style={{ marginTop: 24 }}>
         <button className="choice" onClick={() => answer(true)} style={{ maxWidth: 260 }}>
-          <span className="glyph">👍</span>
+          <span className="glyph"><Icon name="check" /></span>
           {t('games.word.yes')}
         </button>
         <button className="choice" onClick={() => answer(false)} style={{ maxWidth: 260 }}>
-          <span className="glyph">👋</span>
+          <span className="glyph"><Icon name="close" /></span>
           {t('games.word.no')}
         </button>
       </div>

@@ -1,17 +1,18 @@
 import React from 'react';
+import Icon from '../../components/Icon.jsx';
 import { useLocale } from '../../context/LocaleContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { PageHead, Skeleton } from '../../components/player/ui.jsx';
 
 const GLYPH = {
-  'first-game': '🌱',
-  'steady-3': '🍃',
-  'steady-week': '🌿',
-  'explorer': '🧭',
-  'all-games': '🗺️',
-  'focused-mind': '🎯',
-  'century': '💯',
-  'regular': '⭐',
+  'first-game': 'sprout',
+  'steady-3': 'leaf',
+  'steady-week': 'sprout',
+  'explorer': 'compass',
+  'all-games': 'map',
+  'focused-mind': 'target',
+  'century': 'hundred',
+  'regular': 'star',
 };
 
 export default function MilestonesPage() {
@@ -35,7 +36,7 @@ export default function MilestonesPage() {
         <div className="milestone-grid">
           {milestones.map((m) => (
             <div key={m.key} className={`milestone ${m.earned ? 'earned' : ''}`}>
-              <div className="ring">{m.earned ? GLYPH[m.key] || '🏅' : '🔒'}</div>
+              <div className="ring"><Icon name={m.earned ? (GLYPH[m.key] || 'medal') : 'lock'} size={34} /></div>
               <div className="m-title">{m.title}</div>
               <div className="m-hint">{m.hint}</div>
             </div>

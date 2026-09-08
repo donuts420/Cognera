@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLocale } from '../../context/LocaleContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { GAMES, normalizeDomains } from '../../games/registry.js';
+import Icon from '../Icon.jsx';
 
 export default function GameTile({ game }) {
   const { t } = useLocale();
@@ -27,9 +28,9 @@ export default function GameTile({ game }) {
         aria-pressed={fav}
         onClick={(e) => { e.stopPropagation(); toggleFavorite(game.slug); }}
       >
-        {fav ? '♥' : '♡'}
+        <Icon name={fav ? 'heart-fill' : 'heart'} size={22} />
       </button>
-      <span className="ico" aria-hidden>{meta.icon || '🎲'}</span>
+      <span className="ico" aria-hidden><Icon name={meta.icon || 'dice'} size={40} /></span>
       <h4>{game.title}</h4>
       <p>{game.description}</p>
       <div className="tile-meta">

@@ -6,6 +6,7 @@ import { useConnectivity } from '../context/ConnectivityContext.jsx';
 import { narrate, stopSpeaking } from './voice.js';
 import { chime } from './sound.js';
 import { GAMES, normalizeDomains } from './registry.js';
+import Icon from '../components/Icon.jsx';
 
 const SESSION_CAP_MS = 12 * 60 * 1000; // sessions cap at twelve minutes
 const OFFLINE_QUEUE_KEY = 'cognera-session-queue';
@@ -212,19 +213,19 @@ export default function GameHarness({ game, patient, onExit }) {
               }}
               aria-pressed={voiceOn}
             >
-              <span className="glyph">{voiceOn ? '🔊' : '🔈'}</span>
+              <span className="glyph"><Icon name={voiceOn ? 'sound-on' : 'sound-off'} size={26} /></span>
               {t('games.voice')}
             </button>
           )}
           {phase === 'playing' && (
             <button className="game-icon-btn" onClick={() => { stopSpeaking(); setPhase('paused'); }}>
-              <span className="glyph">⏸</span>
+              <span className="glyph"><Icon name="pause" size={26} /></span>
               {t('games.pause')}
             </button>
           )}
           {phase !== 'done' && (
             <button className="game-icon-btn" onClick={() => setPhase('leaving')}>
-              <span className="glyph">✕</span>
+              <span className="glyph"><Icon name="close" size={26} /></span>
               {t('games.exit')}
             </button>
           )}
@@ -234,7 +235,7 @@ export default function GameHarness({ game, patient, onExit }) {
       <div className="game-stage">
         {phase === 'intro' && (
           <>
-            <div style={{ fontSize: 72, marginBottom: 16 }}>{meta.icon || '🎲'}</div>
+            <div style={{ marginBottom: 16, color: 'var(--accent)' }}><Icon name={meta.icon || 'dice'} size={72} /></div>
             <div className="game-prompt">{game.title}</div>
             <p className="game-subprompt">{introText}</p>
             <button className="btn btn-primary btn-lg" onClick={beginPlay}>
@@ -256,7 +257,7 @@ export default function GameHarness({ game, patient, onExit }) {
 
         {phase === 'done' && (
           <div className="game-panel" role="dialog" aria-modal="true">
-            <div style={{ fontSize: 64 }}>🌿</div>
+            <div style={{ color: 'var(--success)' }}><Icon name="sprout" size={56} /></div>
             <h2>{t('games.wellDone')}</h2>
             <p>{summaryLine(result, t, scored)}</p>
             <div className="flex gap-sm" style={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -274,7 +275,7 @@ export default function GameHarness({ game, patient, onExit }) {
       {phase === 'paused' && (
         <div className="game-overlay">
           <div className="game-panel">
-            <div style={{ fontSize: 56 }}>☕</div>
+            <div style={{ color: 'var(--ink-muted)' }}><Icon name="cup" size={52} /></div>
             <h2>{t('games.paused')}</h2>
             <p>{t('games.pausedNote')}</p>
             <div className="flex gap-sm">
@@ -292,7 +293,7 @@ export default function GameHarness({ game, patient, onExit }) {
       {phase === 'leaving' && (
         <div className="game-overlay">
           <div className="game-panel">
-            <div style={{ fontSize: 56 }}>👋</div>
+            <div style={{ color: 'var(--ink-muted)' }}><Icon name="wave" size={52} /></div>
             <h2>{t('games.leaveTitle')}</h2>
             <p>{t('games.leaveNote')}</p>
             <div className="flex gap-sm">

@@ -1,11 +1,30 @@
 {
-  "app": { "name": "Cognera", "tagline": "Cognitive wellness for every elder" },
-  "nav": { "dashboard": "Dashboard", "patients": "My Patients", "caseload": "Caseload", "games": "Games", "reminders": "Reminders", "assessments": "Assessments", "logout": "Log Out" },
+  "app": {
+    "name": "Cognera",
+    "tagline": "Cognitive wellness for every elder"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "patients": "My Patients",
+    "caseload": "Caseload",
+    "games": "Games",
+    "reminders": "Reminders",
+    "assessments": "Assessments",
+    "logout": "Log Out"
+  },
   "auth": {
-    "login": "Log In", "register": "Create account", "identifier": "Phone or email", "password": "Password",
-    "fullName": "Full name", "role": "I am a", "noAccount": "New here?", "hasAccount": "Already have an account?",
-    "caregiver": "Caregiver", "healthWorker": "Health worker",
-    "welcomeBack": "Welcome back.", "loginLede": "Enter your details and we'll take you to your space.",
+    "login": "Log In",
+    "register": "Create account",
+    "identifier": "Phone or email",
+    "password": "Password",
+    "fullName": "Full name",
+    "role": "I am a",
+    "noAccount": "New here?",
+    "hasAccount": "Already have an account?",
+    "caregiver": "Caregiver",
+    "healthWorker": "Health worker",
+    "welcomeBack": "Welcome back.",
+    "loginLede": "Enter your details and we'll take you to your space.",
     "registerLede": "A calm space for cognitive activities, memories and daily care.",
     "left": {
       "title": "Right where you left it.",
@@ -17,8 +36,40 @@
       "quoteBy": "Cognera care team"
     }
   },
-  "patient": { "add": "Add Patient", "name": "Name", "village": "Village", "district": "District", "state": "State", "birthYear": "Birth Year", "sex": "Sex", "stage": "Dementia Stage", "locale": "Language", "active": "Active", "inactive": "Inactive", "careTeam": "Care Team", "unknown": "Unknown", "atRisk": "At Risk", "mild": "Mild", "moderate": "Moderate", "severe": "Severe" },
-  "game": { "play": "Play", "score": "Score", "level": "Level", "levelLabel": "Level {n}", "domain": "Domain", "memory": "Memory", "attention": "Attention", "processing_speed": "Processing Speed", "visuospatial": "Visuospatial", "language": "Language", "executive": "Executive", "theta": "Theta", "playedCount": "Played: {n}×" },
+  "patient": {
+    "add": "Add Patient",
+    "name": "Name",
+    "village": "Village",
+    "district": "District",
+    "state": "State",
+    "birthYear": "Birth Year",
+    "sex": "Sex",
+    "stage": "Dementia Stage",
+    "locale": "Language",
+    "active": "Active",
+    "inactive": "Inactive",
+    "careTeam": "Care Team",
+    "unknown": "Unknown",
+    "atRisk": "At Risk",
+    "mild": "Mild",
+    "moderate": "Moderate",
+    "severe": "Severe"
+  },
+  "game": {
+    "play": "Play",
+    "score": "Score",
+    "level": "Level",
+    "levelLabel": "Level {n}",
+    "domain": "Domain",
+    "memory": "Memory",
+    "attention": "Attention",
+    "processing_speed": "Processing Speed",
+    "visuospatial": "Visuospatial",
+    "language": "Language",
+    "executive": "Executive",
+    "theta": "Theta",
+    "playedCount": "Played: {n}×"
+  },
   "player": {
     "you": "You",
     "xp": "points",
@@ -118,10 +169,16 @@
       "language": "Language",
       "textSize": "Text size",
       "textSizeHint": "Make everything bigger and easier to read.",
-      "size": { "normal": "Normal", "large": "Large", "xlarge": "Largest" },
+      "size": {
+        "normal": "Normal",
+        "large": "Large",
+        "xlarge": "Largest"
+      },
       "reducedMotion": "Reduce motion",
       "reducedMotionHint": "Turn off gentle animations."
-    }
+    },
+    "saved": "Saved",
+    "backToHome": "Back to home"
   },
   "games": {
     "goodMorning": "Good morning",
@@ -254,12 +311,88 @@
       "counter": "{a} of {b}"
     }
   },
-  "reminder": { "medicine": "Medicine", "hydration": "Hydration", "activity": "Activity", "appointment": "Appointment", "add": "Add Reminder", "acknowledged": "Taken", "missed": "Missed", "pending": "Pending", "activeReminders": "Active Reminders", "recentActivity": "Recent Activity", "snoozed": "Snoozed", "skipped": "Skipped" },
-  "assessment": { "baseline": "Baseline", "monthly": "Monthly", "adhoc": "Ad-hoc", "score": "Score", "maxScore": "Max Score", "take": "Take Assessment" },
-  "dashboard": { "heading": "Dashboard", "cwi": "Cognitive Wellness Index", "trend": "Trend", "sessions": "Sessions", "minutes": "Minutes", "completionRate": "Completion Rate", "alerts": "Alerts", "improving": "Improving", "stable": "Stable", "deteriorating": "Deteriorating", "declining": "Lower than recent baseline", "insufficient_data": "Insufficient Data", "myPatients": "My Patients", "noActiveAlerts": "No active alerts" },
-  "caseload": { "heading": "Caseload", "all": "All", "deteriorating": "Deteriorating", "disengaged": "Disengaged", "needsVisit": "Needs Visit", "patient": "Patient", "village": "Village", "cwi": "CWI", "trend": "Trend", "sessions": "Sessions", "completionRate": "Completion Rate", "alerts": "Alerts" },
-  "patientMode": { "exitPatientMode": "Exit Patient Mode", "exit": "Exit", "incorrectPin": "Incorrect PIN", "verificationFailed": "Verification failed", "pinPlaceholder": "PIN" },
-  "common": { "save": "Save", "cancel": "Cancel", "delete": "Delete", "edit": "Edit", "back": "Back", "loading": "Loading...", "noData": "No data yet", "confirm": "Confirm", "close": "Close", "offline": "Offline", "lastSynced": "Last synced {time}", "or": "or" },
-  "error": { "loginFailed": "Login failed", "registrationFailed": "Registration failed", "failedToCreatePatient": "Failed to create patient", "requestFailed": "Request failed" },
-  "lang": { "en": "English", "as": "Assamese", "toggle": "Language" }
+  "reminder": {
+    "medicine": "Medicine",
+    "hydration": "Hydration",
+    "activity": "Activity",
+    "appointment": "Appointment",
+    "add": "Add Reminder",
+    "acknowledged": "Taken",
+    "missed": "Missed",
+    "pending": "Pending",
+    "activeReminders": "Active Reminders",
+    "recentActivity": "Recent Activity",
+    "snoozed": "Snoozed",
+    "skipped": "Skipped"
+  },
+  "assessment": {
+    "baseline": "Baseline",
+    "monthly": "Monthly",
+    "adhoc": "Ad-hoc",
+    "score": "Score",
+    "maxScore": "Max Score",
+    "take": "Take Assessment"
+  },
+  "dashboard": {
+    "heading": "Dashboard",
+    "cwi": "Cognitive Wellness Index",
+    "trend": "Trend",
+    "sessions": "Sessions",
+    "minutes": "Minutes",
+    "completionRate": "Completion Rate",
+    "alerts": "Alerts",
+    "improving": "Improving",
+    "stable": "Stable",
+    "deteriorating": "Deteriorating",
+    "declining": "Lower than recent baseline",
+    "insufficient_data": "Insufficient Data",
+    "myPatients": "My Patients",
+    "noActiveAlerts": "No active alerts"
+  },
+  "caseload": {
+    "heading": "Caseload",
+    "all": "All",
+    "deteriorating": "Deteriorating",
+    "disengaged": "Disengaged",
+    "needsVisit": "Needs Visit",
+    "patient": "Patient",
+    "village": "Village",
+    "cwi": "CWI",
+    "trend": "Trend",
+    "sessions": "Sessions",
+    "completionRate": "Completion Rate",
+    "alerts": "Alerts"
+  },
+  "patientMode": {
+    "exitPatientMode": "Exit Patient Mode",
+    "exit": "Exit",
+    "incorrectPin": "Incorrect PIN",
+    "verificationFailed": "Verification failed",
+    "pinPlaceholder": "PIN"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "loading": "Loading...",
+    "noData": "No data yet",
+    "confirm": "Confirm",
+    "close": "Close",
+    "offline": "Offline",
+    "lastSynced": "Last synced {time}",
+    "or": "or"
+  },
+  "error": {
+    "loginFailed": "Login failed",
+    "registrationFailed": "Registration failed",
+    "failedToCreatePatient": "Failed to create patient",
+    "requestFailed": "Request failed"
+  },
+  "lang": {
+    "en": "English",
+    "as": "Assamese",
+    "toggle": "Language"
+  }
 }

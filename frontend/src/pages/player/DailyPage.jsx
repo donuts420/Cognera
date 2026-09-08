@@ -3,6 +3,10 @@ import { useLocale } from '../../context/LocaleContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { api } from '../../lib/api.js';
 import { PageHead, Card, Skeleton } from '../../components/player/ui.jsx';
+import Icon from '../../components/Icon.jsx';
+
+const Plus = () => <Icon name="plus" size={26} />;
+const Minus = () => <Icon name="minus" size={26} />;
 
 export default function DailyPage() {
   const { t } = useLocale();
@@ -70,8 +74,8 @@ export default function DailyPage() {
               ))}
             </div>
             <div className="counter-row">
-              <button className="round-btn" onClick={() => bump('hydration', -1)} aria-label={t('common.cancel')}>−</button>
-              <button className="round-btn primary" onClick={() => bump('hydration', 1)} aria-label={t('player.daily.addGlass')}>+</button>
+              <button className="round-btn" onClick={() => bump('hydration', -1)} aria-label={t('common.cancel')}><Minus /></button>
+              <button className="round-btn primary" onClick={() => bump('hydration', 1)} aria-label={t('player.daily.addGlass')}><Plus /></button>
               <span style={{ color: 'var(--ink-muted)' }}>{t('player.daily.oneGlass')}</span>
             </div>
           </div>
@@ -82,15 +86,15 @@ export default function DailyPage() {
             <p className="cap">{t('player.daily.movementCap')}</p>
             <div className="counter-row" style={{ marginBottom: 20 }}>
               <span style={{ flex: 1, fontWeight: 600 }}>{t('player.daily.walk')}</span>
-              <button className="round-btn" onClick={() => bump('walk', -1)}>−</button>
+              <button className="round-btn" onClick={() => bump('walk', -1)} aria-label="minus"><Minus /></button>
               <span className="big" style={{ fontSize: 'var(--text-2xl)' }}>{daily.walk.value}</span>
-              <button className="round-btn primary" onClick={() => bump('walk', 1)}>+</button>
+              <button className="round-btn primary" onClick={() => bump('walk', 1)} aria-label="plus"><Plus /></button>
             </div>
             <div className="counter-row">
               <span style={{ flex: 1, fontWeight: 600 }}>{t('player.daily.meals')}</span>
-              <button className="round-btn" onClick={() => bump('meal', -1)}>−</button>
+              <button className="round-btn" onClick={() => bump('meal', -1)} aria-label="minus"><Minus /></button>
               <span className="big" style={{ fontSize: 'var(--text-2xl)' }}>{daily.meals.value}</span>
-              <button className="round-btn primary" onClick={() => bump('meal', 1)}>+</button>
+              <button className="round-btn primary" onClick={() => bump('meal', 1)} aria-label="plus"><Plus /></button>
             </div>
           </div>
 
@@ -109,7 +113,7 @@ export default function DailyPage() {
                     {m.dosage && <span>{m.dosage}</span>}
                   </div>
                   <button className={`taken-toggle ${m.taken ? 'on' : ''}`} onClick={() => setMed(m.reminderId, !m.taken)}>
-                    {m.taken ? `✓ ${t('reminder.acknowledged')}` : t('player.daily.markTaken')}
+                    {m.taken ? t('reminder.acknowledged') : t('player.daily.markTaken')}
                   </button>
                 </div>
               ))}
@@ -127,7 +131,7 @@ export default function DailyPage() {
               </form>
             ) : (
               <button className="btn btn-ghost" style={{ marginTop: 16 }} onClick={() => setAdding(true)}>
-                + {t('player.daily.addMedicine')}
+                <Icon name="plus" size={20} /> {t('player.daily.addMedicine')}
               </button>
             )}
           </div>

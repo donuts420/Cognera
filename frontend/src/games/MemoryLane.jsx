@@ -1,3 +1,4 @@
+import Icon from '../components/Icon.jsx';
 import React, { useEffect, useMemo, useState } from 'react';
 import { NER_OBJECTS, STORIES, shuffle, label } from './assets.js';
 
@@ -6,12 +7,12 @@ import { NER_OBJECTS, STORIES, shuffle, label } from './assets.js';
 export default function MemoryLane({ locale, t, speak, onComplete }) {
   const cards = useMemo(() => {
     const objs = shuffle(NER_OBJECTS).slice(0, 8).map((o) => ({
-      glyph: o.glyph,
+      icon: o.icon,
       title: label(o.label, locale),
       prompt: t('games.lane.doYouRemember'),
     }));
     const scenes = STORIES.flatMap((s) =>
-      s.panels.slice(0, 2).map((p) => ({ glyph: p.glyph, title: label(p.label, locale), prompt: t('games.lane.tellMe') }))
+      s.panels.slice(0, 2).map((p) => ({ icon: p.icon, title: label(p.label, locale), prompt: t('games.lane.tellMe') }))
     );
     return shuffle([...objs, ...scenes]);
   }, [locale]);
@@ -25,7 +26,9 @@ export default function MemoryLane({ locale, t, speak, onComplete }) {
 
   return (
     <div className="flex flex-col items-center gap-md">
-      <div style={{ fontSize: 'clamp(90px, 26vw, 220px)', lineHeight: 1 }}>{card.glyph}</div>
+      <div style={{ width: 'clamp(120px, 30vw, 240px)', height: 'clamp(120px, 30vw, 240px)', color: 'var(--brand)' }}>
+        <Icon name={card.icon} size="100%" />
+      </div>
       <div className="game-prompt">{card.title}</div>
       <p className="game-subprompt">{card.prompt}</p>
       <div className="flex gap-sm" style={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -34,14 +37,14 @@ export default function MemoryLane({ locale, t, speak, onComplete }) {
           onClick={() => setIdx((i) => Math.max(0, i - 1))}
           disabled={idx === 0}
         >
-          ← {t('games.lane.previous')}
+          <Icon name="arrow-left" size={22} /> {t('games.lane.previous')}
         </button>
         <button className="btn btn-ghost btn-lg" onClick={() => speak(card.title)}>
-          🔊 {t('games.lane.sayAgain')}
+          <Icon name="sound-on" size={22} /> {t('games.lane.sayAgain')}
         </button>
         {idx + 1 < cards.length ? (
           <button className="btn btn-primary btn-lg" onClick={() => setIdx((i) => i + 1)}>
-            {t('games.lane.next')} →
+            {t('games.lane.next')} <Icon name="arrow-right" size={22} />
           </button>
         ) : (
           <button className="btn btn-primary btn-lg" onClick={() => onComplete({ completed: true })}>

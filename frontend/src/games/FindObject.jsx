@@ -1,3 +1,4 @@
+import Icon from '../components/Icon.jsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { NER_OBJECTS, pick, shuffle, label } from './assets.js';
 
@@ -71,7 +72,7 @@ export default function FindObject({ level, t, locale, speak, onTrial, onProgres
             onClick={() => handleTap(obj)}
             aria-label={label(obj.label, locale)}
           >
-            {obj.glyph}
+            <Icon name={obj.icon} />
           </button>
         ))}
       </div>

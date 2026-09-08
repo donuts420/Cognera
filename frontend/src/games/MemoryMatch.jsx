@@ -1,3 +1,4 @@
+import Icon from '../components/Icon.jsx';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { NER_OBJECTS, pick, shuffle, label } from './assets.js';
 
@@ -105,7 +106,7 @@ export default function MemoryMatch({ levelConfig, locale, t, speak, onTrial, on
               onClick={() => handleCard(idx)}
               aria-label={show ? label(card.obj.label, locale) : t('games.match.faceDown')}
             >
-              {show ? card.obj.glyph : ''}
+              {show ? <Icon name={card.obj.icon} /> : ''}
             </button>
           );
         })}
