@@ -40,10 +40,7 @@ services:
     staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          name: cognera-api
-          type: web
-          property: host
+        value: https://cognera-backend.onrender.com
       - key: VITE_GOOGLE_CLIENT_ID
         fromService:
           name: cognera-api
