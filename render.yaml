@@ -40,7 +40,7 @@ services:
     staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
-        value: https://cognera-backend.onrender.com
+        value: https://cognera-api-kh4a.onrender.com
       - key: VITE_GOOGLE_CLIENT_ID
         fromService:
           name: cognera-api
