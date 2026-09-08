@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useLocale } from '../context/LocaleContext.jsx';
+import GoogleButton, { GOOGLE_ENABLED } from '../components/GoogleButton.jsx';
 
 export default function LoginPage() {
   const { login, googleLogin } = useAuth();
@@ -11,37 +12,18 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const googleBtnRef = useRef(null);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (window.google?.accounts?.id && googleBtnRef.current) {
-        clearInterval(interval);
-        window.google.accounts.id.initialize({
-          client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID || '',
-          callback: async (response) => {
-            setError('');
-            setLoading(true);
-            try {
-              await googleLogin(response.credential);
-              navigate('/');
-            } catch (err) {
-              setError(err.data?.error?.message || t('error.loginFailed'));
-            } finally {
-              setLoading(false);
-            }
-          },
-        });
-        window.google.accounts.id.renderButton(googleBtnRef.current, {
-          theme: 'outline',
-          size: 'large',
-          width: 320,
-          text: 'continue_with',
-          shape: 'rectangular',
-        });
-      }
-    }, 100);
-    return () => clearInterval(interval);
+  const handleGoogle = useCallback(async (credential) => {
+    setError('');
+    setLoading(true);
+    try {
+      await googleLogin(credential);
+      navigate('/');
+    } catch (err) {
+      setError(err.data?.error?.message || t('error.loginFailed'));
+    } finally {
+      setLoading(false);
+    }
   }, [googleLogin, navigate, t]);
 
   const handleSubmit = async (e) => {
@@ -82,6 +64,13 @@ export default function LoginPage() {
           <h1>{t('auth.welcomeBack')}</h1>
           <p className="lede">{t('auth.loginLede')}</p>
 
+          {GOOGLE_ENABLED && (
+            <>
+              <GoogleButton onCredential={handleGoogle} />
+              <div className="divider">{t('common.or')}</div>
+            </>
+          )}
+
           <form onSubmit={handleSubmit}>
             <div className="field">
               <label htmlFor="identifier">{t('auth.identifier')}</label>
@@ -98,15 +87,6 @@ export default function LoginPage() {
               {loading ? t('common.loading') : t('auth.login')}
             </button>
           </form>
-
-          {import.meta.env.VITE_GOOGLE_CLIENT_ID && (
-            <>
-              <div className="divider">{t('common.or')}</div>
-              <div className="google-btn-wrap">
-                <div ref={googleBtnRef} />
-              </div>
-            </>
-          )}
 
           <div className="foot">
             <p>{t('auth.noAccount')} <Link to="/register">{t('auth.register')}</Link></p>

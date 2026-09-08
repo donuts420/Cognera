@@ -204,9 +204,13 @@ router.post('/google', loginLimiter, async (req, res) => {
       return res.status(401).json({ error: { code: 'invalid_credentials', message: 'Invalid Google token' } });
     }
     const payload = await ticketRes.json();
-    const { email, name, sub: googleId } = payload;
-    if (!email) {
-      return res.status(401).json({ error: { code: 'invalid_credentials', message: 'No email in Google token' } });
+    const { email, name, sub: googleId, aud, email_verified } = payload;
+    // When a client id is configured, require the token to have been minted for it.
+    if (config.googleClientId && aud !== config.googleClientId) {
+      return res.status(401).json({ error: { code: 'invalid_credentials', message: 'Google token audience mismatch' } });
+    }
+    if (!email || email_verified === 'false' || email_verified === false) {
+      return res.status(401).json({ error: { code: 'invalid_credentials', message: 'Google account email not verified' } });
     }
     let { rows } = await query(
       `SELECT id, phone, email, full_name, role, preferred_locale, is_active FROM users WHERE email = $1`,
