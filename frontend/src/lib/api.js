@@ -1,4 +1,5 @@
-const BASE = import.meta.env.VITE_API_URL || '/api';
+const remote = import.meta.env.VITE_API_URL;
+const BASE = remote ? `${remote}/api` : '/api';
 
 async function request(method, path, body) {
   const token = localStorage.getItem('accessToken');
@@ -42,5 +43,5 @@ export const api = {
   get: (path) => request('GET', path),
   post: (path, body) => request('POST', path, body),
   patch: (path, body) => request('PATCH', path, body),
-  delete: (path) => request('DELETE', path),
+  delete: (path, body) => request('DELETE', path, body),
 };
