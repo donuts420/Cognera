@@ -17,7 +17,7 @@ import MemoryLane from './MemoryLane.jsx';
 export const GAMES = {
   'chimp-test': {
     Component: ChimpTest,
-    meta: { icon: 'brain', instruction: 'games.chimp.intro', supportsVoice: true, rounds: 5 },
+    meta: { icon: 'brain', instruction: 'games.chimp.intro', supportsVoice: true, endless: true },
   },
   'memory-match': {
     Component: MemoryMatch,
@@ -25,11 +25,11 @@ export const GAMES = {
   },
   'sequence-memory': {
     Component: SequenceMemory,
-    meta: { icon: 'music-notes', instruction: 'games.sequence.intro', supportsVoice: true, rounds: 6 },
+    meta: { icon: 'music-notes', instruction: 'games.sequence.intro', supportsVoice: true, endless: true },
   },
   'number-memory': {
     Component: NumberMemory,
-    meta: { icon: 'calculator', instruction: 'games.number.intro', supportsVoice: true, rounds: 5 },
+    meta: { icon: 'calculator', instruction: 'games.number.intro', supportsVoice: true, endless: true },
   },
   'reaction-time': {
     Component: ReactionTime,

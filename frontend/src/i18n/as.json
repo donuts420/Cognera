@@ -309,7 +309,9 @@
       "next": "পিছৰটো",
       "sayAgain": "আকৌ কওক",
       "counter": "{b} ৰ ভিতৰত {a}"
-    }
+    },
+    "roundN": "ৰাউণ্ড {n}",
+    "reachedSpan": "আপুনি {n} লৈ পালে। বৰ ভাল!"
   },
   "reminder": {
     "medicine": "ওষুধ",

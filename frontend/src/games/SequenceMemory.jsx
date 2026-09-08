@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { SEQUENCE_PADS, label } from './assets.js';
 import { tone } from './sound.js';
 
-export default function SequenceMemory({ levelConfig, locale, t, speak, onTrial, onProgress, onFeedback, onComplete }) {
-  const maxLen = (levelConfig.span || 2) + 4;
+export default function SequenceMemory({ levelConfig, locale, t, speak, onTrial, onFeedback, onComplete }) {
+  const startLen = levelConfig.span || 2;
   const [seq, setSeq] = useState([]);
   const [lit, setLit] = useState(-1);
   const [phase, setPhase] = useState('watch'); // watch | repeat
@@ -13,6 +13,7 @@ export default function SequenceMemory({ levelConfig, locale, t, speak, onTrial,
   const startedRef = useRef(false);
 
   const playSequence = (fullSeq) => {
+    onFeedback('');
     setPhase('watch');
     setPos(0);
     let i = 0;
@@ -36,10 +37,12 @@ export default function SequenceMemory({ levelConfig, locale, t, speak, onTrial,
   };
 
   const nextRound = (prevSeq) => {
-    const added = [...prevSeq, Math.floor(Math.random() * SEQUENCE_PADS.length)];
-    setSeq(added);
-    onProgress({ current: added.length - 1, total: maxLen });
-    playSequence(added);
+    // seed the first round at the adaptive starting length
+    const seed = prevSeq.length === 0
+      ? Array.from({ length: startLen }, () => Math.floor(Math.random() * SEQUENCE_PADS.length))
+      : [...prevSeq, Math.floor(Math.random() * SEQUENCE_PADS.length)];
+    setSeq(seed);
+    playSequence(seed);
   };
 
   useEffect(() => {
@@ -52,13 +55,9 @@ export default function SequenceMemory({ levelConfig, locale, t, speak, onTrial,
     if (success) {
       best.current = Math.max(best.current, seq.length);
       onFeedback(t('games.sequence.good'));
-      if (seq.length >= maxLen) {
-        setTimeout(() => onComplete({ maxSpan: best.current, completed: true, rawScore: best.current }), 900);
-      } else {
-        setTimeout(() => nextRound(seq), 900);
-      }
+      setTimeout(() => nextRound(seq), 900); // endless — grows until the first slip
     } else {
-      onFeedback(t('games.calmTryNext'));
+      onFeedback(best.current >= startLen ? t('games.reachedSpan', { n: best.current }) : t('games.calmOkay'));
       setTimeout(() => onComplete({ maxSpan: best.current, completed: true, rawScore: best.current }), 1200);
     }
   };
@@ -89,6 +88,7 @@ export default function SequenceMemory({ levelConfig, locale, t, speak, onTrial,
 
   return (
     <div>
+      <p className="game-round">{t('games.roundN', { n: Math.max(1, seq.length - startLen + 1) })}</p>
       <div className="game-prompt">
         {phase === 'watch' ? t('games.sequence.watch') : t('games.sequence.yourTurn')}
       </div>

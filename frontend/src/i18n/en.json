@@ -309,7 +309,9 @@
       "next": "Next",
       "sayAgain": "Say again",
       "counter": "{a} of {b}"
-    }
+    },
+    "roundN": "Round {n}",
+    "reachedSpan": "You reached {n}. Well done!"
   },
   "reminder": {
     "medicine": "Medicine",

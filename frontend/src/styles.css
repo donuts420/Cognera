@@ -408,6 +408,34 @@ a:hover { text-decoration: underline; }
   width: min(92vw, 720px);
 }
 
+/* endless-game round / span caption above the prompt */
+.game-round {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+/* Chimp Test scatter board — compact, square-ish, empty cells hold space
+   without the .tile min-height so the grid never looks sparse/broken. */
+.chimp-grid { gap: clamp(8px, 1.6vw, 14px); }
+.chimp-grid .tile {
+  min-height: 0;
+  border-width: 2px;
+  border-radius: 16px;
+  font-size: clamp(22px, 4.5vw, 40px);
+}
+.chimp-empty { aspect-ratio: 1 / 1; }
+/* the chimp prompt is short — keep it to one tidy line and small */
+.chimp-grid { margin-top: 4px; }
+.game-stage:has(.chimp-grid) .game-prompt {
+  font-size: clamp(20px, 2.6vw, 30px);
+  max-width: 30ch;
+  margin-bottom: var(--gap-md);
+}
+
 .tile {
   aspect-ratio: 1 / 1;
   min-width: 64px;

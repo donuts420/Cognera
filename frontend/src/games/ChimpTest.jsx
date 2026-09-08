@@ -1,34 +1,42 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { shuffle } from './assets.js';
 
-const MAX_ROUNDS = 5;
-const GRID_COLS = 4;
-
+/**
+ * Endless span game. Start at the adaptive span, +1 each time the board is
+ * cleared in order, and it keeps going until the first mistake — which ends the
+ * session warmly with the highest span completed.
+ */
 function buildBoard(span) {
-  const rows = Math.max(2, Math.ceil((span + 2) / GRID_COLS) + 1);
-  const total = rows * GRID_COLS;
+  // a little breathing room, but kept wide-and-short so the board never
+  // needs to scroll (≈3 rows even at high spans).
+  const cellCount = span + Math.ceil(span * 0.4) + 2;
+  const cols = Math.min(7, Math.max(4, Math.round(Math.sqrt(cellCount * 1.9))));
+  const rows = Math.max(2, Math.ceil(cellCount / cols));
+  const total = cols * rows;
   const positions = shuffle(Array.from({ length: total }, (_, i) => i)).slice(0, span);
   const cells = Array(total).fill(null);
   positions.forEach((pos, i) => { cells[pos] = i + 1; });
-  return { cells, cols: GRID_COLS, rows };
+  return { cells, cols };
 }
 
 export default function ChimpTest({ levelConfig, t, speak, onTrial, onProgress, onFeedback, onComplete }) {
-  const [span, setSpan] = useState(levelConfig.span || 2);
-  const [round, setRound] = useState(0);
-  const [board, setBoard] = useState(() => buildBoard(levelConfig.span || 2));
+  const startSpan = levelConfig.span || 2;
+  const [span, setSpan] = useState(startSpan);
+  const [round, setRound] = useState(1);
+  const [board, setBoard] = useState(() => buildBoard(startSpan));
   const [studying, setStudying] = useState(true);
   const [next, setNext] = useState(1);
-  const [done, setDone] = useState([]); // positions correctly tapped
+  const [done, setDone] = useState([]);
   const [ended, setEnded] = useState(false);
 
   const studyStart = useRef(Date.now());
   const lastTap = useRef(0);
   const bestSpan = useRef(0);
 
-  useEffect(() => { onProgress({ current: round, total: MAX_ROUNDS }); }, [round]); // eslint-disable-line
+  useEffect(() => { speak(t('games.chimp.study')); }, []); // eslint-disable-line
 
   const startRound = (nextSpan) => {
+    onFeedback('');
     setSpan(nextSpan);
     setBoard(buildBoard(nextSpan));
     setStudying(true);
@@ -39,83 +47,73 @@ export default function ChimpTest({ levelConfig, t, speak, onTrial, onProgress, 
     speak(t('games.chimp.study'));
   };
 
-  const endRound = (success) => {
-    if (ended) return;
-    setEnded(true);
-    if (success) {
-      bestSpan.current = Math.max(bestSpan.current, span);
-      onFeedback(t('games.chimp.nice'));
-    } else {
-      onFeedback(t('games.calmTryNext'));
-    }
-    const nextRoundNum = round + 1;
-    setTimeout(() => {
-      if (nextRoundNum >= MAX_ROUNDS) {
-        onComplete({ maxSpan: bestSpan.current, completed: true, rawScore: bestSpan.current });
-      } else {
-        setRound(nextRoundNum);
-        startRound(success ? span + 1 : Math.max(2, span - 1));
-      }
-    }, 1200);
+  const finish = () => {
+    onFeedback(bestSpan.current >= startSpan ? t('games.reachedSpan', { n: bestSpan.current }) : t('games.calmOkay'));
+    setTimeout(() => onComplete({ maxSpan: bestSpan.current, completed: true, rawScore: bestSpan.current }), 1200);
   };
 
   const handleCell = (pos) => {
     const value = board.cells[pos];
     if (studying) {
-      if (value !== 1) return; // must start with 1
-      const viewMs = Date.now() - studyStart.current;
-      onTrial({ kind: 'view', correct: true, latency_ms: viewMs, payload: { span } });
+      if (value !== 1) return;
+      onTrial({ kind: 'view', correct: true, latency_ms: Date.now() - studyStart.current, payload: { span } });
       setStudying(false);
       lastTap.current = Date.now();
-      // fall through to treat this tap as selecting "1"
     }
     if (done.includes(pos) || ended) return;
-    const expectedValue = next;
+    const expected = next;
     const now = Date.now();
     const latency = lastTap.current ? now - lastTap.current : null;
     lastTap.current = now;
-    const correct = value === expectedValue;
-    onTrial({ kind: 'select', correct, latency_ms: latency, payload: { span, expected: expectedValue, got: value } });
+    const correct = value === expected;
+    onTrial({ kind: 'select', correct, latency_ms: latency, payload: { span, expected, got: value } });
+
     if (!correct) {
-      endRound(false);
+      setEnded(true);
+      finish();
       return;
     }
     const newDone = [...done, pos];
     setDone(newDone);
-    if (expectedValue >= span) {
-      endRound(true);
+    if (expected >= span) {
+      // board cleared — grow and continue
+      setEnded(true);
+      bestSpan.current = Math.max(bestSpan.current, span);
+      onFeedback(t('games.chimp.nice'));
+      const nextRound = round + 1;
+      setTimeout(() => { setRound(nextRound); startRound(span + 1); }, 1000);
     } else {
-      setNext(expectedValue + 1);
+      setNext(expected + 1);
     }
   };
 
   return (
     <div>
+      <p className="game-round">{t('games.roundN', { n: round })}</p>
       <div className="game-prompt">
         {studying ? t('games.chimp.study') : t('games.chimp.recall')}
       </div>
       <div
-        className="game-grid"
-        style={{ gridTemplateColumns: `repeat(${board.cols}, 1fr)`, maxWidth: 640 }}
+        className="game-grid chimp-grid"
+        style={{ gridTemplateColumns: `repeat(${board.cols}, 1fr)`, maxWidth: Math.min(560, board.cols * 90) }}
       >
         {board.cells.map((value, pos) => {
-          if (value == null) return <div key={pos} style={{ visibility: 'hidden' }} className="tile" />;
-          const revealed = studying;
+          if (value == null) return <span key={pos} className="chimp-empty" aria-hidden />;
           const isDone = done.includes(pos);
           return (
             <button
               key={pos}
-              className={`tile ${isDone ? 'correct' : revealed ? 'revealed' : 'hidden-tile'}`}
+              className={`tile ${isDone ? 'correct' : studying ? 'revealed' : 'hidden-tile'}`}
               onClick={() => handleCell(pos)}
-              aria-label={revealed ? String(value) : t('games.chimp.hiddenTile')}
+              aria-label={studying ? String(value) : t('games.chimp.hiddenTile')}
             >
-              {revealed ? value : ''}
+              {studying ? value : ''}
             </button>
           );
         })}
       </div>
       {studying && (
-        <p className="game-subprompt" style={{ marginTop: 24 }}>{t('games.chimp.tapOneToStart')}</p>
+        <p className="game-subprompt" style={{ marginTop: 20 }}>{t('games.chimp.tapOneToStart')}</p>
       )}
     </div>
   );
