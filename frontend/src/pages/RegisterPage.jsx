@@ -60,45 +60,71 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="layout-patient flex items-center justify-center auth-page">
-      <div className="card auth-card">
-        <h1 className="text-center" style={{ fontSize: 'var(--text-xl)', marginBottom: 'var(--gap-md)' }}>{t('auth.register')}</h1>
-        {import.meta.env.VITE_GOOGLE_CLIENT_ID && (
-          <>
-            <div className="google-btn-wrap mb-md">
-              <div ref={googleBtnRef} />
+    <div className="auth-split">
+      <div className="auth-left">
+        <span className="arc" aria-hidden />
+        <div className="wordmark">{t('app.name')}</div>
+        <div>
+          <h2>{t('auth.left.titleNew')}</h2>
+          <ul>
+            <li>{t('auth.left.p1')}</li>
+            <li>{t('auth.left.p2')}</li>
+            <li>{t('auth.left.p3')}</li>
+          </ul>
+        </div>
+        <p className="quote">
+          {t('auth.left.quote')}
+          <span>{t('auth.left.quoteBy')}</span>
+        </p>
+      </div>
+
+      <div className="auth-right">
+        <div className="auth-form">
+          <h1>{t('auth.register')}</h1>
+          <p className="lede">{t('auth.registerLede')}</p>
+
+          <form onSubmit={handleSubmit}>
+            <div className="field">
+              <label>{t('auth.fullName')}</label>
+              <input className="input" type="text" value={form.full_name} onChange={update('full_name')} required />
             </div>
-            <div className="divider"><span className="text-sm text-muted">{t('common.or')}</span></div>
-          </>
-        )}
-        <form onSubmit={handleSubmit}>
-          <div className="input-group mb-md">
-            <label>{t('auth.fullName')}</label>
-            <input className="input" type="text" value={form.full_name} onChange={update('full_name')} required />
+            <div className="field">
+              <label>{t('auth.identifier')}</label>
+              <input className="input" type="text" value={form.phone || form.email}
+                onChange={(e) => setForm({ ...form, phone: e.target.value, email: '' })} required />
+            </div>
+            <div className="field">
+              <label>{t('auth.password')}</label>
+              <input className="input" type="password" value={form.password} onChange={update('password')} required minLength={8} />
+            </div>
+            <div className="field">
+              <label>{t('auth.role')}</label>
+              <select className="input" value={form.role} onChange={update('role')}>
+                <option value="caregiver">{t('auth.caregiver')}</option>
+                <option value="health_worker">{t('auth.healthWorker')}</option>
+              </select>
+            </div>
+            {error && <p className="err">{error}</p>}
+            <button className="btn btn-primary btn-block" type="submit" disabled={loading}>
+              {loading ? t('common.loading') : t('auth.register')}
+            </button>
+          </form>
+
+          {import.meta.env.VITE_GOOGLE_CLIENT_ID && (
+            <>
+              <div className="divider">{t('common.or')}</div>
+              <div className="google-btn-wrap">
+                <div ref={googleBtnRef} />
+              </div>
+            </>
+          )}
+
+          <div className="foot">
+            <p>{t('auth.hasAccount')} <Link to="/login">{t('auth.login')}</Link></p>
+            <button className="text-link" onClick={() => setLocale(locale === 'en' ? 'as' : 'en')}>
+              {locale === 'en' ? t('lang.as') : t('lang.en')}
+            </button>
           </div>
-          <div className="input-group mb-md">
-            <label>{t('auth.identifier')}</label>
-            <input className="input" type="text" value={form.phone || form.email} onChange={(e) => setForm({ ...form, phone: e.target.value, email: '' })} required />
-          </div>
-          <div className="input-group mb-md">
-            <label>{t('auth.password')}</label>
-            <input className="input" type="password" value={form.password} onChange={update('password')} required minLength={8} />
-          </div>
-          <div className="input-group mb-md">
-            <label>{t('auth.role')}</label>
-            <select className="input" value={form.role} onChange={update('role')}>
-              <option value="caregiver">{t('auth.caregiver')}</option>
-              <option value="health_worker">{t('auth.healthWorker')}</option>
-            </select>
-          </div>
-          {error && <p style={{ color: 'var(--danger)', marginBottom: 'var(--gap-md)' }}>{error}</p>}
-          <button className="btn btn-primary btn-block" type="submit" disabled={loading}>{loading ? t('common.loading') : t('auth.register')}</button>
-        </form>
-        <div className="auth-footer">
-          <p className="text-sm">{t('auth.hasAccount')} <Link to="/login">{t('auth.login')}</Link></p>
-          <button onClick={() => setLocale(locale === 'en' ? 'as' : 'en')} className="btn btn-ghost" style={{ minHeight: 36, fontSize: '14px', padding: '4px 16px' }}>
-            {locale === 'en' ? t('lang.as') : t('lang.en')}
-          </button>
         </div>
       </div>
     </div>

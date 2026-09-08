@@ -46,7 +46,7 @@ export default function CaseloadPage() {
           <tbody>
             {filtered.map((p) => (
               <tr key={p.id} style={{ borderBottom: '1px solid var(--border)' }}>
-                <td style={{ padding: '12px 8px' }}><Link to={`/patients/${p.id}`} style={{ fontWeight: 600 }}>{p.display_name}</Link></td>
+                <td style={{ padding: '12px 8px' }}><Link to={`/care/patients/${p.id}`} style={{ fontWeight: 600 }}>{p.display_name}</Link></td>
                 <td style={{ padding: '12px 8px', color: 'var(--text-muted)' }}>{p.village}</td>
                 <td style={{ padding: '12px 8px', textAlign: 'right', fontWeight: 600 }}>{p.cwi ?? '—'}</td>
                 <td style={{ padding: '12px 8px', textAlign: 'center' }}>

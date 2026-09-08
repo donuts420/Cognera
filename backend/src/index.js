@@ -6,6 +6,7 @@ import config from './config.js';
 import authRoutes from './routes/auth.js';
 import patientRoutes from './routes/patients.js';
 import gameRoutes from './routes/games.js';
+import progressRoutes from './routes/progress.js';
 import reminderRoutes from './routes/reminders.js';
 import assessmentRoutes from './routes/assessments.js';
 import analyticsRoutes from './routes/analytics.js';
@@ -52,6 +53,7 @@ app.get('/api/health', (_req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api', gameRoutes);
+app.use('/api', progressRoutes);
 app.use('/api', reminderRoutes);
 app.use('/api', assessmentRoutes);
 app.use('/api', analyticsRoutes);

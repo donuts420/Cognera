@@ -18,16 +18,16 @@ export default function PatientDetailPage() {
 
   return (
     <div>
-      <Link to="/patients" className="text-sm text-muted" style={{ display: 'inline-block', marginBottom: 'var(--gap-md)' }}>&larr; {t('common.back')}</Link>
+      <Link to="/care/patients" className="text-sm text-muted" style={{ display: 'inline-block', marginBottom: 'var(--gap-md)' }}>&larr; {t('common.back')}</Link>
       <div className="flex justify-between items-center mb-lg">
         <div>
           <h1 style={{ fontSize: 'var(--text-2xl)' }}>{patient.display_name}</h1>
           <p className="text-muted">{patient.village || patient.district} · {patient.dementia_stage} · {patient.preferred_locale}</p>
         </div>
         <div className="flex gap-sm">
-          <Link to={`/patients/${id}/games`} className="btn btn-primary">{t('nav.games')}</Link>
-          <Link to={`/patients/${id}/reminders`} className="btn btn-accent">{t('nav.reminders')}</Link>
-          <Link to={`/patients/${id}/assessments`} className="btn btn-ghost">{t('nav.assessments')}</Link>
+          <Link to={`/care/patients/${id}/games`} className="btn btn-primary">{t('nav.games')}</Link>
+          <Link to={`/care/patients/${id}/reminders`} className="btn btn-accent">{t('nav.reminders')}</Link>
+          <Link to={`/care/patients/${id}/assessments`} className="btn btn-ghost">{t('nav.assessments')}</Link>
         </div>
       </div>
       {overview && (

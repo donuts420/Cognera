@@ -279,10 +279,10 @@ a:hover { text-decoration: underline; }
   font-size: var(--text-sm);
   font-weight: 500;
 }
-.badge-success { background: #E8F5E9; color: var(--success); }
-.badge-warning { background: #FFF8E1; color: var(--warning); }
-.badge-danger { background: #FFEBEE; color: var(--danger); }
-.badge-info { background: #E0F2F1; color: var(--accent); }
+.badge-success { background: var(--success-subtle); color: var(--success); }
+.badge-warning { background: var(--caution-subtle); color: var(--caution); }
+.badge-danger { background: var(--crisis-subtle); color: var(--crisis); }
+.badge-info { background: var(--brand-subtle); color: var(--brand-subtle-ink); }
 
 /* ============================================================
    Cognera game harness + game boards
@@ -310,8 +310,10 @@ a:hover { text-decoration: underline; }
 }
 
 .game-topbar h2 {
+  font-family: var(--font-display);
   font-size: var(--text-lg);
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .game-progress {
@@ -365,11 +367,14 @@ a:hover { text-decoration: underline; }
 }
 
 .game-prompt {
+  font-family: var(--font-display);
   font-size: clamp(24px, 3.4vw, 40px);
-  font-weight: 700;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   max-width: 20ch;
   margin-bottom: var(--gap-lg);
-  line-height: 1.3;
+  line-height: 1.25;
+  color: var(--ink);
 }
 
 .game-subprompt {
@@ -404,10 +409,10 @@ a:hover { text-decoration: underline; }
   transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
 }
 .tile:active { transform: scale(0.96); }
-.tile.hidden-tile { background: var(--surface-alt); color: transparent; }
-.tile.selected { border-color: var(--primary); background: #F6EEE2; }
-.tile.correct { border-color: var(--success); background: #E8F5E9; }
-.tile.revealed { border-color: var(--accent); background: var(--surface); }
+.tile.hidden-tile { background: var(--surface-sunken); color: transparent; }
+.tile.selected { border-color: var(--accent); background: var(--accent-subtle); }
+.tile.correct { border-color: var(--success); background: var(--success-subtle); }
+.tile.revealed { border-color: var(--brand); background: var(--surface); }
 .tile.dim { opacity: .35; }
 
 .choice-row {
@@ -438,8 +443,8 @@ a:hover { text-decoration: underline; }
 }
 .choice .glyph { font-size: clamp(40px, 9vw, 72px); line-height: 1; }
 .choice:active { transform: scale(0.97); }
-.choice.selected { border-color: var(--primary); background: #F6EEE2; }
-.choice.correct { border-color: var(--success); background: #E8F5E9; }
+.choice.selected { border-color: var(--accent); background: var(--accent-subtle); }
+.choice.correct { border-color: var(--success); background: var(--success-subtle); }
 
 .game-bignum {
   font-size: clamp(72px, 20vw, 200px);
@@ -460,9 +465,9 @@ a:hover { text-decoration: underline; }
   cursor: pointer;
   transition: background 80ms linear;
 }
-.rt-target.wait { background: #7c6f64; }
+.rt-target.wait { background: var(--brand); }
 .rt-target.go { background: var(--success); }
-.rt-target.early { background: var(--warning); }
+.rt-target.early { background: var(--caution); }
 
 .game-feedback {
   font-size: var(--text-xl);
@@ -495,7 +500,7 @@ a:hover { text-decoration: underline; }
   gap: var(--gap-md);
   align-items: center;
 }
-.game-panel h2 { font-size: var(--text-2xl); }
+.game-panel h2 { font-family: var(--font-display); font-weight: 500; font-size: var(--text-2xl); letter-spacing: -0.01em; }
 .game-panel p { font-size: var(--text-lg); color: var(--text-muted); }
 
 .seq-pad {
@@ -539,7 +544,7 @@ a:hover { text-decoration: underline; }
   min-height: 64px;
 }
 .scene-item:active { transform: scale(0.94); }
-.scene-item.found { background: #E8F5E9; outline: 3px solid var(--success); }
+.scene-item.found { background: var(--success-subtle); outline: 3px solid var(--success); }
 
 .order-list {
   display: flex;
@@ -568,8 +573,8 @@ a:hover { text-decoration: underline; }
   display: flex; align-items: center; justify-content: center;
   font-weight: 700;
 }
-.order-item.placed { border-color: var(--primary); background: #F6EEE2; }
-.order-item.placed .slot-num { background: var(--primary); color: #fff; }
+.order-item.placed { border-color: var(--accent); background: var(--accent-subtle); }
+.order-item.placed .slot-num { background: var(--accent); color: var(--accent-fg); }
 
 .game-lib-group { margin-bottom: var(--gap-lg); }
 .game-lib-group h3 {

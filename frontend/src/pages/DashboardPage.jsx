@@ -24,7 +24,7 @@ export default function DashboardPage() {
           ) : (
             <div className="flex flex-col gap-sm">
               {patients.map((p) => (
-                <Link key={p.id} to={`/patients/${p.id}`} className="card" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link key={p.id} to={`/care/patients/${p.id}`} className="card" style={{ textDecoration: 'none', color: 'inherit' }}>
                   <div className="flex justify-between items-center">
                     <div>
                       <div style={{ fontWeight: 600 }}>{p.display_name}</div>

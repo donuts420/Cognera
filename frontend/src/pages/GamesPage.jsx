@@ -1,38 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { api } from '../lib/api.js';
 import { useLocale } from '../context/LocaleContext.jsx';
-import { usePatient } from '../context/PatientContext.jsx';
 import { GAMES, groupByDomain } from '../games/registry.js';
 
 export default function GamesPage() {
   const { id } = useParams();
   const { t } = useLocale();
-  const { enterPatientMode } = usePatient();
-  const navigate = useNavigate();
   const [games, setGames] = useState([]);
-  const [patient, setPatient] = useState(null);
 
   useEffect(() => {
     api.get(`/patients/${id}/game-state`).then(setGames).catch(() => {});
-    api.get(`/patients/${id}`).then(setPatient).catch(() => {});
   }, [id]);
-
-  const launch = () => {
-    enterPatientMode(patient || { id, display_name: '' });
-    navigate('/play');
-  };
 
   const groups = groupByDomain(games);
 
   return (
     <div>
-      <Link to={`/patients/${id}`} className="text-sm text-muted" style={{ display: 'inline-block', marginBottom: 'var(--gap-md)' }}>
+      <Link to={`/care/patients/${id}`} className="text-sm text-muted" style={{ display: 'inline-block', marginBottom: 'var(--gap-md)' }}>
         &larr; {t('common.back')}
       </Link>
       <div className="flex justify-between items-center mb-lg">
         <h1 style={{ fontSize: 'var(--text-2xl)' }}>{t('nav.games')}</h1>
-        <button className="btn btn-primary" onClick={launch}>{t('games.openPatientMode')}</button>
       </div>
 
       {groups.map(({ domain, games: rows }) => (

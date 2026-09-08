@@ -59,38 +59,61 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="layout-patient flex items-center justify-center auth-page">
-      <div className="card auth-card">
-        <div className="text-center mb-md">
-          <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--primary)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: '28px', marginBottom: 'var(--gap-sm)' }}>C</div>
-          <h1 style={{ fontSize: 'var(--text-xl)' }}>{t('app.name')}</h1>
-          <p className="text-muted text-sm">{t('app.tagline')}</p>
+    <div className="auth-split">
+      <div className="auth-left">
+        <span className="arc" aria-hidden />
+        <div className="wordmark">{t('app.name')}</div>
+        <div>
+          <h2>{t('auth.left.title')}</h2>
+          <ul>
+            <li>{t('auth.left.p1')}</li>
+            <li>{t('auth.left.p2')}</li>
+            <li>{t('auth.left.p3')}</li>
+          </ul>
         </div>
-        {import.meta.env.VITE_GOOGLE_CLIENT_ID && (
-          <>
-            <div className="google-btn-wrap mb-md">
-              <div ref={googleBtnRef} />
+        <p className="quote">
+          {t('auth.left.quote')}
+          <span>{t('auth.left.quoteBy')}</span>
+        </p>
+      </div>
+
+      <div className="auth-right">
+        <div className="auth-form">
+          <h1>{t('auth.welcomeBack')}</h1>
+          <p className="lede">{t('auth.loginLede')}</p>
+
+          <form onSubmit={handleSubmit}>
+            <div className="field">
+              <label htmlFor="identifier">{t('auth.identifier')}</label>
+              <input id="identifier" className="input" type="text" value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)} required />
             </div>
-            <div className="divider"><span className="text-sm text-muted">{t('common.or')}</span></div>
-          </>
-        )}
-        <form onSubmit={handleSubmit}>
-          <div className="input-group mb-md">
-            <label htmlFor="identifier">{t('auth.identifier')}</label>
-            <input id="identifier" className="input" type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} required />
+            <div className="field">
+              <label htmlFor="password">{t('auth.password')}</label>
+              <input id="password" className="input" type="password" value={password}
+                onChange={(e) => setPassword(e.target.value)} required />
+            </div>
+            {error && <p className="err">{error}</p>}
+            <button className="btn btn-primary btn-block" type="submit" disabled={loading}>
+              {loading ? t('common.loading') : t('auth.login')}
+            </button>
+          </form>
+
+          {import.meta.env.VITE_GOOGLE_CLIENT_ID && (
+            <>
+              <div className="divider">{t('common.or')}</div>
+              <div className="google-btn-wrap">
+                <div ref={googleBtnRef} />
+              </div>
+            </>
+          )}
+
+          <div className="foot">
+            <p>{t('auth.noAccount')} <Link to="/register">{t('auth.register')}</Link></p>
+            <button className="text-link" onClick={() => setLocale(locale === 'en' ? 'as' : 'en')}>
+              {locale === 'en' ? t('lang.as') : t('lang.en')}
+            </button>
           </div>
-          <div className="input-group mb-md">
-            <label htmlFor="password">{t('auth.password')}</label>
-            <input id="password" className="input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-          </div>
-          {error && <p style={{ color: 'var(--danger)', marginBottom: 'var(--gap-md)' }}>{error}</p>}
-          <button className="btn btn-primary btn-block" type="submit" disabled={loading}>{loading ? t('common.loading') : t('auth.login')}</button>
-        </form>
-        <div className="auth-footer">
-          <p className="text-sm">{t('auth.noAccount')} <Link to="/register">{t('auth.register')}</Link></p>
-          <button onClick={() => setLocale(locale === 'en' ? 'as' : 'en')} className="btn btn-ghost" style={{ minHeight: 36, fontSize: '14px', padding: '4px 16px' }}>
-            {locale === 'en' ? t('lang.as') : t('lang.en')}
-          </button>
         </div>
       </div>
     </div>

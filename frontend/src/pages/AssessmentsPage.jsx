@@ -14,7 +14,7 @@ export default function AssessmentsPage() {
 
   return (
     <div>
-      <Link to={`/patients/${id}`} className="text-sm text-muted" style={{ display: 'inline-block', marginBottom: 'var(--gap-md)' }}>&larr; {t('common.back')}</Link>
+      <Link to={`/care/patients/${id}`} className="text-sm text-muted" style={{ display: 'inline-block', marginBottom: 'var(--gap-md)' }}>&larr; {t('common.back')}</Link>
       <h1 style={{ fontSize: 'var(--text-2xl)', marginBottom: 'var(--gap-lg)' }}>{t('nav.assessments')}</h1>
       {assessments.length === 0 ? (
         <div className="empty-state card"><p>{t('common.noData')}</p></div>

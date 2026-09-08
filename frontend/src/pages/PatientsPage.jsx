@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { api } from '../lib/api.js';
 import { useLocale } from '../context/LocaleContext.jsx';
-import { usePatient } from '../context/PatientContext.jsx';
 
 export default function PatientsPage() {
   const { t } = useLocale();
-  const { enterPatientMode } = usePatient();
-  const navigate = useNavigate();
   const [patients, setPatients] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ display_name: '', village: '', district: '', state: '', birth_year: '', sex: 'F', preferred_locale: 'en', dementia_stage: 'unknown' });
@@ -24,11 +21,6 @@ export default function PatientsPage() {
     } catch (err) {
       alert(err.data?.error?.message || t('error.failedToCreatePatient'));
     }
-  };
-
-  const handleEnterPatientMode = (patient) => {
-    enterPatientMode(patient);
-    navigate('/play');
   };
 
   return (
@@ -82,12 +74,12 @@ export default function PatientsPage() {
         {patients.map((p) => (
           <div key={p.id} className="card flex justify-between items-center">
             <div>
-              <Link to={`/patients/${p.id}`} style={{ fontWeight: 600, fontSize: 'var(--text-lg)' }}>{p.display_name}</Link>
+              <Link to={`/care/patients/${p.id}`} style={{ fontWeight: 600, fontSize: 'var(--text-lg)' }}>{p.display_name}</Link>
               <div className="text-sm text-muted">{p.village || p.district || p.state} · {p.relationship}</div>
             </div>
             <div className="flex gap-sm">
-              <button className="btn btn-accent" onClick={() => handleEnterPatientMode(p)}>{t('game.play')}</button>
-              <Link to={`/patients/${p.id}/games`} className="btn btn-ghost">{t('nav.games')}</Link>
+              <Link to={`/care/patients/${p.id}`} className="btn btn-ghost">{t('common.edit')}</Link>
+              <Link to={`/care/patients/${p.id}/games`} className="btn btn-ghost">{t('nav.games')}</Link>
             </div>
           </div>
         ))}

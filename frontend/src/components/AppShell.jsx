@@ -30,16 +30,17 @@ export default function AppShell() {
             <div style={{ fontWeight: 700, fontSize: 'var(--text-lg)' }}>{t('app.name')}</div>
           </div>
         </div>
-        <NavLink to="/" end className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>{t('nav.dashboard')}</NavLink>
-        <NavLink to="/patients" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>{t('nav.patients')}</NavLink>
+        <NavLink to="/care" end className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>{t('nav.dashboard')}</NavLink>
+        <NavLink to="/care/patients" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>{t('nav.patients')}</NavLink>
         {(user?.role === 'health_worker' || user?.role === 'admin') && (
-          <NavLink to="/caseload" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>{t('nav.caseload')}</NavLink>
+          <NavLink to="/care/caseload" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>{t('nav.caseload')}</NavLink>
         )}
         <div style={{ flex: 1 }} />
         <div className="text-sm text-muted p-md">
           {!online && <span style={{ color: 'var(--warning)' }}>{t('common.offline')}</span>}
           {online && lastSynced && <span>{t('common.lastSynced', { time: lastSynced })}</span>}
         </div>
+        <NavLink to="/" className="sidebar-link">← {t('player.nav.home')}</NavLink>
         <button className="sidebar-link" onClick={handleLogout}>{t('nav.logout')}</button>
       </nav>
       <div className="layout-care-main">

@@ -344,3 +344,25 @@ CREATE TABLE IF NOT EXISTS audit_log (
 );
 CREATE INDEX IF NOT EXISTS idx_audit_patient ON audit_log(patient_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_audit_actor ON audit_log(actor_user_id, created_at DESC);
+
+-- ── Player experience: liked games + the daily visual tracker ──
+CREATE TABLE IF NOT EXISTS game_favorites (
+  patient_id UUID NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
+  game_id    TEXT NOT NULL REFERENCES games(slug),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (patient_id, game_id)
+);
+
+-- One row per (patient, day, tracked item). item_key is 'hydration' | 'walk' |
+-- 'meal' | 'med:<reminderId>'. value is a running tally the patient taps up;
+-- target is the goal for that day (glasses of water, etc.).
+CREATE TABLE IF NOT EXISTS patient_daily_log (
+  patient_id UUID NOT NULL REFERENCES patients(id) ON DELETE CASCADE,
+  log_date   DATE NOT NULL,
+  item_key   TEXT NOT NULL,
+  value      INTEGER NOT NULL DEFAULT 0,
+  target     INTEGER NOT NULL DEFAULT 0,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (patient_id, log_date, item_key)
+);
+CREATE INDEX IF NOT EXISTS idx_daily_log_patient_date ON patient_daily_log(patient_id, log_date DESC);

@@ -6,8 +6,10 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import { PatientProvider } from './context/PatientContext.jsx';
 import { LocaleProvider } from './context/LocaleContext.jsx';
 import { ConnectivityProvider } from './context/ConnectivityContext.jsx';
+import { PlayerProvider } from './context/PlayerContext.jsx';
 import './theme.css';
 import './styles.css';
+import './styles/player.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -16,7 +18,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <PatientProvider>
           <LocaleProvider>
             <ConnectivityProvider>
-              <App />
+              <PlayerProvider>
+                <App />
+              </PlayerProvider>
             </ConnectivityProvider>
           </LocaleProvider>
         </PatientProvider>
