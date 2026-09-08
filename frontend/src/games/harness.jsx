@@ -248,7 +248,10 @@ export default function GameHarness({ game, patient, onExit }) {
         )}
 
         {(phase === 'playing' || phase === 'paused') && Game && (
-          <div style={{ width: '100%', maxWidth: 900, opacity: phase === 'paused' ? 0.15 : 1 }}>
+          <div
+            className="game-play-area"
+            style={{ opacity: phase === 'paused' ? 0.15 : 1 }}
+          >
             <Game key={game.slug} {...gameApi} />
             {feedback && <div className="game-feedback">{feedback}</div>}
           </div>

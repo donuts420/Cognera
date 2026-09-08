@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { SEQUENCE_PADS, label } from './assets.js';
 import { tone } from './sound.js';
 
-export default function SequenceMemory({ levelConfig, locale, t, speak, onTrial, onFeedback, onComplete }) {
-  const startLen = levelConfig.span || 2;
+export default function SequenceMemory({ locale, t, speak, onTrial, onFeedback, onComplete }) {
+  const startLen = 3;
   const [seq, setSeq] = useState([]);
   const [lit, setLit] = useState(-1);
   const [phase, setPhase] = useState('watch'); // watch | repeat

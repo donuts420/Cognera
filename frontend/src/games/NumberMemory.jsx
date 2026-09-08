@@ -5,8 +5,8 @@ function makeDigits(n) {
   return Array.from({ length: n }, () => Math.floor(Math.random() * 10));
 }
 
-export default function NumberMemory({ levelConfig, t, speak, onTrial, onFeedback, onComplete }) {
-  const startCount = levelConfig.digits || 2;
+export default function NumberMemory({ t, speak, onTrial, onFeedback, onComplete }) {
+  const startCount = 3;
   const [count, setCount] = useState(startCount);
   const [round, setRound] = useState(1);
   const [digits, setDigits] = useState(() => makeDigits(startCount));
