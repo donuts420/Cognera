@@ -14,8 +14,6 @@ function greetingKey() {
   return 'games.goodEvening';
 }
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
-
 export default function PatientModePage() {
   const { activePatient, exitPatientMode } = usePatient();
   const { t } = useLocale();
@@ -24,9 +22,6 @@ export default function PatientModePage() {
 
   const [games, setGames] = useState(null);
   const [activeGame, setActiveGame] = useState(null);
-  const [showPin, setShowPin] = useState(false);
-  const [pin, setPin] = useState('');
-  const [error, setError] = useState('');
 
   const loadGames = () => {
     if (!activePatient?.id) return;
@@ -36,27 +31,9 @@ export default function PatientModePage() {
   useEffect(() => { loadGames(); }, [activePatient?.id]); // eslint-disable-line
   useEffect(() => { if (online) flushOfflineSessions().then(loadGames); }, [online]); // eslint-disable-line
 
-  const handleExit = async () => {
-    if (!showPin) { setShowPin(true); return; }
-    if (pin.length !== 4) return;
-    try {
-      const res = await fetch(`${API_BASE}/patients/pin/verify`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ patientId: activePatient?.id, pin }),
-      });
-      const data = await res.json().catch(() => ({}));
-      // 404 => no exit PIN configured for this patient; don't trap the caregiver.
-      if (data.valid || res.status === 404) {
-        exitPatientMode();
-        navigate('/');
-      } else {
-        setError(t('patientMode.incorrectPin'));
-        setPin('');
-      }
-    } catch {
-      setError(t('patientMode.verificationFailed'));
-    }
+  const handleExit = () => {
+    exitPatientMode();
+    navigate('/');
   };
 
   if (activeGame) {
@@ -85,36 +62,12 @@ export default function PatientModePage() {
           </div>
         </div>
         <div className="flex gap-sm items-center">
-          {showPin ? (
-            <div className="flex gap-sm items-center">
-              <input
-                className="input"
-                type="password"
-                inputMode="numeric"
-                maxLength={4}
-                value={pin}
-                onChange={(e) => { setPin(e.target.value.replace(/\D/g, '')); setError(''); }}
-                placeholder={t('patientMode.pinPlaceholder')}
-                autoFocus
-                style={{ width: 110, textAlign: 'center', fontSize: 'var(--text-lg)', letterSpacing: 6 }}
-              />
-              <button className="btn btn-primary" onClick={handleExit}>{t('patientMode.exit')}</button>
-              <button className="btn btn-ghost" onClick={() => { setShowPin(false); setPin(''); setError(''); }}>
-                {t('common.cancel')}
-              </button>
-            </div>
-          ) : (
-            <button className="game-icon-btn" onClick={() => setShowPin(true)}>
-              <span className="glyph">🏠</span>
-              {t('patientMode.exitPatientMode')}
-            </button>
-          )}
+          <button className="game-icon-btn" onClick={handleExit}>
+            <span className="glyph">🏠</span>
+            {t('patientMode.exitPatientMode')}
+          </button>
         </div>
       </header>
-
-      {error && (
-        <p className="text-sm text-center" style={{ color: 'var(--danger)', marginTop: 8 }}>{error}</p>
-      )}
 
       <div className="flex flex-col items-center p-lg" style={{ gap: 'var(--gap-lg)' }}>
         <div className="text-center">
