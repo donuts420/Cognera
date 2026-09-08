@@ -10,7 +10,8 @@
     "games": "খেলা",
     "reminders": "সোঁৱৰণী",
     "assessments": "মূল্যায়ন",
-    "logout": "লগ আউট"
+    "logout": "লগ আউট",
+    "careMode": "যত্ন"
   },
   "auth": {
     "login": "লগ ইন",

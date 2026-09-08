@@ -5,6 +5,7 @@ import { usePlayer } from '../../context/PlayerContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { NAV_ITEMS } from './nav-items.js';
 import Icon from '../Icon.jsx';
+import Logo from '../Logo.jsx';
 
 export default function PlayerShell() {
   const { t } = useLocale();
@@ -17,7 +18,7 @@ export default function PlayerShell() {
     <div className="player-shell">
       <aside className="player-sidebar">
         <div className="player-brand">
-          <span className="mark">C</span>
+          <span className="mark"><Logo size={24} tone="cream" /></span>
           <span className="name">{t('app.name')}</span>
         </div>
         <nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>

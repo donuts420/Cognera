@@ -63,6 +63,13 @@
   font-weight: 600;
   font-size: 20px;
 }
+.player-brand .mark .cognera-logo { width: 24px; height: 24px; }
+
+.logo-pulse { animation: logo-pulse 1.6s ease-in-out infinite; }
+@keyframes logo-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1); }
+}
 .player-brand .name {
   font-family: var(--font-display);
   font-size: 22px;
@@ -936,6 +943,9 @@ button.pcard:active {
   border-radius: 50%;
 }
 .auth-left .wordmark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-display);
   font-size: var(--text-lg);
   font-weight: 600;
@@ -1433,7 +1443,7 @@ button.pcard:active {
 
 @media (prefers-reduced-motion: reduce) {
   .xp-fill, .milestone.earned .ring::after, .skeleton, .xp-toast, .auth-left .arc,
-  .stat-overlay, .stat-modal {
+  .stat-overlay, .stat-modal, .logo-pulse {
     animation: none !important;
     transition: none !important;
   }

@@ -5,6 +5,7 @@ import { useConnectivity } from '../context/ConnectivityContext.jsx';
 import { useLocale } from '../context/LocaleContext.jsx';
 import { usePush } from '../hooks/usePush.js';
 import Icon from './Icon.jsx';
+import Logo from './Logo.jsx';
 
 export default function AppShell() {
   const { user, logout } = useAuth();
@@ -33,7 +34,7 @@ export default function AppShell() {
     <div className="player-shell">
       <aside className="player-sidebar">
         <div className="player-brand">
-          <span className="mark">C</span>
+          <span className="mark"><Logo size={24} tone="cream" /></span>
           <span className="name">{t('app.name')}</span>
         </div>
         <p className="eyebrow" style={{ padding: '0 8px 6px', color: 'rgba(255,255,255,0.4)' }}>

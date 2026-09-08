@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useLocale } from '../context/LocaleContext.jsx';
 import GoogleButton, { GOOGLE_ENABLED } from '../components/GoogleButton.jsx';
+import Logo from '../components/Logo.jsx';
 
 export default function RegisterPage() {
   const { register, googleLogin } = useAuth();
@@ -45,7 +46,7 @@ export default function RegisterPage() {
     <div className="auth-split">
       <div className="auth-left">
         <span className="arc" aria-hidden />
-        <div className="wordmark">{t('app.name')}</div>
+        <div className="wordmark"><Logo size={28} tone="cream" /> {t('app.name')}</div>
         <div>
           <h2>{t('auth.left.titleNew')}</h2>
           <ul>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocale } from '../../context/LocaleContext.jsx';
+import Logo from '../Logo.jsx';
 
 export default function PlayerLoading({ error, onRetry }) {
   const { t } = useLocale();
@@ -9,10 +10,7 @@ export default function PlayerLoading({ error, onRetry }) {
       style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100dvh' }}
     >
       <div className="pstate">
-        <span className="mark" style={{
-          width: 48, height: 48, borderRadius: 13, background: 'var(--accent)', color: 'var(--accent-fg)',
-          display: 'grid', placeItems: 'center', fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 22,
-        }}>C</span>
+        <Logo size={72} className="logo-pulse" style={{ marginBottom: 4 }} />
         {error ? (
           <>
             <h3>{t('player.loadError')}</h3>

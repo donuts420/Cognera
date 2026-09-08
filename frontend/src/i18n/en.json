@@ -10,7 +10,8 @@
     "games": "Games",
     "reminders": "Reminders",
     "assessments": "Assessments",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "careMode": "Care"
   },
   "auth": {
     "login": "Log In",

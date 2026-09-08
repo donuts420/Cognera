@@ -9,6 +9,7 @@ import RecentRow from '../../components/player/RecentRow.jsx';
 import GameTile from '../../components/player/GameTile.jsx';
 import MonthCalendar from '../../components/player/MonthCalendar.jsx';
 import Icon from '../../components/Icon.jsx';
+import Logo from '../../components/Logo.jsx';
 
 function greetingKey() {
   const h = new Date().getHours();
@@ -33,6 +34,7 @@ export default function DashboardPage() {
 
   return (
     <div>
+      <Logo size={56} style={{ marginBottom: 20 }} />
       <PageHead
         eyebrow={dateLabel}
         title={`${t(greetingKey())}${firstName ? `, ${firstName}` : ''}.`}
