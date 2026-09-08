@@ -47,7 +47,13 @@ export function PlayerProvider({ children }) {
       }
       try { localStorage.setItem(SELF_KEY, pid); } catch {}
       const detail = list.find((p) => p.patient_id === pid);
-      setPatient({ id: pid, display_name: detail?.display_name || me.full_name || 'Me' });
+      let full = null;
+      try { full = await api.get(`/patients/${pid}`); } catch {}
+      setPatient({
+        id: pid,
+        display_name: full?.display_name || detail?.display_name || me.full_name || 'Me',
+        birth_year: full?.birth_year ?? null,
+      });
     } catch (e) {
       setError(e);
     } finally {
@@ -90,13 +96,24 @@ export function PlayerProvider({ children }) {
     } catch { return null; }
   }, [patient?.id]);
 
+  const [history, setHistory] = useState(null);
+  const refreshHistory = useCallback(async () => {
+    if (!patient?.id) return null;
+    try {
+      const h = await api.get(`/patients/${patient.id}/history`);
+      setHistory(h);
+      return h;
+    } catch { return null; }
+  }, [patient?.id]);
+
   useEffect(() => {
     if (patient?.id) {
       refreshProgress();
       refreshFavorites();
       refreshGameState();
+      refreshHistory();
     }
-  }, [patient?.id, refreshProgress, refreshFavorites, refreshGameState]);
+  }, [patient?.id, refreshProgress, refreshFavorites, refreshGameState, refreshHistory]);
 
   const toggleFavorite = useCallback(async (slug) => {
     if (!patient?.id) return;
@@ -123,9 +140,11 @@ export function PlayerProvider({ children }) {
     progress,
     favorites,
     gameState,
+    history,
     refreshProgress,
     refreshFavorites,
     refreshGameState,
+    refreshHistory,
     toggleFavorite,
     retry: resolvePatient,
   };

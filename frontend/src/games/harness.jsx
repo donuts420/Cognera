@@ -7,6 +7,8 @@ import { narrate, stopSpeaking } from './voice.js';
 import { chime } from './sound.js';
 import { GAMES, normalizeDomains } from './registry.js';
 import Icon from '../components/Icon.jsx';
+import GameResults from '../components/player/GameResults.jsx';
+import { usePlayer } from '../context/PlayerContext.jsx';
 
 const SESSION_CAP_MS = 12 * 60 * 1000; // sessions cap at twelve minutes
 const OFFLINE_QUEUE_KEY = 'cognera-session-queue';
@@ -35,6 +37,7 @@ function levelIndexFor(game) {
 export default function GameHarness({ game, patient, onExit }) {
   const { locale, t } = useLocale();
   const { online } = useConnectivity();
+  const { refreshHistory, refreshProgress } = usePlayer();
   const entry = GAMES[game.slug];
   const meta = entry?.meta || {};
   const Game = entry?.Component;
@@ -122,11 +125,15 @@ export default function GameHarness({ game, patient, onExit }) {
         }
       }
 
-      setResult({ session, ...extra });
+      const summary = summaryLine({ session, ...extra }, t, scored);
+      setResult({ session, summary, ...extra });
       setPhase('done');
-      if (scored) chime(true);
+      if (scored) {
+        chime(true);
+        Promise.allSettled([refreshHistory?.(), refreshProgress?.()]);
+      }
     },
-    [game.slug, levelIdx, levelConfig, online, patient.id, scored]
+    [game.slug, levelIdx, levelConfig, online, patient.id, scored, t, refreshHistory, refreshProgress]
   );
 
   const handleTrial = useCallback(
@@ -262,19 +269,12 @@ export default function GameHarness({ game, patient, onExit }) {
         )}
 
         {phase === 'done' && (
-          <div className="game-panel" role="dialog" aria-modal="true">
-            <div style={{ color: 'var(--success)' }}><Icon name="sprout" size={56} /></div>
-            <h2>{t('games.wellDone')}</h2>
-            <p>{summaryLine(result, t, scored)}</p>
-            <div className="flex gap-sm" style={{ flexWrap: 'wrap', justifyContent: 'center' }}>
-              <button className="btn btn-primary btn-lg" onClick={() => onExit({ played: true, again: true })}>
-                {t('games.playAnother')}
-              </button>
-              <button className="btn btn-ghost btn-lg" onClick={() => onExit({ played: true })}>
-                {t('games.done')}
-              </button>
-            </div>
-          </div>
+          <GameResults
+            result={result}
+            game={game}
+            onAgain={() => onExit({ played: true, again: true })}
+            onDone={() => onExit({ played: true })}
+          />
         )}
       </div>
 

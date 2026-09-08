@@ -287,4 +287,100 @@ router.post('/patients/:patientId/daily/target', requirePatientAccess, async (re
   }
 });
 
+/* ────────────────────────────────  HISTORY  ───────────────────────────────── */
+
+// Which stored metric is a game's headline result, and whether lower is better.
+const HEADLINE = {
+  'chimp-test': { metric: 'span', lowerBetter: false },
+  'number-memory': { metric: 'span', lowerBetter: false },
+  'sequence-memory': { metric: 'span', lowerBetter: false },
+  'reaction-time': { metric: 'latency', lowerBetter: true },
+  'find-object': { metric: 'latency', lowerBetter: true },
+  'memory-match': { metric: 'accuracy', lowerBetter: false },
+  'odd-one-out': { metric: 'accuracy', lowerBetter: false },
+  'pattern-complete': { metric: 'accuracy', lowerBetter: false },
+  'word-recall': { metric: 'accuracy', lowerBetter: false },
+  'daily-routine': { metric: 'accuracy', lowerBetter: false },
+  'story-sequencing': { metric: 'accuracy', lowerBetter: false },
+  'sound-recognition': { metric: 'accuracy', lowerBetter: false },
+};
+
+function metricValue(metric, row) {
+  if (metric === 'span') return row.max_span != null ? Number(row.max_span) : null;
+  if (metric === 'latency') return row.median_latency_ms != null ? Number(row.median_latency_ms) : null;
+  if (metric === 'accuracy') return row.accuracy != null ? Number(row.accuracy) : null;
+  return null;
+}
+
+router.get('/patients/:patientId/history', requirePatientAccess, async (req, res) => {
+  try {
+    const pid = req.params.patientId;
+    const [sessRes, gamesRes] = await Promise.all([
+      query(
+        `SELECT game_id, level, difficulty, duration_ms, trials_total, trials_correct,
+                accuracy, median_latency_ms, max_span, raw_score, performance,
+                completed, abandoned, ended_by_fatigue, client_created_at
+           FROM game_sessions
+          WHERE patient_id = $1
+          ORDER BY client_created_at ASC`,
+        [pid]
+      ),
+      query(`SELECT slug, title, icon_key FROM games WHERE is_active = true`, []),
+    ]);
+    const meta = Object.fromEntries(gamesRes.rows.map((g) => [g.slug, g]));
+
+    const byGame = {};
+    let totalPlays = 0;
+    let totalMs = 0;
+    for (const s of sessRes.rows) {
+      if (s.abandoned) continue;
+      totalPlays += 1;
+      totalMs += Number(s.duration_ms) || 0;
+      const head = HEADLINE[s.game_id];
+      if (!head) continue;
+      const g = (byGame[s.game_id] = byGame[s.game_id] || {
+        slug: s.game_id,
+        title: meta[s.game_id]?.title || s.game_id,
+        icon: meta[s.game_id]?.icon_key || null,
+        metric: head.metric,
+        lowerBetter: head.lowerBetter,
+        plays: 0,
+        series: [],
+      });
+      g.plays += 1;
+      g.series.push({
+        t: s.client_created_at,
+        value: metricValue(head.metric, s),
+        span: s.max_span != null ? Number(s.max_span) : null,
+        accuracy: s.accuracy != null ? Number(s.accuracy) : null,
+        latency: s.median_latency_ms != null ? Number(s.median_latency_ms) : null,
+        durationMs: Number(s.duration_ms) || null,
+        trialsTotal: Number(s.trials_total) || 0,
+        trialsCorrect: Number(s.trials_correct) || 0,
+      });
+    }
+
+    const games = Object.values(byGame).map((g) => {
+      const vals = g.series.map((p) => p.value).filter((v) => v != null);
+      const sorted = [...vals].sort((a, b) => a - b);
+      const median = sorted.length ? sorted[Math.floor(sorted.length / 2)] : null;
+      const best = vals.length ? (g.lowerBetter ? Math.min(...vals) : Math.max(...vals)) : null;
+      const latest = g.series.length ? g.series[g.series.length - 1].value : null;
+      return {
+        ...g,
+        best,
+        median,
+        latest,
+        first: g.series[0]?.t || null,
+        last: g.series[g.series.length - 1]?.t || null,
+      };
+    });
+
+    res.json({ games, totalPlays, totalMinutes: Math.round(totalMs / 60000) });
+  } catch (err) {
+    console.error('History error:', err);
+    res.status(500).json({ error: { code: 'internal_error', message: 'Failed to load history' } });
+  }
+});
+
 export default router;

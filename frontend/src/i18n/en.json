@@ -175,7 +175,9 @@
         "xlarge": "Largest"
       },
       "reducedMotion": "Reduce motion",
-      "reducedMotionHint": "Turn off gentle animations."
+      "reducedMotionHint": "Turn off gentle animations.",
+      "age": "Your age",
+      "ageHint": "Optional — used only to show an age-based guide in your history."
     },
     "saved": "Saved",
     "backToHome": "Back to home"
@@ -396,5 +398,36 @@
     "en": "English",
     "as": "Assamese",
     "toggle": "Language"
+  },
+  "results": {
+    "sub": "Here's how it went.",
+    "reached": "Reached",
+    "time": "Time",
+    "rounds": "Rounds",
+    "median": "Median",
+    "trials": "Tries",
+    "accuracy": "Accuracy",
+    "correct": "Correct",
+    "seeDetails": "See details"
+  },
+  "history": {
+    "title": "Your history",
+    "sub": "Tap a game to see how it's changed over time.",
+    "empty": "Play a few activities and your history will appear here.",
+    "latest": "Latest",
+    "best": "Best",
+    "plays": "Plays",
+    "typical": "Typical",
+    "forAge": "For your age",
+    "you": "You",
+    "howItCompares": "How it compares",
+    "recentAttempts": "Recent attempts",
+    "addAge": "Add your age in your profile to see an age-based guide.",
+    "disclaimer": "These are rough guides from general research — not a health assessment.",
+    "line": {
+      "span": "reached {n}",
+      "latency": "{n} ms",
+      "accuracy": "{n}% right"
+    }
   }
 }

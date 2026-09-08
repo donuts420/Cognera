@@ -4,8 +4,9 @@ import { useLocale } from '../../context/LocaleContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { usePlayer } from '../../context/PlayerContext.jsx';
 import { api } from '../../lib/api.js';
-import { PageHead, Card } from '../../components/player/ui.jsx';
-import Icon from '../../components/Icon.jsx';
+import { PageHead, Card, SectionHead } from '../../components/player/ui.jsx';
+import StatBox from '../../components/player/StatBox.jsx';
+import StatModal from '../../components/player/StatModal.jsx';
 
 const TEXT_SIZES = ['normal', 'large', 'xlarge'];
 
@@ -16,13 +17,17 @@ function readPref(key, fallback) {
 export default function ProfilePage() {
   const { t, locale, setLocale } = useLocale();
   const { user, logout } = useAuth();
-  const { patient } = usePlayer();
+  const { patient, patientId, history, refreshHistory } = usePlayer();
   const navigate = useNavigate();
 
   const [name, setName] = useState(patient?.display_name || user?.full_name || '');
+  const [birthYear, setBirthYear] = useState(patient?.birth_year || '');
   const [textSize, setTextSize] = useState(() => readPref('cognera-text-size', 'normal'));
   const [reducedMotion, setReducedMotion] = useState(() => readPref('cognera-reduced-motion', 'off') === 'on');
   const [saved, setSaved] = useState(false);
+  const [modalGame, setModalGame] = useState(null);
+
+  const age = birthYear ? new Date().getFullYear() - Number(birthYear) : null;
 
   const applyTextSize = (size) => {
     setTextSize(size);
@@ -36,22 +41,28 @@ export default function ProfilePage() {
     const next = !reducedMotion;
     setReducedMotion(next);
     try { localStorage.setItem('cognera-reduced-motion', next ? 'on' : 'off'); } catch {}
-    document.documentElement.style.setProperty('--motion', next ? 'reduce' : 'auto');
   };
 
-  const saveName = async () => {
+  const saveProfile = async () => {
     await api.patch('/auth/me', { full_name: name.trim() }).catch(() => {});
+    const y = Number(birthYear);
+    if (patientId && y >= 1900 && y <= new Date().getFullYear()) {
+      await api.patch(`/patients/${patientId}`, { birth_year: y }).catch(() => {});
+      if (patient) patient.birth_year = y;
+    }
+    refreshHistory?.();
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
 
   const initial = (name || 'M').trim().charAt(0).toUpperCase();
+  const games = history?.games || [];
 
   return (
     <div>
       <PageHead eyebrow={t('player.nav.profile')} title={t('player.profile.title')} />
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 560 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 620 }}>
         <Card className="pcard">
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <span style={{
@@ -59,14 +70,26 @@ export default function ProfilePage() {
               color: 'var(--accent-fg)', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-display)',
               fontWeight: 600, fontSize: 28,
             }}>{initial}</span>
-            <div style={{ flex: 1 }}>
-              <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: 600, marginBottom: 6 }}>
-                {t('player.profile.name')}
-              </label>
-              <input className="input" value={name} onChange={(e) => setName(e.target.value)} />
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div>
+                <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: 600, marginBottom: 6 }}>
+                  {t('player.profile.name')}
+                </label>
+                <input className="input" value={name} onChange={(e) => setName(e.target.value)} />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: 'var(--text-sm)', fontWeight: 600, marginBottom: 6 }}>
+                  {t('player.profile.age')}
+                </label>
+                <input className="input" type="number" inputMode="numeric" placeholder="1955"
+                  value={birthYear} onChange={(e) => setBirthYear(e.target.value)} style={{ maxWidth: 160 }} />
+                <p style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-faint)', marginTop: 4 }}>
+                  {t('player.profile.ageHint')}
+                </p>
+              </div>
             </div>
           </div>
-          <button className="btn btn-primary" style={{ marginTop: 14 }} onClick={saveName}>
+          <button className="btn btn-primary" style={{ marginTop: 14 }} onClick={saveProfile}>
             {saved ? t('player.saved') : t('common.save')}
           </button>
         </Card>
@@ -77,11 +100,7 @@ export default function ProfilePage() {
           </h3>
           <div style={{ display: 'flex', gap: 10 }}>
             {['en', 'as'].map((lc) => (
-              <button
-                key={lc}
-                className={`chip-btn ${locale === lc ? 'on' : ''}`}
-                onClick={() => setLocale(lc)}
-              >
+              <button key={lc} className={`chip-btn ${locale === lc ? 'on' : ''}`} onClick={() => setLocale(lc)}>
                 {t(`lang.${lc}`)}
               </button>
             ))}
@@ -96,9 +115,9 @@ export default function ProfilePage() {
             {t('player.profile.textSizeHint')}
           </p>
           <div style={{ display: 'flex', gap: 10 }}>
-            {TEXT_SIZES.map((s) => (
-              <button key={s} className={`chip-btn ${textSize === s ? 'on' : ''}`} onClick={() => applyTextSize(s)}>
-                {t(`player.profile.size.${s}`)}
+            {TEXT_SIZES.map((sz) => (
+              <button key={sz} className={`chip-btn ${textSize === sz ? 'on' : ''}`} onClick={() => applyTextSize(sz)}>
+                {t(`player.profile.size.${sz}`)}
               </button>
             ))}
           </div>
@@ -117,11 +136,28 @@ export default function ProfilePage() {
             </button>
           </div>
         </Card>
-
-        <button className="btn btn-ghost btn-block" onClick={async () => { await logout(); navigate('/login'); }}>
-          {t('nav.logout')}
-        </button>
       </div>
+
+      <SectionHead title={t('history.title')} />
+      <p className="sub" style={{ marginTop: -6, marginBottom: 16, color: 'var(--ink-muted)' }}>
+        {t('history.sub')}
+      </p>
+      {games.length === 0 ? (
+        <p style={{ color: 'var(--ink-faint)' }}>{t('history.empty')}</p>
+      ) : (
+        <div className="stat-box-grid">
+          {games.map((g) => (
+            <StatBox key={g.slug} game={g} onClick={() => setModalGame(g)} />
+          ))}
+        </div>
+      )}
+
+      <button className="btn btn-ghost btn-block" style={{ maxWidth: 620, marginTop: 28 }}
+        onClick={async () => { await logout(); navigate('/login'); }}>
+        {t('nav.logout')}
+      </button>
+
+      {modalGame && <StatModal game={modalGame} age={age} onClose={() => setModalGame(null)} />}
     </div>
   );
 }
