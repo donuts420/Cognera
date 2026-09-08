@@ -211,11 +211,18 @@ a:hover { text-decoration: underline; }
   .topbar { padding: 0 var(--gap-sm); }
 }
 
+/* GIS renders an iframe at the pixel width we pass it (we measure the slot and
+   pass up to 400). Center it and round the corners to match our inputs. */
 .google-btn-wrap {
+  width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 4px;
 }
-.google-btn-wrap > div { width: 100%; }
+.google-btn-wrap > div { display: flex; justify-content: center; }
+.google-btn-wrap iframe {
+  border-radius: var(--radius-md) !important;
+}
 
 .auth-page {
   min-height: 100vh;
