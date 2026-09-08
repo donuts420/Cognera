@@ -63,8 +63,8 @@ export default function CaseloadPage() {
               {filtered.map((p) => (
                 <tr key={p.id}>
                   <td><Link to={`/care/patients/${p.id}`}>{p.display_name}</Link></td>
-                  <td>{p.village || '—'}</td>
-                  <td className="num">{p.cwi ?? '—'}</td>
+                  <td>{p.village || '–'}</td>
+                  <td className="num">{p.cwi ?? '–'}</td>
                   <td>
                     <span className={`chip ${p.trend_direction === 'improving' ? 'success' : p.trend_direction === 'declining' ? 'crisis' : 'info'}`}>
                       <Icon
@@ -77,7 +77,7 @@ export default function CaseloadPage() {
                   <td className="num">{p.sessions_30d}</td>
                   <td className="num">{p.total_rem_30d > 0 ? Math.round((p.ack_30d / p.total_rem_30d) * 100) : 0}%</td>
                   <td className="num">
-                    {p.open_alerts > 0 ? <span className="chip crisis">{p.open_alerts}</span> : '—'}
+                    {p.open_alerts > 0 ? <span className="chip crisis">{p.open_alerts}</span> : '–'}
                   </td>
                 </tr>
               ))}

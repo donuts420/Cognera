@@ -32,7 +32,7 @@ export default function DashboardPage() {
                   <span className="pr-avatar">{(p.display_name || '?').charAt(0).toUpperCase()}</span>
                   <span className="pr-main">
                     <span className="pr-name">{p.display_name}</span>
-                    <span className="pr-sub">{p.village || p.district || '—'}</span>
+                    <span className="pr-sub">{p.village || p.district || '–'}</span>
                   </span>
                   <span className={`chip ${STAGE_TONE[p.dementia_stage] || 'brand'}`}>
                     {t(`patient.${p.dementia_stage === 'at_risk' ? 'atRisk' : p.dementia_stage}`) || p.dementia_stage}

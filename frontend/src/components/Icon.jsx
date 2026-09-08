@@ -1,7 +1,7 @@
 import React from 'react';
 
 /*
-  Cognera icon set — inline SVG, no emoji anywhere in the product.
+  Cognera icon set, inline SVG, no emoji anywhere in the product.
   Every icon draws on a 24×24 grid and inherits `currentColor`.
   UI icons are stroked (1.75); object / pictograph icons mix stroke + fill
   so the recognition games stay legible at large sizes.

@@ -148,7 +148,7 @@ export default function GameHarness({ game, patient, onExit }) {
       };
       trialsRef.current = [...trialsRef.current, record];
       // Endless games (chimp / number / sequence) end themselves on the first
-      // slip — and their latency naturally climbs as the span grows, which is
+      // slip, and their latency naturally climbs as the span grows, which is
       // not fatigue. Only the 12-min hard cap applies to them.
       if (!meta.endless && detectFatigue(trialsRef.current)) {
         setFeedback(t('games.fatigueNote'));

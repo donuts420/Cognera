@@ -1,6 +1,6 @@
 // Culturally-grounded assets for the Cognera game collection.
 //
-// Items reference names in <Icon> (src/components/Icon.jsx) — inline SVG, no
+// Items reference names in <Icon> (src/components/Icon.jsx), inline SVG, no
 // emoji anywhere. The production build can swap these for a commissioned NER
 // illustration pack; the game logic only needs the `icon` + `label` fields.
 
@@ -126,7 +126,7 @@ export const FAMILIAR_WORDS = {
   hi: ['नदी', 'दीया', 'चावल', 'माँ', 'बगीचा', 'गीत', 'नाव', 'बारिश', 'बाज़ार', 'चाय', 'गाय', 'दरवाज़ा', 'चाँद', 'आग', 'फूल', 'पंछी'],
 };
 
-// "Sounds" for Sound Recognition — described + beeped, never audio-only.
+// "Sounds" for Sound Recognition, described + beeped, never audio-only.
 export const SOUNDS = [
   { key: 'dhol', icon: 'drum', pattern: [180, 90, 180, 90, 360], freq: 150, label: { en: 'A drum', as: 'ঢোল', hi: 'ढोल' } },
   { key: 'bird', icon: 'bird', pattern: [80, 60, 80, 60, 80], freq: 900, label: { en: 'A bird call', as: 'চৰাইৰ মাত', hi: 'पंछी की बोली' } },
@@ -136,7 +136,7 @@ export const SOUNDS = [
   { key: 'clock', icon: 'alarm', pattern: [70, 300, 70, 300, 70], freq: 440, label: { en: 'A ringing clock', as: 'ঘড়ীৰ শব্দ', hi: 'घड़ी की घंटी' } },
 ];
 
-// Shapes for Pattern Complete — icon names, distinct colour + form.
+// Shapes for Pattern Complete, icon names, distinct colour + form.
 export const PATTERN_SHAPES = [
   'shape-triangle', 'shape-square', 'shape-circle', 'shape-diamond',
   'shape-slab', 'shape-star', 'shape-ring',

@@ -55,7 +55,7 @@ export default function SequenceMemory({ locale, t, speak, onTrial, onFeedback, 
     if (success) {
       best.current = Math.max(best.current, seq.length);
       onFeedback(t('games.sequence.good'));
-      setTimeout(() => nextRound(seq), 900); // endless — grows until the first slip
+      setTimeout(() => nextRound(seq), 900); // endless, grows until the first slip
     } else {
       onFeedback(best.current >= startLen ? t('games.reachedSpan', { n: best.current }) : t('games.calmOkay'));
       setTimeout(() => onComplete({ maxSpan: best.current, completed: true, rawScore: best.current }), 1200);

@@ -286,7 +286,7 @@ a:hover { text-decoration: underline; }
 .badge-info { background: var(--brand-subtle); color: var(--brand-subtle-ink); }
 
 /* ============================================================
-   Icons — inline SVG, inherit currentColor, scale to their slot
+   Icons, inline SVG, inherit currentColor, scale to their slot
    ============================================================ */
 .icon { display: inline-block; flex: none; vertical-align: middle; }
 /* board slots size the glyph relative to the tile; everything else uses the
@@ -413,7 +413,7 @@ a:hover { text-decoration: underline; }
   margin-bottom: 8px;
 }
 
-/* Chimp Test scatter board — compact, square-ish, empty cells hold space
+/* Chimp Test scatter board, compact, square-ish, empty cells hold space
    without the .tile min-height so the grid never looks sparse/broken. */
 /* play area fills the stage; games centre their content by default */
 .game-play-area {

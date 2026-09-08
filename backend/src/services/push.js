@@ -1,7 +1,7 @@
 import config from '../config.js';
 import { query } from '../db.js';
 
-// `web-push` is an optional dependency — degrade gracefully if it is unavailable.
+// `web-push` is an optional dependency, degrade gracefully if it is unavailable.
 let webPush = null;
 try {
   webPush = (await import('web-push')).default;

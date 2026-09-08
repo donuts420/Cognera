@@ -26,11 +26,11 @@
     "healthWorker": "Health worker",
     "welcomeBack": "Welcome back.",
     "loginLede": "Sign in to continue your activities and reminders.",
-    "registerLede": "Cognitive games, memory prompts and daily reminders — in one calm place.",
+    "registerLede": "Cognitive games, memory prompts and daily reminders, all in one calm place.",
     "left": {
       "title": "A calm few minutes a day.",
       "titleNew": "Set up takes a minute.",
-      "p1": "Short, friendly activities — never a test.",
+      "p1": "Short, friendly activities. Never a test.",
       "p2": "Your progress is always saved.",
       "p3": "Gentle reminders for water, medicine and rest.",
       "quote": "Cognitive care, made human.",
@@ -84,7 +84,7 @@
     "xpToNext": "{n} points to the next level",
     "dayStreak": "Day streak",
     "dayStreakN": "{n}-day streak",
-    "streakPaused": "Streak — paused",
+    "streakPaused": "Streak paused",
     "activities": "Activities",
     "minutes": "Minutes",
     "favorite": "Add to favourites",
@@ -127,7 +127,7 @@
       "title": "Games",
       "sub": "Calm, friendly activities. Play whenever you like.",
       "all": "All",
-      "capBanner": "You've played plenty today — anything more is just for enjoyment."
+      "capBanner": "You've played plenty today. Anything more is just for fun."
     },
     "daily": {
       "title": "Your day",
@@ -161,7 +161,7 @@
     "milestones": {
       "eyebrow": "Milestones",
       "title": "Moments worth keeping",
-      "sub": "{n} of {total} earned — and never taken away.",
+      "sub": "{n} of {total} earned, and never taken away.",
       "footer": "Earned for good. Nothing here is ever removed."
     },
     "profile": {
@@ -178,7 +178,7 @@
       "reducedMotion": "Reduce motion",
       "reducedMotionHint": "Turn off gentle animations.",
       "age": "Birth year",
-      "ageHint": "Optional — the year you were born. Used only to show an age-based guide in your history."
+      "ageHint": "Optional. The year you were born, used only to show an age-based guide in your history."
     },
     "saved": "Saved",
     "backToHome": "Back to home"
@@ -424,7 +424,7 @@
     "howItCompares": "How it compares",
     "recentAttempts": "Recent attempts",
     "addAge": "Add your age in your profile to see an age-based guide.",
-    "disclaimer": "These are rough guides from general research — not a health assessment.",
+    "disclaimer": "These are rough guides from general research, not a health assessment.",
     "line": {
       "span": "reached {n}",
       "latency": "{n} ms",

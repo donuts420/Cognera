@@ -76,7 +76,7 @@ export default function PatientsPage() {
               <span className="pr-avatar">{(p.display_name || '?').charAt(0).toUpperCase()}</span>
               <Link to={`/care/patients/${p.id}`} className="pr-main" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <span className="pr-name">{p.display_name}</span>
-                <span className="pr-sub">{p.village || p.district || p.state || '—'} · {p.relationship}</span>
+                <span className="pr-sub">{p.village || p.district || p.state || '–'} · {p.relationship}</span>
               </Link>
               <span className="pr-actions">
                 <Link to={`/care/patients/${p.id}`} className="btn btn-ghost">{t('common.edit')}</Link>

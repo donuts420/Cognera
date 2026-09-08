@@ -1,5 +1,5 @@
-// Player-experience projections. Pure functions over the game_sessions log —
-// no XP/streak is ever stored, it is always derived (same philosophy as
+// Player-experience projections. Pure functions over the game_sessions log.
+// No XP/streak is ever stored, it is always derived (same philosophy as
 // skill_state being a projection). Kept dependency-free and testable.
 
 const TZ = 'Asia/Kolkata';

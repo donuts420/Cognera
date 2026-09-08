@@ -89,7 +89,7 @@ router.get('/patients/:patientId/progress', requirePatientAccess, async (req, re
       .map(([date, count]) => ({ date, count }))
       .sort((a, b) => a.date.localeCompare(b.date));
 
-    // Today's activity: a scored game not played today — prefer never-played,
+    // Today's activity: a scored game not played today, prefer never-played,
     // else the one least recently played.
     const scoredSlugs = gamesRes.rows.filter((g) => g.is_scored !== false).map((g) => g.slug);
     const playedTodaySet = new Set(

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-// Endless digit-span game — one more digit each round, until the first slip.
+// Endless digit-span game, one more digit each round, until the first slip.
 function makeDigits(n) {
   return Array.from({ length: n }, () => Math.floor(Math.random() * 10));
 }

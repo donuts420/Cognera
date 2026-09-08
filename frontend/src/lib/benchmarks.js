@@ -1,7 +1,7 @@
 /*
  * Approximate reference values for the benchmark-style games, so a player can
  * see roughly where a result sits. These are general figures from public
- * cognitive-performance research and aggregate testing data — treated as
+ * cognitive-performance research and aggregate testing data, treated as
  * rough guides, not clinical norms, and always labelled as such in the UI.
  */
 
@@ -75,7 +75,7 @@ export function getBenchmark(slug, { age } = {}) {
 
 /** Human-readable current value for a game's headline metric. */
 export function formatMetric(metric, value) {
-  if (value == null) return '—';
+  if (value == null) return '–';
   if (metric === 'latency') return `${Math.round(value)} ms`;
   if (metric === 'accuracy') return `${Math.round(value * 100)}%`;
   if (metric === 'span') return String(Math.round(value));

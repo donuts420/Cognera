@@ -3,7 +3,7 @@ import { shuffle } from './assets.js';
 
 /**
  * Endless span game. Always starts at 3 numbers, +1 each time the board is
- * cleared in order, and keeps going until the first mistake — which ends the
+ * cleared in order, and keeps going until the first mistake, which ends the
  * session warmly with the highest span completed.
  */
 const START_SPAN = 3;

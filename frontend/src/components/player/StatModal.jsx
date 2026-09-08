@@ -38,7 +38,7 @@ export default function StatModal({ game, age, onClose }) {
       { day: 'numeric', month: 'short' });
 
   const sessionLine = (p) => {
-    if (game.metric === 'span') return t('history.line.span', { n: p.span ?? '—' });
+    if (game.metric === 'span') return t('history.line.span', { n: p.span ?? '–' });
     if (game.metric === 'latency') return t('history.line.latency', { n: Math.round(p.latency ?? 0) });
     return t('history.line.accuracy', { n: Math.round((p.accuracy ?? 0) * 100) });
   };

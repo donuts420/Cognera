@@ -1,4 +1,4 @@
-// Tiny WebAudio helper. Gentle tones only — no harsh buzzers (DOCUMENTATION.md:
+// Tiny WebAudio helper. Gentle tones only, no harsh buzzers (DOCUMENTATION.md:
 // "Never a red X, never a buzzer"). Used for optional cues in Sequence Memory
 // and Sound Recognition. Everything degrades silently if audio is unavailable.
 

@@ -48,7 +48,7 @@ export default function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
 
-      {/* Player experience — the person playing, logged in as themselves */}
+      {/* Player experience, the person playing, logged in as themselves */}
       <Route path="/" element={<RequirePlayer><PlayerShell /></RequirePlayer>}>
         <Route index element={<DashboardPage />} />
         <Route path="games" element={<GamesLibraryPage />} />
@@ -59,7 +59,7 @@ export default function App() {
         <Route path="profile" element={<ProfilePage />} />
       </Route>
 
-      {/* Care mode — kept working, restyled shell, not the default */}
+      {/* Care mode, kept working, restyled shell, not the default */}
       <Route path="/care" element={<ProtectedRoute><AppShell /></ProtectedRoute>}>
         <Route index element={<CareDashboardPage />} />
         <Route path="patients" element={<PatientsPage />} />

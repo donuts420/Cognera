@@ -43,7 +43,7 @@ export default function RemindersPage() {
                   </div>
                   <b style={{ color: 'var(--ink)' }}>{r.title}</b>
                   {r.medicine_name && (
-                    <p style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-muted)' }}>{r.medicine_name} — {r.dosage}</p>
+                    <p style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-muted)' }}>{r.medicine_name} · {r.dosage}</p>
                   )}
                 </Card>
               ))}

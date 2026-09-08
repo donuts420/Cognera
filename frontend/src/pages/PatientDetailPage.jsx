@@ -28,7 +28,7 @@ export default function PatientDetailPage() {
         <Icon name="arrow-left" size={16} /> {t('common.back')}
       </Link>
       <PageHead
-        eyebrow={`${patient.village || patient.district || '—'} · ${patient.preferred_locale}`}
+        eyebrow={`${patient.village || patient.district || '–'} · ${patient.preferred_locale}`}
         title={patient.display_name}
         sub={stageLabel}
       >
@@ -43,7 +43,7 @@ export default function PatientDetailPage() {
         <>
           <div className="stat-grid" style={{ maxWidth: 560, marginBottom: 16 }}>
             <div className="stat-tile">
-              <div className="num">{overview.cwi ?? '—'}</div>
+              <div className="num">{overview.cwi ?? '–'}</div>
               <div className="lab">{t('dashboard.cwi')}</div>
             </div>
             <StatTile num={overview.total_sessions} label={t('dashboard.sessions')} />
