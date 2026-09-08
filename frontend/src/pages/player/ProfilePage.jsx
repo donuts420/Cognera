@@ -20,7 +20,9 @@ export default function ProfilePage() {
   const { patient, patientId, history, refreshHistory } = usePlayer();
   const navigate = useNavigate();
 
-  const [name, setName] = useState(patient?.display_name || user?.full_name || '');
+  // /profile always represents the signed-in account holder (a caregiver/ASHA
+  // worker keeps their own name here, not their first patient's).
+  const [name, setName] = useState(user?.full_name || patient?.display_name || '');
   const [birthYear, setBirthYear] = useState(patient?.birth_year || '');
   const [textSize, setTextSize] = useState(() => readPref('cognera-text-size', 'normal'));
   const [reducedMotion, setReducedMotion] = useState(() => readPref('cognera-reduced-motion', 'off') === 'on');
@@ -82,6 +84,7 @@ export default function ProfilePage() {
                   {t('player.profile.age')}
                 </label>
                 <input className="input" type="number" inputMode="numeric" placeholder="1955"
+                  min={1900} max={new Date().getFullYear()}
                   value={birthYear} onChange={(e) => setBirthYear(e.target.value)} style={{ maxWidth: 160 }} />
                 <p style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-faint)', marginTop: 4 }}>
                   {t('player.profile.ageHint')}

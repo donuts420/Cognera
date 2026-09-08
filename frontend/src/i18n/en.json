@@ -177,8 +177,8 @@
       },
       "reducedMotion": "Reduce motion",
       "reducedMotionHint": "Turn off gentle animations.",
-      "age": "Your age",
-      "ageHint": "Optional — used only to show an age-based guide in your history."
+      "age": "Birth year",
+      "ageHint": "Optional — the year you were born. Used only to show an age-based guide in your history."
     },
     "saved": "Saved",
     "backToHome": "Back to home"
