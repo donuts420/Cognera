@@ -429,5 +429,14 @@
       "latency": "{n} ms",
       "accuracy": "{n}% right"
     }
+  },
+  "push": {
+    "enable": "Enable Notifications",
+    "disable": "Disable Notifications",
+    "test": "Send Test",
+    "denied": "Notifications blocked by browser",
+    "unsupported": "Notifications not supported",
+    "enabled": "Notifications enabled",
+    "disabled": "Notifications disabled"
   }
 }
