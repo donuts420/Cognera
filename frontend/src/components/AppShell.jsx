@@ -3,11 +3,13 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useConnectivity } from '../context/ConnectivityContext.jsx';
 import { useLocale } from '../context/LocaleContext.jsx';
+import { usePush } from '../hooks/usePush.js';
 
 export default function AppShell() {
   const { user, logout } = useAuth();
   const { online, lastSynced } = useConnectivity();
   const { locale, setLocale, t } = useLocale();
+  const { supported, subscribed, loading: pushLoading, subscribe, unsubscribe } = usePush();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -17,6 +19,14 @@ export default function AppShell() {
 
   const toggleLocale = () => {
     setLocale(locale === 'en' ? 'as' : 'en');
+  };
+
+  const togglePush = async () => {
+    if (subscribed) {
+      await unsubscribe();
+    } else {
+      await subscribe();
+    }
   };
 
   return (
@@ -46,6 +56,11 @@ export default function AppShell() {
         <header className="topbar">
           <div style={{ fontWeight: 600 }}>{user?.full_name || user?.email}</div>
           <div className="flex items-center gap-sm">
+            {supported && (
+              <button onClick={togglePush} disabled={pushLoading} className="btn btn-ghost" style={{ minHeight: 40, fontSize: 'var(--text-sm)', padding: '4px 12px' }}>
+                {subscribed ? t('push.disable') : t('push.enable')}
+              </button>
+            )}
             <button onClick={toggleLocale} className="btn btn-ghost" style={{ minHeight: 40, fontSize: 'var(--text-sm)', padding: '4px 12px' }}>
               {locale === 'en' ? 'অসমীয়া' : 'English'}
             </button>

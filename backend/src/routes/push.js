@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { query } from '../db.js';
 import { authenticate } from '../middleware/auth.js';
 import config from '../config.js';
+import { notifyUser } from '../services/push.js';
 
 const router = Router();
 
@@ -37,6 +38,21 @@ router.delete('/push/subscribe', authenticate, async (req, res) => {
   } catch (err) {
     console.error('Unsubscribe error:', err);
     res.status(500).json({ error: { code: 'internal_error', message: 'Failed to unsubscribe' } });
+  }
+});
+
+router.post('/push/test', authenticate, async (req, res) => {
+  try {
+    const result = await notifyUser(req.user.id, {
+      title: 'Cognera',
+      body: 'Push notifications are working!',
+      icon: '/favicon.svg',
+      url: '/',
+    });
+    res.json(result);
+  } catch (err) {
+    console.error('Test push error:', err);
+    res.status(500).json({ error: { code: 'internal_error', message: 'Failed to send test notification' } });
   }
 });
 

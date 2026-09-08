@@ -142,5 +142,6 @@
   "patientMode": { "exitPatientMode": "Exit Patient Mode", "exit": "Exit", "incorrectPin": "Incorrect PIN", "verificationFailed": "Verification failed", "pinPlaceholder": "PIN" },
   "common": { "save": "Save", "cancel": "Cancel", "delete": "Delete", "edit": "Edit", "back": "Back", "loading": "Loading...", "noData": "No data yet", "confirm": "Confirm", "close": "Close", "offline": "Offline", "lastSynced": "Last synced {time}", "or": "or" },
   "error": { "loginFailed": "Login failed", "registrationFailed": "Registration failed", "failedToCreatePatient": "Failed to create patient", "requestFailed": "Request failed" },
-  "lang": { "en": "English", "as": "Assamese", "toggle": "Language" }
+  "lang": { "en": "English", "as": "Assamese", "toggle": "Language" },
+  "push": { "enable": "Enable Notifications", "disable": "Disable Notifications", "test": "Send Test", "denied": "Notifications blocked by browser", "unsupported": "Notifications not supported", "enabled": "Notifications enabled", "disabled": "Notifications disabled" }
 }
