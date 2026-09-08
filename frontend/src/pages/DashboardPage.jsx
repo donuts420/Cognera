@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../lib/api.js';
 import { useLocale } from '../context/LocaleContext.jsx';
+import { PageHead, SectionHead, Card, EmptyState } from '../components/player/ui.jsx';
+
+const STAGE_TONE = { mild: 'info', at_risk: 'caution', moderate: 'caution', severe: 'crisis' };
 
 export default function DashboardPage() {
   const { t } = useLocale();
@@ -15,51 +18,55 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <h1 style={{ fontSize: 'var(--text-2xl)', marginBottom: 'var(--gap-lg)' }}>{t('dashboard.heading')}</h1>
-      <div className="grid-2">
-        <div className="card">
-          <h2 style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--gap-md)' }}>{t('dashboard.myPatients')}</h2>
+      <PageHead eyebrow={t('nav.careMode') || 'Care'} title={t('dashboard.heading')} sub={t('dashboard.myPatients')} />
+
+      <div className="dash-grid">
+        <div className="dash-main">
+          <SectionHead title={t('dashboard.myPatients')} />
           {patients.length === 0 ? (
-            <div className="empty-state"><p>{t('common.noData')}</p></div>
+            <EmptyState glyph="sprout" title={t('common.noData')} />
           ) : (
-            <div className="flex flex-col gap-sm">
+            <div className="patient-list">
               {patients.map((p) => (
-                <Link key={p.id} to={`/care/patients/${p.id}`} className="card" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <div style={{ fontWeight: 600 }}>{p.display_name}</div>
-                      <div className="text-sm text-muted">{p.village || p.district}</div>
-                    </div>
-                    <span className={`badge ${p.dementia_stage === 'mild' ? 'badge-info' : p.dementia_stage === 'moderate' ? 'badge-warning' : 'badge-success'}`}>
-                      {p.dementia_stage}
-                    </span>
-                  </div>
+                <Link key={p.id} to={`/care/patients/${p.id}`} className="patient-row">
+                  <span className="pr-avatar">{(p.display_name || '?').charAt(0).toUpperCase()}</span>
+                  <span className="pr-main">
+                    <span className="pr-name">{p.display_name}</span>
+                    <span className="pr-sub">{p.village || p.district || '—'}</span>
+                  </span>
+                  <span className={`chip ${STAGE_TONE[p.dementia_stage] || 'brand'}`}>
+                    {t(`patient.${p.dementia_stage === 'at_risk' ? 'atRisk' : p.dementia_stage}`) || p.dementia_stage}
+                  </span>
                 </Link>
               ))}
             </div>
           )}
         </div>
-        <div className="card">
-          <h2 style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--gap-md)' }}>{t('dashboard.alerts')}</h2>
-          {alerts.length === 0 ? (
-            <div className="empty-state"><p>{t('dashboard.noActiveAlerts')}</p></div>
-          ) : (
-            <div className="flex flex-col gap-sm">
-              {alerts.slice(0, 10).map((a) => (
-                <div key={a.id} className="card" style={{ background: 'var(--surface-alt)' }}>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <span className={`badge badge-${a.severity === 'critical' ? 'danger' : a.severity}`}>{a.severity}</span>
-                      <span className="text-sm text-muted" style={{ marginLeft: 8 }}>{a.patient_name}</span>
+
+        <aside className="dash-rail">
+          <Card className="pcard">
+            <SectionHead title={t('dashboard.alerts')} />
+            {alerts.length === 0 ? (
+              <p className="sub" style={{ color: 'var(--ink-muted)' }}>{t('dashboard.noActiveAlerts')}</p>
+            ) : (
+              <div className="alert-list">
+                {alerts.slice(0, 8).map((a) => (
+                  <div key={a.id} className="alert-row">
+                    <div className="ar-head">
+                      <span className={`chip ${a.severity === 'critical' ? 'crisis' : a.severity === 'high' ? 'caution' : 'info'}`}>
+                        {a.severity}
+                      </span>
+                      <span style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-faint)' }}>
+                        {new Date(a.created_at).toLocaleDateString()}
+                      </span>
                     </div>
-                    <span className="text-sm text-muted">{new Date(a.created_at).toLocaleDateString()}</span>
+                    <div className="ar-body"><b>{a.patient_name}</b> · {a.title || a.kind}</div>
                   </div>
-                  <p className="text-sm mt-sm">{a.title || a.kind}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+                ))}
+              </div>
+            )}
+          </Card>
+        </aside>
       </div>
     </div>
   );

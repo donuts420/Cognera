@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../lib/api.js';
 import { useLocale } from '../context/LocaleContext.jsx';
+import { PageHead, SectionHead, Card, StatTile } from '../components/player/ui.jsx';
+import Icon from '../components/Icon.jsx';
+
+const TREND_TONE = { improving: 'success', declining: 'crisis', stable: 'info' };
 
 export default function PatientDetailPage() {
   const { id } = useParams();
@@ -14,53 +18,57 @@ export default function PatientDetailPage() {
     api.get(`/patients/${id}/analytics/overview`).then(setOverview).catch(() => {});
   }, [id]);
 
-  if (!patient) return <div className="empty-state">{t('common.loading')}</div>;
+  if (!patient) return <p style={{ color: 'var(--ink-muted)' }}>{t('common.loading')}</p>;
+
+  const stageLabel = t(`patient.${patient.dementia_stage === 'at_risk' ? 'atRisk' : patient.dementia_stage}`) || patient.dementia_stage;
 
   return (
     <div>
-      <Link to="/care/patients" className="text-sm text-muted" style={{ display: 'inline-block', marginBottom: 'var(--gap-md)' }}>&larr; {t('common.back')}</Link>
-      <div className="flex justify-between items-center mb-lg">
-        <div>
-          <h1 style={{ fontSize: 'var(--text-2xl)' }}>{patient.display_name}</h1>
-          <p className="text-muted">{patient.village || patient.district} · {patient.dementia_stage} · {patient.preferred_locale}</p>
-        </div>
-        <div className="flex gap-sm">
+      <Link to="/care/patients" className="care-back">
+        <Icon name="arrow-left" size={16} /> {t('common.back')}
+      </Link>
+      <PageHead
+        eyebrow={`${patient.village || patient.district || '—'} · ${patient.preferred_locale}`}
+        title={patient.display_name}
+        sub={stageLabel}
+      >
+        <div className="detail-actions" style={{ marginTop: 14 }}>
           <Link to={`/care/patients/${id}/games`} className="btn btn-primary">{t('nav.games')}</Link>
-          <Link to={`/care/patients/${id}/reminders`} className="btn btn-accent">{t('nav.reminders')}</Link>
+          <Link to={`/care/patients/${id}/reminders`} className="btn btn-ghost">{t('nav.reminders')}</Link>
           <Link to={`/care/patients/${id}/assessments`} className="btn btn-ghost">{t('nav.assessments')}</Link>
         </div>
-      </div>
+      </PageHead>
+
       {overview && (
-        <div className="grid-3 mb-lg">
-          <div className="card text-center">
-            <div className="text-sm text-muted">{t('dashboard.cwi')}</div>
-            <div style={{ fontSize: 'var(--text-3xl)', fontWeight: 700, color: 'var(--primary)' }}>{overview.cwi ?? '—'}</div>
-            <span className={`badge badge-${overview.trend_direction === 'improving' ? 'success' : overview.trend_direction === 'declining' ? 'danger' : 'info'}`}>
-              {t(`dashboard.${overview.trend_direction}`)}
-            </span>
+        <>
+          <div className="stat-grid" style={{ maxWidth: 560, marginBottom: 16 }}>
+            <div className="stat-tile">
+              <div className="num">{overview.cwi ?? '—'}</div>
+              <div className="lab">{t('dashboard.cwi')}</div>
+            </div>
+            <StatTile num={overview.total_sessions} label={t('dashboard.sessions')} />
+            <StatTile num={overview.total_minutes} label={t('dashboard.minutes')} />
           </div>
-          <div className="card text-center">
-            <div className="text-sm text-muted">{t('dashboard.sessions')}</div>
-            <div style={{ fontSize: 'var(--text-3xl)', fontWeight: 700 }}>{overview.total_sessions}</div>
-          </div>
-          <div className="card text-center">
-            <div className="text-sm text-muted">{t('dashboard.minutes')}</div>
-            <div style={{ fontSize: 'var(--text-3xl)', fontWeight: 700 }}>{overview.total_minutes}</div>
-          </div>
-        </div>
+          <span className={`chip ${TREND_TONE[overview.trend_direction] || 'info'}`} style={{ marginBottom: 24, display: 'inline-flex' }}>
+            {t(`dashboard.${overview.trend_direction}`)}
+          </span>
+        </>
       )}
+
       {patient.care_team && (
-        <div className="card">
-          <h2 style={{ fontSize: 'var(--text-lg)', marginBottom: 'var(--gap-md)' }}>{t('patient.careTeam')}</h2>
-          <div className="flex flex-col gap-sm">
-            {patient.care_team.map((m, i) => (
-              <div key={i} className="flex justify-between items-center">
-                <span>{m.full_name || m.user_id}</span>
-                <span className="badge badge-info">{m.relationship}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <>
+          <SectionHead title={t('patient.careTeam')} />
+          <Card className="pcard" style={{ maxWidth: 560 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {patient.care_team.map((m, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span>{m.full_name || m.user_id}</span>
+                  <span className="chip brand">{m.relationship}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </>
       )}
     </div>
   );

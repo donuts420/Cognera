@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../lib/api.js';
 import { useLocale } from '../context/LocaleContext.jsx';
+import { PageHead, Card } from '../components/player/ui.jsx';
+import Icon from '../components/Icon.jsx';
+
+const FILTERS = [
+  ['all', 'caseload.all'],
+  ['declining', 'caseload.deteriorating'],
+  ['disengaged', 'caseload.disengaged'],
+  ['needs_visit', 'caseload.needsVisit'],
+];
 
 export default function CaseloadPage() {
   const { t } = useLocale();
@@ -22,50 +31,60 @@ export default function CaseloadPage() {
 
   return (
     <div>
-      <h1 style={{ fontSize: 'var(--text-2xl)', marginBottom: 'var(--gap-lg)' }}>{t('caseload.heading')}</h1>
-      <div className="flex gap-sm mb-lg">
-        {['all', 'declining', 'disengaged', 'needs_visit'].map((f) => (
-          <button key={f} className={`btn ${filter === f ? 'btn-primary' : 'btn-ghost'}`} onClick={() => setFilter(f)} style={{ minHeight: 48 }}>
-            {f === 'all' ? t('caseload.all') : f === 'declining' ? t('caseload.deteriorating') : f === 'disengaged' ? t('caseload.disengaged') : t('caseload.needsVisit')}
+      <PageHead eyebrow={t('nav.careMode') || 'Care'} title={t('caseload.heading')} />
+
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}>
+        {FILTERS.map(([f, key]) => (
+          <button
+            key={f}
+            className={`chip-btn ${filter === f ? 'on' : ''}`}
+            onClick={() => setFilter(f)}
+          >
+            {t(key)}
           </button>
         ))}
       </div>
-      <div className="card">
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ borderBottom: '2px solid var(--border)' }}>
-              <th style={{ textAlign: 'left', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.patient')}</th>
-              <th style={{ textAlign: 'left', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.village')}</th>
-              <th style={{ textAlign: 'right', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.cwi')}</th>
-              <th style={{ textAlign: 'center', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.trend')}</th>
-              <th style={{ textAlign: 'right', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.sessions')}</th>
-              <th style={{ textAlign: 'right', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.completionRate')}</th>
-              <th style={{ textAlign: 'center', padding: '12px 8px', fontSize: 'var(--text-sm)' }}>{t('caseload.alerts')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map((p) => (
-              <tr key={p.id} style={{ borderBottom: '1px solid var(--border)' }}>
-                <td style={{ padding: '12px 8px' }}><Link to={`/care/patients/${p.id}`} style={{ fontWeight: 600 }}>{p.display_name}</Link></td>
-                <td style={{ padding: '12px 8px', color: 'var(--text-muted)' }}>{p.village}</td>
-                <td style={{ padding: '12px 8px', textAlign: 'right', fontWeight: 600 }}>{p.cwi ?? '—'}</td>
-                <td style={{ padding: '12px 8px', textAlign: 'center' }}>
-                  <span className={`badge badge-${p.trend_direction === 'improving' ? 'success' : p.trend_direction === 'declining' ? 'danger' : 'info'}`}>
-                    {p.trend_direction === 'improving' ? '▲' : p.trend_direction === 'declining' ? '▼' : '–'}
-                  </span>
-                </td>
-                <td style={{ padding: '12px 8px', textAlign: 'right' }}>{p.sessions_30d}</td>
-                <td style={{ padding: '12px 8px', textAlign: 'right' }}>
-                  {p.total_rem_30d > 0 ? Math.round((p.ack_30d / p.total_rem_30d) * 100) : 0}%
-                </td>
-                <td style={{ padding: '12px 8px', textAlign: 'center' }}>
-                  {p.open_alerts > 0 && <span className="badge badge-danger">{p.open_alerts}</span>}
-                </td>
+
+      <Card className="pcard" pad={false}>
+        <div className="data-table-wrap">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>{t('caseload.patient')}</th>
+                <th>{t('caseload.village')}</th>
+                <th className="num">{t('caseload.cwi')}</th>
+                <th>{t('caseload.trend')}</th>
+                <th className="num">{t('caseload.sessions')}</th>
+                <th className="num">{t('caseload.completionRate')}</th>
+                <th className="num">{t('caseload.alerts')}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {filtered.map((p) => (
+                <tr key={p.id}>
+                  <td><Link to={`/care/patients/${p.id}`}>{p.display_name}</Link></td>
+                  <td>{p.village || '—'}</td>
+                  <td className="num">{p.cwi ?? '—'}</td>
+                  <td>
+                    <span className={`chip ${p.trend_direction === 'improving' ? 'success' : p.trend_direction === 'declining' ? 'crisis' : 'info'}`}>
+                      <Icon
+                        name={p.trend_direction === 'improving' ? 'arrow-up' : p.trend_direction === 'declining' ? 'arrow-down' : 'minus'}
+                        size={13}
+                      />
+                      {t(`dashboard.${p.trend_direction}`) || p.trend_direction}
+                    </span>
+                  </td>
+                  <td className="num">{p.sessions_30d}</td>
+                  <td className="num">{p.total_rem_30d > 0 ? Math.round((p.ack_30d / p.total_rem_30d) * 100) : 0}%</td>
+                  <td className="num">
+                    {p.open_alerts > 0 ? <span className="chip crisis">{p.open_alerts}</span> : '—'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
     </div>
   );
 }

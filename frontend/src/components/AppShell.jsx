@@ -4,76 +4,84 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { useConnectivity } from '../context/ConnectivityContext.jsx';
 import { useLocale } from '../context/LocaleContext.jsx';
 import { usePush } from '../hooks/usePush.js';
+import Icon from './Icon.jsx';
 
 export default function AppShell() {
   const { user, logout } = useAuth();
-  const { online, lastSynced } = useConnectivity();
+  const { online } = useConnectivity();
   const { locale, setLocale, t } = useLocale();
   const { supported, permission, subscribed, loading: pushLoading, subscribe, unsubscribe } = usePush();
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    await logout();
-    navigate('/login');
-  };
-
-  const toggleLocale = () => {
-    setLocale(locale === 'en' ? 'as' : 'en');
-  };
-
+  const handleLogout = async () => { await logout(); navigate('/login'); };
+  const toggleLocale = () => setLocale(locale === 'en' ? 'as' : 'en');
   const togglePush = async () => {
-    if (subscribed && permission === 'granted') {
-      await unsubscribe();
-    } else {
-      await subscribe();
-    }
+    if (subscribed && permission === 'granted') await unsubscribe();
+    else await subscribe();
   };
-
   const showPushBtn = supported && !(subscribed && permission === 'granted');
 
+  const nav = [
+    { to: '/care', end: true, icon: 'grid', label: t('nav.dashboard') },
+    { to: '/care/patients', icon: 'user', label: t('nav.patients') },
+  ];
+  if (user?.role === 'health_worker' || user?.role === 'admin') {
+    nav.push({ to: '/care/caseload', icon: 'map', label: t('nav.caseload') });
+  }
+
   return (
-    <div className="layout-care">
-      <nav className="sidebar">
-        <div className="flex items-center gap-sm p-md" style={{ borderBottom: '1px solid var(--border)', marginBottom: 'var(--gap-sm)' }}>
-          <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: '18px' }}>
-            C
-          </div>
-          <div>
-            <div style={{ fontWeight: 700, fontSize: 'var(--text-lg)' }}>{t('app.name')}</div>
-          </div>
+    <div className="player-shell">
+      <aside className="player-sidebar">
+        <div className="player-brand">
+          <span className="mark">C</span>
+          <span className="name">{t('app.name')}</span>
         </div>
-        <NavLink to="/care" end className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>{t('nav.dashboard')}</NavLink>
-        <NavLink to="/care/patients" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>{t('nav.patients')}</NavLink>
-        {(user?.role === 'health_worker' || user?.role === 'admin') && (
-          <NavLink to="/care/caseload" className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}>{t('nav.caseload')}</NavLink>
+        <p className="eyebrow" style={{ padding: '0 8px 6px', color: 'rgba(255,255,255,0.4)' }}>
+          {t('nav.careMode') || 'Care'}
+        </p>
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {nav.map((item) => (
+            <NavLink key={item.to} to={item.to} end={item.end}
+              className={({ isActive }) => `player-nav-link ${isActive ? 'active' : ''}`}>
+              <span className="ico"><Icon name={item.icon} size={22} /></span>
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+        <div className="spacer" />
+        {!online && (
+          <p className="eyebrow" style={{ padding: '0 8px 8px', color: 'var(--caution)' }}>{t('common.offline')}</p>
         )}
-        <div style={{ flex: 1 }} />
-        <div className="text-sm text-muted p-md">
-          {!online && <span style={{ color: 'var(--warning)' }}>{t('common.offline')}</span>}
-          {online && lastSynced && <span>{t('common.lastSynced', { time: lastSynced })}</span>}
-        </div>
-        <NavLink to="/" className="sidebar-link">{t('player.backToHome')}</NavLink>
-        <button className="sidebar-link" onClick={handleLogout}>{t('nav.logout')}</button>
-      </nav>
-      <div className="layout-care-main">
-        <header className="topbar">
-          <div style={{ fontWeight: 600 }}>{user?.full_name || user?.email}</div>
+        <NavLink to="/" className="player-nav-link" style={{ fontSize: 'var(--text-sm)' }}>
+          <span className="ico"><Icon name="home" size={22} /></span>
+          {t('player.backToHome')}
+        </NavLink>
+        <button className="player-account" onClick={handleLogout}
+          style={{ width: '100%', border: 'none', background: 'none', cursor: 'pointer', textAlign: 'left' }}>
+          <span className="avatar">{(user?.full_name || user?.email || 'U').charAt(0).toUpperCase()}</span>
+          <span className="who">{user?.full_name || user?.email}</span>
+          <Icon name="close" size={16} style={{ opacity: 0.5 }} />
+        </button>
+      </aside>
+
+      <main className="player-main">
+        <header className="care-topbar">
+          <span className="chip brand">{user?.role}</span>
           <div className="flex items-center gap-sm">
             {showPushBtn && (
-              <button onClick={togglePush} disabled={pushLoading} className="btn btn-ghost" style={{ minHeight: 40, fontSize: 'var(--text-sm)', padding: '4px 12px' }}>
+              <button onClick={togglePush} disabled={pushLoading} className="chip-btn" style={{ minHeight: 40 }}>
                 {subscribed ? t('push.disable') : permission === 'denied' ? t('push.denied') : t('push.enable')}
               </button>
             )}
-            <button onClick={toggleLocale} className="btn btn-ghost" style={{ minHeight: 40, fontSize: 'var(--text-sm)', padding: '4px 12px' }}>
+            <button onClick={toggleLocale} className="chip-btn" style={{ minHeight: 40 }}>
               {locale === 'en' ? 'অসমীয়া' : 'English'}
             </button>
-            <div className="text-sm text-muted">{user?.role}</div>
           </div>
         </header>
-        <main className="layout-care-content">
+        <div className="player-content">
           <Outlet />
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   );
 }
