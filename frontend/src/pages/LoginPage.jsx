@@ -35,7 +35,7 @@ export default function LoginPage() {
         window.google.accounts.id.renderButton(googleBtnRef.current, {
           theme: 'outline',
           size: 'large',
-          width: 320,
+          width: '100%',
           text: 'continue_with',
           shape: 'rectangular',
         });
@@ -61,17 +61,17 @@ export default function LoginPage() {
   return (
     <div className="layout-patient flex items-center justify-center auth-page">
       <div className="card auth-card">
-        <div className="text-center mb-md">
-          <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'var(--primary)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: '28px', marginBottom: 'var(--gap-sm)' }}>C</div>
+        <div className="auth-header">
+          <div className="auth-header-icon">C</div>
           <h1 style={{ fontSize: 'var(--text-xl)' }}>{t('app.name')}</h1>
           <p className="text-muted text-sm">{t('app.tagline')}</p>
         </div>
         {import.meta.env.VITE_GOOGLE_CLIENT_ID && (
           <>
-            <div className="google-btn-wrap mb-md">
-              <div ref={googleBtnRef} />
+            <div className="google-btn-wrap">
+              <div ref={googleBtnRef} style={{ width: '100%', maxWidth: 320 }} />
             </div>
-            <div className="divider"><span className="text-sm text-muted">{t('common.or')}</span></div>
+            <div className="auth-divider"><span className="text-sm text-muted">{t('common.or')}</span></div>
           </>
         )}
         <form onSubmit={handleSubmit}>
@@ -88,7 +88,7 @@ export default function LoginPage() {
         </form>
         <div className="auth-footer">
           <p className="text-sm">{t('auth.noAccount')} <Link to="/register">{t('auth.register')}</Link></p>
-          <button onClick={() => setLocale(locale === 'en' ? 'as' : 'en')} className="btn btn-ghost" style={{ minHeight: 36, fontSize: '14px', padding: '4px 16px' }}>
+          <button onClick={() => setLocale(locale === 'en' ? 'as' : 'en')} className="btn btn-ghost lang-toggle">
             {locale === 'en' ? t('lang.as') : t('lang.en')}
           </button>
         </div>

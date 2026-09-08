@@ -11,5 +11,6 @@
   "patientMode": { "exitPatientMode": "ৰোগী মোডৰ পৰা ওলাই যাওক", "exit": "ওলাই যাওক", "incorrectPin": "ভুল PIN", "verificationFailed": "পৰীক্ষণ বিফল হৈছে", "pinPlaceholder": "PIN" },
   "common": { "save": "সংৰক্ষণ কৰক", "cancel": "বাতিল কৰক", "delete": "মচক", "edit": "সম্পাদনা কৰক", "back": "পিছলৈ", "loading": "লোড হৈ আছে...", "noData": "এতিয়াৰ কোনো তথ্য নাই", "confirm": "নিশ্চিত কৰক", "close": "বন্ধ কৰক", "offline": "অফলাইন", "lastSynced": "শেষবাৰ সমন্বয় কৰা হৈছে {time}", "or": "অথবা" },
   "error": { "loginFailed": "লগইন বিফল হৈছে", "registrationFailed": "পঞ্জীয়ন বিফল হৈছে", "failedToCreatePatient": "ৰোগীৰ তথ্য সৃষ্টি কৰিব পৰা নগ'ল", "requestFailed": "অনুৰোধ বিফল হৈছে" },
-  "lang": { "en": "ইংৰাজী", "as": "অসমীয়া", "toggle": "ভাষা" }
+  "lang": { "en": "ইংৰাজী", "as": "অসমীয়া", "toggle": "ভাষা" },
+  "push": { "enable": "বিজ্ঞপ্তি সক্ৰিয় কৰক", "disable": "বিজ্ঞপ্তি নিষ্ক্ৰিয় কৰক", "test": "পৰীক্ষামূলক পঠাওক", "denied": "ব্ৰাউজাৰে বিজ্ঞপ্তি ব্লক কৰিছে", "unsupported": "বিজ্ঞপ্তি সমৰ্থিত নহয়", "enabled": "বিজ্ঞপ্তি সক্ৰিয়", "disabled": "বিজ্ঞপ্তি নিষ্ক্ৰিয়" }
 }
